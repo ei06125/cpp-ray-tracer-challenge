@@ -7,12 +7,29 @@ constexpr float EPSILON{0.0001f};
 
 struct Tuple {
   Tuple(float x_, float y_, float z_, float w_);
-  float x, y, z, w;
+  union {
+    float x;
+    float red;
+  };
+  union {
+    float y;
+    float green;
+  };
+  union {
+    float z;
+    float blue;
+  };
+  union {
+    float w;
+    float alpha;
+  };
 };
 
 Tuple make_point(float x, float y, float z);
 
 Tuple make_vector(float x, float y, float z);
+
+Tuple make_color(float r, float g, float b);
 
 bool isPoint(Tuple aTuple);
 
@@ -31,6 +48,8 @@ Tuple operator-(const Tuple &rhs); // Negate
 Tuple operator*(const Tuple &lhs, float s);
 
 Tuple operator*(float s, const Tuple &rhs);
+
+Tuple operator*(const Tuple &lhs, const Tuple &rhs); // Hadamard product
 
 Tuple operator/(const Tuple &lhs, float s);
 

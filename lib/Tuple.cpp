@@ -13,6 +13,8 @@ Tuple make_point(float x, float y, float z) { return Tuple(x, y, z, 1.0f); }
 
 Tuple make_vector(float x, float y, float z) { return Tuple(x, y, z, 0.0f); }
 
+Tuple make_color(float r, float g, float b) { return Tuple(r, g, b, 0.0f); }
+
 bool isPoint(Tuple aTuple) { return aTuple.w == 1.0f; }
 
 bool isVector(Tuple aTuple) { return aTuple.w == 0.0f; }
@@ -24,7 +26,10 @@ std::ostream &operator<<(std::ostream &os, const Tuple &aTuple) {
 }
 
 bool operator==(const Tuple &lhs, const Tuple &rhs) {
-  return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z && lhs.w == rhs.w;
+  return std::abs(lhs.x - rhs.x) < EPSILON && //
+         std::abs(lhs.y - rhs.y) < EPSILON && //
+         std::abs(lhs.z - rhs.z) < EPSILON && //
+         std::abs(lhs.w - rhs.w) < EPSILON;
 }
 
 Tuple operator+(const Tuple &lhs, const Tuple &rhs) {
@@ -44,6 +49,13 @@ Tuple operator*(const Tuple &lhs, float s) {
 }
 
 Tuple operator*(float s, const Tuple &rhs) { return rhs * s; }
+
+Tuple operator*(const Tuple &lhs, const Tuple &rhs) {
+  auto r = lhs.red * rhs.red;
+  auto g = lhs.green * rhs.green;
+  auto b = lhs.blue * rhs.blue;
+  return make_color(r, g, b);
+}
 
 Tuple operator/(const Tuple &lhs, float s) {
   return Tuple(lhs.x / s, lhs.y / s, lhs.z / s, lhs.w / s);
