@@ -1,0 +1,5 @@
+add_library(RayTracer)
+file(GLOB_RECURSE RayTracer_SOURCES "*.cpp")
+file(GLOB_RECURSE RayTracer_HEADERS "*.hpp")
+target_sources(RayTracer PUBLIC ${RayTracer_SOURCES})
+target_compile_features(RayTracer PUBLIC cxx_std_20)

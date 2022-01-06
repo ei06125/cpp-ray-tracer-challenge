@@ -1,1 +1,1 @@
-message(STATUS "Generating Tests")
+add_subdirectory(UnitTests)

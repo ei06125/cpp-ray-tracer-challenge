@@ -1,0 +1,6 @@
+add_executable(RayTracerUnitTests)
+file(GLOB_RECURSE RayTracerUnitTests_SOURCES "*.cpp")
+target_sources(RayTracerUnitTests PRIVATE ${RayTracerUnitTests_SOURCES})
+target_link_libraries(RayTracerUnitTests PRIVATE RayTracer doctest::doctest)
+target_include_directories(RayTracerUnitTests PRIVATE ${ROOT_DIR}/lib)
+target_compile_features(RayTracerUnitTests PRIVATE cxx_std_20)
