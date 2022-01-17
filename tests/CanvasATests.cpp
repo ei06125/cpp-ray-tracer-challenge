@@ -142,3 +142,19 @@ SCENARIO("Splitting long lines in PPM files")
     }
   }
 }
+
+SCENARIO("PPM files are terminated by a newline character")
+{
+  GIVEN("c = canvas(5, 3)")
+  {
+    auto c = Canvas(5, 3);
+    WHEN("ppm = canvas_to_ppm(c)")
+    {
+      auto ppm = canvas_to_ppm(c);
+      THEN("ppm ends with a newline character")
+      {
+        CHECK(ppm.at(ppm.size() - 1) == '\n');
+      }
+    }
+  }
+}
