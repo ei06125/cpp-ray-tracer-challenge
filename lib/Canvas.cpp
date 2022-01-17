@@ -66,19 +66,29 @@ std::string canvas_to_ppm(const Canvas& c)
   // PPM Body
   if (!c.isBlank()) {
     for (auto row = 0U; row < c.height; ++row) {
+      int currentWidth = 0;
+      std::string line = "";
       for (auto col = 0U; col < c.width; ++col) {
         const auto& color = c.pixel_at(col, row);
-        result +=
+        line +=
           std::to_string((int)(std::clamp(color.red * 256, 0.0f, 255.0f))) +
           " ";
-        result +=
+        line +=
           std::to_string((int)(std::clamp(color.green * 256, 0.0f, 255.0f))) +
           " ";
-        result +=
+        line +=
           std::to_string((int)(std::clamp(color.blue * 256, 0.0f, 255.0f)));
+
         if (col < c.width - 1) {
-          result += " ";
+          line += " ";
         }
+      }
+      if (line.size() > 70) {
+        result += line.substr(0, line.substr(0, 70).find_last_of(' '));
+        result += '\n';
+        result += line.substr(line.substr(0, 70).find_last_of(' ') + 1);
+      } else {
+        result += line;
       }
       result += "\n";
     }
