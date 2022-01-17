@@ -18,7 +18,7 @@ public:
   void write_pixel_at(int w, int h, const Tuple& color);
   const Tuple& pixel_at(int w, int h) const;
 
-  bool isBlank() const { return m_IsBlank; }
+  bool isBlank() const;
 
   int width;
   int height;

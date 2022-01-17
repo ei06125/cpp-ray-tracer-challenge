@@ -30,13 +30,18 @@ std::vector<Tuple>::iterator Canvas::end()
 
 void Canvas::write_pixel_at(int w, int h, const Tuple& color)
 {
-  pixels.at(h * w + w) = color;
+  pixels.at(h * width + w) = color;
   m_IsBlank = false;
 }
 
 const Tuple& Canvas::pixel_at(int w, int h) const
 {
-  return pixels.at(h * w + w);
+  return pixels.at(h * width + w);
+}
+
+bool Canvas::isBlank() const
+{
+  return m_IsBlank;
 }
 
 void write_pixel(Canvas& c, int w, int h, const Tuple& color)
@@ -62,10 +67,18 @@ std::string canvas_to_ppm(const Canvas& c)
   if (!c.isBlank()) {
     for (auto row = 0U; row < c.height; ++row) {
       for (auto col = 0U; col < c.width; ++col) {
-        const auto& color = c.pixel_at(row, col);
-        result += std::to_string((std::clamp(color.red, 0.0f, 255.0f))) + " ";
-        result += std::to_string((std::clamp(color.green, 0.0f, 255.0f))) + " ";
-        result += std::to_string((std::clamp(color.blue, 0.0f, 255.0f))) + " ";
+        const auto& color = c.pixel_at(col, row);
+        result +=
+          std::to_string((int)(std::clamp(color.red * 256, 0.0f, 255.0f))) +
+          " ";
+        result +=
+          std::to_string((int)(std::clamp(color.green * 256, 0.0f, 255.0f))) +
+          " ";
+        result +=
+          std::to_string((int)(std::clamp(color.blue * 256, 0.0f, 255.0f)));
+        if (col < c.width - 1) {
+          result += " ";
+        }
       }
       result += "\n";
     }

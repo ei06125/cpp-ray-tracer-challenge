@@ -93,7 +93,44 @@ SCENARIO("Constructing the PPM pixel data")
         expected += "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n";
         expected += "0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n";
         expected += "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255\n";
+        expected += "\n";
+
+        CHECK(ppm == expected);
       }
     }
   }
 }
+
+// SCENARIO("Splitting long lines in PPM files")
+// {
+//   GIVEN("c = canvas(10, 2)")
+//   {
+//     auto c = Canvas(10, 2);
+//     WHEN("every pixel of c is set to color(1, 0.8, 0.6) &&\
+//           ppm = canvas_to_ppm(c)")
+//     {
+//       auto color = make_color(1, 0.8, 0.6);
+//       for (auto col = 0; col < 10; ++col) {
+//         for (auto row = 0; row < 2; ++row) {
+//           write_pixel(c, col, row, color);
+//         }
+//       }
+//       THEN("lines 4-7 of ppm are:\n\
+//       255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\
+//       153 255 204 153 255 204 153 255 204 153 255 204 153\
+//       255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\
+//       153 255 204 153 255 204 153 255 204 153 255 204 153\
+//       ")
+//       {
+//         ;
+//         std::string expected = "";
+//         expected += "P3\n";  // Optional ?
+//         expected += "5 3\n"; // Optional ?
+//         expected += "255\n"; // Optional ?
+//         expected += "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n";
+//         expected += "0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n";
+//         expected += "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255\n";
+//       }
+//     }
+//   }
+// }
