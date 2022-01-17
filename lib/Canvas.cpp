@@ -31,6 +31,7 @@ std::vector<Tuple>::iterator Canvas::end()
 void Canvas::write_pixel_at(int w, int h, const Tuple& color)
 {
   pixels.at(h * w + w) = color;
+  m_IsBlank = false;
 }
 
 const Tuple& Canvas::pixel_at(int w, int h) const

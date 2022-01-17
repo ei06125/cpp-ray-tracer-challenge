@@ -62,42 +62,38 @@ SCENARIO("Constructing the PPM header")
   }
 }
 
-// SCENARIO("Constructing the PPM pixel data")
-// {
-//   GIVEN("c = canvas(5, 3) &&\
-//     c1 = color(1.5, 0, 0) && c2 = color(0, 0.5, 0) && c3 = color(-0.5, 0, 1)")
-//   {
-//     auto c = Canvas(5, 3);
-//     auto c1 = make_color(1.5, 0, 0);
-//     auto c2 = make_color(0, 0.5, 0);
-//     auto c3 = make_color(-0.5, 0, 1);
-//     WHEN("write_pixel(c, 0, 0, c1) &&\
-//           write_pixel(c, 2, 1, c2) &&\
-//           write_pixel(c, 4, 2, c3) &&\
-//           ppm = canvas_to_ppm(c)")
-//     {
-//       write_pixel(c, 0, 0, c1);
-//       write_pixel(c, 2, 1, c2);
-//       write_pixel(c, 4, 2, c3);
-//       auto ppm = canvas_to_ppm(c);
+SCENARIO("Constructing the PPM pixel data")
+{
+  GIVEN("c = canvas(5, 3) &&\
+    c1 = color(1.5, 0, 0) && c2 = color(0, 0.5, 0) && c3 = color(-0.5, 0, 1)")
+  {
+    auto c = Canvas(5, 3);
+    auto c1 = make_color(1.5, 0, 0);
+    auto c2 = make_color(0, 0.5, 0);
+    auto c3 = make_color(-0.5, 0, 1);
+    WHEN("write_pixel(c, 0, 0, c1) &&\
+          write_pixel(c, 2, 1, c2) &&\
+          write_pixel(c, 4, 2, c3) &&\
+          ppm = canvas_to_ppm(c)")
+    {
+      write_pixel(c, 0, 0, c1);
+      write_pixel(c, 2, 1, c2);
+      write_pixel(c, 4, 2, c3);
+      auto ppm = canvas_to_ppm(c);
 
-//       THEN("lines 4-6 of ppm are:\n\
-//       255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n\
-//       0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n\
-//       0 0 0 0 0 0 0 0 0 0 0 0 0 0 255")
-//       {
-//         std::string expected = R"(
-// 255 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-// 0 0 0 0 0 0 0 128 0 0 0 0 0 0 0
-// 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255
-//         )";
-
-// #ifndef NDEBUG
-//         std::cout << expected << std::endl;
-// #endif
-
-//         CHECK(ppm == expected);
-//       }
-//     }
-//   }
-// }
+      THEN("lines 4-6 of ppm are:\n\
+      255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n\
+      0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n\
+      0 0 0 0 0 0 0 0 0 0 0 0 0 0 255")
+      {
+        std::string expected = "";
+        expected += "P3\n";  // Optional ?
+        expected += "5 3\n"; // Optional ?
+        expected += "255\n"; // Optional ?
+        expected += "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n";
+        expected += "0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n";
+        expected += "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255\n";
+      }
+    }
+  }
+}
