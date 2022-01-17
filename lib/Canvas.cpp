@@ -30,6 +30,12 @@ std::vector<Tuple>::iterator Canvas::end()
 
 void Canvas::write_pixel_at(int w, int h, const Tuple& color)
 {
+  if (w < 0 || w >= width) {
+    throw std::out_of_range("Illegal width");
+  }
+  if (h < 0 || h >= height) {
+    throw std::out_of_range("Illegal width");
+  }
   pixels.at(h * width + w) = color;
   m_IsBlank = false;
 }
@@ -46,7 +52,16 @@ bool Canvas::isBlank() const
 
 void write_pixel(Canvas& c, int w, int h, const Tuple& color)
 {
-  c.write_pixel_at(w, h, color);
+  try {
+    c.write_pixel_at(w, h, color);
+  } catch (std::out_of_range& error) {
+    puts("FAILED TO WRITE PIXEL");
+    printf("Tried to write at [%d,%d] on a Canvas of size[%d, %d]\n",
+           w,
+           h,
+           c.width,
+           c.height);
+  }
 }
 
 const Tuple& pixel_at(const Canvas& c, int w, int h)
