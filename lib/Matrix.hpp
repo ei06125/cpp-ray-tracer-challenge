@@ -1,7 +1,11 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
+// C Standard Library
+#include <cmath>
 #include <cstring>
+
+// C++ Standard Library
 #include <stdexcept>
 #include <vector>
 
@@ -155,4 +159,94 @@ inline Matrix<ROWS, COLS> inverse(const Matrix<ROWS, COLS>& A)
   } else {
     throw std::runtime_error("A is not invertible");
   }
+}
+
+inline Matrix<4, 4> translation(float x, float y, float z)
+{
+  Matrix<4, 4> R = {
+    1, 0, 0, x, //
+    0, 1, 0, y, //
+    0, 0, 1, z, //
+    0, 0, 0, 1  //
+  };
+
+  return R;
+}
+
+inline Matrix<4, 4> scaling(float x, float y, float z)
+{
+  Matrix<4, 4> R = {
+    x, 0, 0, 0, //
+    0, y, 0, 0, //
+    0, 0, z, 0, //
+    0, 0, 0, 1  //
+  };
+
+  return R;
+}
+
+/** @param r radians */
+inline Matrix<4, 4> rotation_x(float r)
+{
+  using namespace std;
+  // clang-format off
+  Matrix<4, 4> R = {
+    1,      0,         0, 0,
+    0, cos(r), -(sin(r)), 0,
+    0, sin(r),    cos(r), 0,
+    0,      0,         0, 1
+  };
+  // clang-format on
+
+  return R;
+}
+
+/** @param r radians */
+inline Matrix<4, 4> rotation_y(float r)
+{
+  using namespace std;
+  // clang-format off
+  Matrix<4, 4> R = {
+     cos(r), 0, sin(r), 0,
+          0, 1,      0, 0,
+    -sin(r), 0, cos(r), 0,
+          0, 0,      0, 1,
+  };
+  // clang-format on
+
+  return R;
+}
+
+/** @param r radians */
+inline Matrix<4, 4> rotation_z(float r)
+{
+  using namespace std;
+  // clang-format off
+  Matrix<4, 4> R = {
+    cos(r), -sin(r), 0, 0,
+    sin(r),  cos(r), 0, 0,
+         0,       0, 1, 0,
+         0,       0, 0, 1
+  };
+  // clang-format on
+
+  return R;
+}
+
+inline Matrix<4, 4> shearing(float Xy,
+                             float Xz,
+                             float Yx,
+                             float Yz,
+                             float Zx,
+                             float Zy)
+{
+  using namespace std;
+  Matrix<4, 4> R = {
+    1,  Xy, Xz, 0, //
+    Yx, 1,  Yz, 0, //
+    Zx, Zy, 1,  0, //
+    0,  0,  0,  1  //
+  };
+
+  return R;
 }

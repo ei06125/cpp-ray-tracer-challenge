@@ -1,6 +1,7 @@
 #include "Tuple.hpp"
 
 // C++ Standard Library
+#include <iomanip>
 #include <iostream>
 
 // C Standard Library
@@ -40,8 +41,8 @@ bool isVector(Tuple aTuple)
 
 std::ostream& operator<<(std::ostream& os, const Tuple& aTuple)
 {
-  os << "{ x:" << aTuple.x << ", y:" << aTuple.y << ", z:" << aTuple.z
-     << ", w:" << aTuple.w << " }";
+  os << "{ x:" << std::fixed << std::setprecision(2) << aTuple.x
+     << ", y:" << aTuple.y << ", z:" << aTuple.z << ", w:" << aTuple.w << " }";
   return os;
 }
 
