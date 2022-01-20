@@ -10,6 +10,10 @@
 
 #include "Tuple.hpp"
 
+/// ===========================================================================
+/// @section Matrix
+/// ===========================================================================
+
 template<std::size_t ROWS, std::size_t COLS>
 struct Matrix
 {
@@ -19,6 +23,12 @@ struct Matrix
 
   static Matrix Identity();
 };
+
+using mat4 = Matrix<4, 4>;
+
+/// ===========================================================================
+/// @section Functions
+/// ===========================================================================
 
 template<std::size_t ROWS, std::size_t COLS>
 inline bool operator==(const Matrix<ROWS, COLS>& A, const Matrix<ROWS, COLS>& B)
@@ -33,9 +43,9 @@ inline bool operator==(const Matrix<ROWS, COLS>& A, const Matrix<ROWS, COLS>& B)
   return true;
 }
 
-inline Matrix<4, 4> operator*(const Matrix<4, 4>& A, const Matrix<4, 4>& B)
+inline mat4 operator*(const mat4& A, const mat4& B)
 {
-  Matrix<4, 4> R;
+  mat4 R;
   for (auto row = 0; row < 4; ++row) {
     for (auto col = 0; col < 4; ++col) {
       R[row][col] = A[row][0] * B[0][col] + //
@@ -47,7 +57,7 @@ inline Matrix<4, 4> operator*(const Matrix<4, 4>& A, const Matrix<4, 4>& B)
   return R;
 }
 
-inline Tuple operator*(const Matrix<4, 4>& A, const Tuple& b)
+inline Tuple operator*(const mat4& A, const Tuple& b)
 {
   return Tuple(A[0][0] * b.x + A[0][1] * b.y + A[0][2] * b.z + A[0][3] * b.w,
                A[1][0] * b.x + A[1][1] * b.y + A[1][2] * b.z + A[1][3] * b.w,
@@ -56,9 +66,9 @@ inline Tuple operator*(const Matrix<4, 4>& A, const Tuple& b)
 }
 
 template<>
-inline Matrix<4, 4> Matrix<4, 4>::Identity()
+inline mat4 mat4::Identity()
 {
-  Matrix<4, 4> R = {
+  mat4 R = {
     1, 0, 0, 0, //
     0, 1, 0, 0, //
     0, 0, 1, 0, //
@@ -158,9 +168,9 @@ inline Matrix<ROWS, COLS> inverse(const Matrix<ROWS, COLS>& A)
   }
 }
 
-inline Matrix<4, 4> translation(float x, float y, float z)
+inline mat4 translation(float x, float y, float z)
 {
-  Matrix<4, 4> R = {
+  mat4 R = {
     1, 0, 0, x, //
     0, 1, 0, y, //
     0, 0, 1, z, //
@@ -170,9 +180,9 @@ inline Matrix<4, 4> translation(float x, float y, float z)
   return R;
 }
 
-inline Matrix<4, 4> scaling(float x, float y, float z)
+inline mat4 scaling(float x, float y, float z)
 {
-  Matrix<4, 4> R = {
+  mat4 R = {
     x, 0, 0, 0, //
     0, y, 0, 0, //
     0, 0, z, 0, //
@@ -183,11 +193,11 @@ inline Matrix<4, 4> scaling(float x, float y, float z)
 }
 
 /** @param r radians */
-inline Matrix<4, 4> rotation_x(float r)
+inline mat4 rotation_x(float r)
 {
   using namespace std;
   // clang-format off
-  Matrix<4, 4> R = {
+  mat4 R = {
     1,      0,         0, 0,
     0, cos(r), -(sin(r)), 0,
     0, sin(r),    cos(r), 0,
@@ -199,11 +209,11 @@ inline Matrix<4, 4> rotation_x(float r)
 }
 
 /** @param r radians */
-inline Matrix<4, 4> rotation_y(float r)
+inline mat4 rotation_y(float r)
 {
   using namespace std;
   // clang-format off
-  Matrix<4, 4> R = {
+  mat4 R = {
      cos(r), 0, sin(r), 0,
           0, 1,      0, 0,
     -sin(r), 0, cos(r), 0,
@@ -215,11 +225,11 @@ inline Matrix<4, 4> rotation_y(float r)
 }
 
 /** @param r radians */
-inline Matrix<4, 4> rotation_z(float r)
+inline mat4 rotation_z(float r)
 {
   using namespace std;
   // clang-format off
-  Matrix<4, 4> R = {
+  mat4 R = {
     cos(r), -sin(r), 0, 0,
     sin(r),  cos(r), 0, 0,
          0,       0, 1, 0,
@@ -230,15 +240,10 @@ inline Matrix<4, 4> rotation_z(float r)
   return R;
 }
 
-inline Matrix<4, 4> shearing(float Xy,
-                             float Xz,
-                             float Yx,
-                             float Yz,
-                             float Zx,
-                             float Zy)
+inline mat4 shearing(float Xy, float Xz, float Yx, float Yz, float Zx, float Zy)
 {
   using namespace std;
-  Matrix<4, 4> R = {
+  mat4 R = {
     1,  Xy, Xz, 0, //
     Yx, 1,  Yz, 0, //
     Zx, Zy, 1,  0, //

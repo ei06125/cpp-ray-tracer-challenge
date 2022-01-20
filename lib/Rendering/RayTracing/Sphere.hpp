@@ -9,7 +9,7 @@ struct Sphere
 
   Sphere();
 
-  Matrix<4, 4> transform;
+  mat4 transform;
   Tuple origin;
   float radius;
   std::size_t id;
@@ -17,4 +17,4 @@ struct Sphere
 
 bool operator==(const Sphere& lhs, const Sphere& rhs);
 
-void set_transform(Sphere& s, Matrix<4, 4> t);
+void set_transform(Sphere& s, mat4 t);

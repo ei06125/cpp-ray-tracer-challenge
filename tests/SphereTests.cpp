@@ -141,7 +141,7 @@ SCENARIO("A sphere's default transformation")
 
     THEN("s.transform == identity_matrix")
     {
-      CHECK(s.transform == Matrix<4, 4>::Identity());
+      CHECK(s.transform == mat4::Identity());
     }
   }
 }

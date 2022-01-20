@@ -17,7 +17,7 @@ SCENARIO("Constructing and inspecting a 4x4 matrix")
     | 13.5 | 14.5 | 15.5 | 16.5 |")
   {
 
-    Matrix<4, 4> M = {
+    mat4 M = {
       1,    2,    3,    4,   //
       5.5,  6.5,  7.5,  8.5, //
       9,    10,   11,   12,  //
@@ -117,14 +117,14 @@ SCENARIO("Matrix equality with identitical matrices")
     \n| 5 | 4 | 3 | 2 |")
   {
 
-    Matrix<4, 4> A = {
+    mat4 A = {
       1, 2, 3, 4, //
       5, 6, 7, 8, //
       9, 8, 7, 6, //
       5, 4, 3, 2  //
     };
 
-    Matrix<4, 4> B = {
+    mat4 B = {
       1, 2, 3, 4, //
       5, 6, 7, 8, //
       9, 8, 7, 6, //
@@ -149,14 +149,14 @@ SCENARIO("Matrix equality with different matrices")
     | 4 | 3 | 2 | 1 |")
   {
 
-    Matrix<4, 4> A = {
+    mat4 A = {
       1, 2, 3, 4, //
       5, 6, 7, 8, //
       9, 8, 7, 6, //
       5, 4, 3, 2  //
     };
 
-    Matrix<4, 4> B = {
+    mat4 B = {
       1, 2, 3, 4, //
       5, 6, 7, 8, //
       8, 7, 6, 5, //
@@ -181,14 +181,14 @@ SCENARIO("Multiplying two matrices")
     \n|  1 | 2 | 7 |  8 |\n")
   {
 
-    Matrix<4, 4> A = {
+    mat4 A = {
       1, 2, 3, 4, //
       5, 6, 7, 8, //
       9, 8, 7, 6, //
       5, 4, 3, 2  //
     };
 
-    Matrix<4, 4> B = {
+    mat4 B = {
       -2, 1, 2, 3,  //
       3,  2, 1, -1, //
       4,  3, 6, 5,  //
@@ -202,7 +202,7 @@ SCENARIO("Multiplying two matrices")
     \n| 16 | 26 |  46 |  42 |\n")
     {
 
-      Matrix<4, 4> R = {
+      mat4 R = {
         20, 22, 50,  48,  //
         44, 54, 114, 108, //
         40, 58, 110, 102, //
@@ -225,7 +225,7 @@ SCENARIO("A matrix multiplied by a tuple")
     And b = tuple(1, 2, 3, 1)")
   {
 
-    Matrix<4, 4> A = {
+    mat4 A = {
       1, 2, 3, 4, //
       2, 4, 4, 2, //
       8, 6, 4, 1, //
@@ -250,7 +250,7 @@ SCENARIO("Multiplying a matrix by the identity matrix")
     \n| 4 | 8 | 16 | 32 |\n")
   {
 
-    Matrix<4, 4> A = {
+    mat4 A = {
       0, 1, 2,  4,  //
       1, 2, 4,  8,  //
       2, 4, 8,  16, //
@@ -259,7 +259,7 @@ SCENARIO("Multiplying a matrix by the identity matrix")
 
     THEN("A * identity_matrix == A")
     {
-      CHECK(A * Matrix<4, 4>::Identity() == A);
+      CHECK(A * mat4::Identity() == A);
     }
   }
 }
@@ -272,7 +272,7 @@ SCENARIO("Multiplying the identity matrix by a tuple")
 
     THEN("identity_matrix * a == a")
     {
-      CHECK(Matrix<4, 4>::Identity() * a == a);
+      CHECK(mat4::Identity() * a == a);
     }
   }
 }
@@ -286,7 +286,7 @@ SCENARIO("Transposing a matrix")
     \n| 0 | 0 | 5 | 8 |\n")
   {
 
-    Matrix<4, 4> A = {
+    mat4 A = {
       0, 9, 3, 0, //
       9, 8, 0, 8, //
       1, 8, 5, 3, //
@@ -299,7 +299,7 @@ SCENARIO("Transposing a matrix")
     \n| 3 | 0 | 5 | 5 |\
     \n| 0 | 8 | 3 | 8 |\n")
     {
-      Matrix<4, 4> T = {
+      mat4 T = {
         0, 9, 1, 0, //
         9, 8, 8, 0, //
         3, 0, 5, 5, //
@@ -315,9 +315,9 @@ SCENARIO("Transposing the identity matrix")
 {
   GIVEN("A = transpose(identity_matrix)")
   {
-    auto A = transpose(Matrix<4, 4>::Identity());
+    auto A = transpose(mat4::Identity());
 
-    THEN("A == identity_matrix") { CHECK(A == Matrix<4, 4>::Identity()); }
+    THEN("A == identity_matrix") { CHECK(A == mat4::Identity()); }
   }
 }
 
@@ -381,7 +381,7 @@ SCENARIO("A submatrix of a 4x4 matrix is a 3x3 matrix")
     \n| -7 |  1 | -1 |  1 |\n")
   {
 
-    Matrix<4, 4> A = {
+    mat4 A = {
       -6, 1, 1,  6, //
       -8, 5, 8,  6, //
       -1, 0, 8,  2, //
@@ -498,7 +498,7 @@ SCENARIO("Calculating the determinant of a 4x4 matrix")
     \n|  1 |  2 | -9 |  6 |\
     \n| -6 |  7 |  7 | -9 |\n")
   {
-    Matrix<4, 4> A = {
+    mat4 A = {
       -2, -8, 3,  5, //
       -3, 1,  7,  3, //
       1,  2,  -9, 6, //
@@ -528,7 +528,7 @@ SCENARIO("Testing an invertible matrix for invertibility")
     \n|  4 | -9 | 3 | -7 |\
     \n|  9 |  1 | 7 | -6 |\n")
   {
-    Matrix<4, 4> A = {
+    mat4 A = {
       6, 4,  4, 4,  //
       5, 5,  7, 6,  //
       4, -9, 3, -7, //
@@ -551,7 +551,7 @@ SCENARIO("Testing a noninvertible matrix for invertibility")
     \n|  0 | -5 |  1 | -5 |\
     \n|  0 |  0 |  0 |  0 |\n")
   {
-    Matrix<4, 4> A = {
+    mat4 A = {
       -4, 2,  -2, -3, //
       9,  6,  2,  6,  //
       0,  -5, 1,  -5, //
@@ -575,7 +575,7 @@ SCENARIO("Calculating the inverse of a matrix")
     \n|  1 | -3 |  7 |  4 |\n\
     AND B = inverse(A)\n")
   {
-    Matrix<4, 4> A = {
+    mat4 A = {
       -5, 2,  6,  -8, //
       1,  -5, 1,  8,  //
       7,  7,  -6, -7, //
@@ -601,7 +601,7 @@ SCENARIO("Calculating the inverse of a matrix")
       CHECK(cofactor(A, 3, 2) == 105);
       CHECK(B[2][3] == 105.0f / 532.0f);
 
-      Matrix<4, 4> R = {
+      mat4 R = {
         0.21805,  0.45113,  0.24060,  -0.04511, //
         -0.80827, -1.45677, -0.44361, 0.52068,  //
         -0.07895, -0.22368, -0.05263, 0.19737,  //
@@ -621,7 +621,7 @@ SCENARIO("Calculating the inverse of another matrix")
     \n| -6 |  0 |  9 |  6 |\
     \n| -3 |  0 | -9 | -4 |")
   {
-    Matrix<4, 4> A = {
+    mat4 A = {
       8,  -5, 9,  2, //
       7,  5,  6,  1, //
       -6, 0,  9,  6, //
@@ -634,7 +634,7 @@ SCENARIO("Calculating the inverse of another matrix")
             \n|  0.35897 |  0.35897 |  0.43590 |  0.92308 |\
             \n| -0.69231 | -0.69231 | -0.76923 | -1.92308 |")
     {
-      Matrix<4, 4> R = {
+      mat4 R = {
         -0.15385, -0.15385, -0.28205, -0.53846, //
         -0.07692, 0.12308,  0.02564,  0.03077,  //
         0.35897,  0.35897,  0.43590,  0.92308,  //
@@ -653,7 +653,7 @@ SCENARIO("Calculating the inverse of a third matrix")
     \n| -4 |  9 |  6 |  4 |\
     \n| -7 |  6 |  6 |  2 |\n")
   {
-    Matrix<4, 4> A = {
+    mat4 A = {
       9,  3,  0,  9,  //
       -5, -2, -6, -3, //
       -4, 9,  6,  4,  //
@@ -666,7 +666,7 @@ SCENARIO("Calculating the inverse of a third matrix")
             \n| -0.02901 | -0.14630 | -0.10926 |  0.12963 |\
             \n|  0.17778 |  0.06667 | -0.26667 |  0.33333 |")
     {
-      Matrix<4, 4> R = {
+      mat4 R = {
         -0.04074, -0.07778, 0.14444,  -0.22222, //
         -0.07778, 0.03333,  0.36667,  -0.33333, //
         -0.02901, -0.14630, -0.10926, 0.12963,  //
@@ -692,14 +692,14 @@ SCENARIO("Multiplying a product by its inverse")
     \n|  6 | -2 |  0 |  5 |\n\
     AND c = A * B")
   {
-    Matrix<4, 4> A = {
+    mat4 A = {
       3,  -9, 7,  3,  //
       3,  -8, 2,  -9, //
       -4, 4,  4,  1,  //
       -6, 5,  -1, 1   //
     };
 
-    Matrix<4, 4> B = {
+    mat4 B = {
       8, 2,  2, 2, //
       3, -1, 7, 0, //
       7, 0,  5, 4, //
@@ -720,7 +720,7 @@ SCENARIO("Calculating the product of a matrix by its inverse")
     \n| -4 |  9 |  6 |  4 |\
     \n| -7 |  6 |  6 |  2 |\n")
   {
-    Matrix<4, 4> A = {
+    mat4 A = {
       9,  3,  0,  9,  //
       -5, -2, -6, -3, //
       -4, 9,  6,  4,  //
@@ -729,7 +729,7 @@ SCENARIO("Calculating the product of a matrix by its inverse")
 
     THEN("A * inverse(A) == identity_matrix")
     {
-      CHECK(A * inverse(A) == Matrix<4, 4>::Identity());
+      CHECK(A * inverse(A) == mat4::Identity());
     }
   }
 }
