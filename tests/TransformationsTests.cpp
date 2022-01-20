@@ -2,8 +2,8 @@
 #include "doctest/doctest.h"
 
 // Project Library
-#include "Matrix.hpp"
-#include "Tuple.hpp"
+#include "Math/Matrix.hpp"
+#include "Math/Tuple.hpp"
 
 // C Standard Library
 #include <cmath>

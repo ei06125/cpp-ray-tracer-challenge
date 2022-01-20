@@ -1,5 +1,4 @@
-#ifndef MATRIX_HPP
-#define MATRIX_HPP
+#pragma once
 
 // C Standard Library
 #include <cmath>
@@ -135,8 +134,6 @@ inline bool isInvertible(const Matrix<ROWS, COLS>& A)
 {
   return !determinant(A) == 0;
 }
-
-#endif // MATRIX_HPP
 
 template<std::size_t ROWS, std::size_t COLS>
 inline Matrix<ROWS, COLS> inverse(const Matrix<ROWS, COLS>& A)

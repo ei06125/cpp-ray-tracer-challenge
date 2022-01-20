@@ -2,7 +2,7 @@
 #include "doctest/doctest.h"
 
 // Project Library
-#include "Canvas.hpp"
+#include "Rendering/Canvas.hpp"
 
 // C++ Standard Library
 #include <iostream>

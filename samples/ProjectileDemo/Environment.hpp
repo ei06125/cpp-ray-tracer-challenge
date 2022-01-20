@@ -3,7 +3,7 @@
 
 #include <iosfwd>
 
-#include "Tuple.hpp"
+#include "Math/Tuple.hpp"
 
 struct Environment {
   using Vector = Tuple;

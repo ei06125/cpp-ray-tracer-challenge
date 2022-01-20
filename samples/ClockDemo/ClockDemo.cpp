@@ -1,8 +1,8 @@
-#include "Canvas.hpp"
-#include "Matrix.hpp"
-#include "PPMFile.hpp"
-#include "Print.hpp"
-#include "Tuple.hpp"
+#include "Math/Matrix.hpp"
+#include "Math/Tuple.hpp"
+#include "Rendering/Canvas.hpp"
+#include "Utils/PPMFile.hpp"
+#include "Utils/Print.hpp"
 
 #include <numbers>
 
@@ -18,7 +18,7 @@ int main()
   auto p = make_point(0, radius, 0);
   auto angle = std::numbers::pi / 6;
   auto translate = translation(width / 2, height / 2, 0);
-  
+
   for (auto hour = 0; hour < 12; ++hour) {
     auto clock = rotation_z(-angle * hour);
     auto point = translate * clock * p;

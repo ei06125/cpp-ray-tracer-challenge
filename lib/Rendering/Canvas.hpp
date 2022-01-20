@@ -1,7 +1,7 @@
 #ifndef CANVAS_HPP
 #define CANVAS_HPP
 
-#include "Tuple.hpp"
+#include "Math/Tuple.hpp"
 
 #include <string>
 #include <vector>
