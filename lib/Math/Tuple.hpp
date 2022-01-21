@@ -1,9 +1,10 @@
-#ifndef TUPLES_HPP
-#define TUPLES_HPP
+#pragma once
 
+// C++ Standard Library
 #include <iosfwd>
 
-constexpr float EPSILON{ 0.0001f };
+// Project Library
+#include "Math/Constants.hpp"
 
 struct Tuple
 {
@@ -66,4 +67,4 @@ float dot(const Tuple& a, const Tuple& b);
 
 Tuple cross(const Tuple& a, const Tuple& b);
 
-#endif // TUPLES_HPP
+Tuple reflect(const Tuple& aVector, const Tuple& aNormal);

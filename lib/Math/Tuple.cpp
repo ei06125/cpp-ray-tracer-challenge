@@ -1,4 +1,4 @@
-#include "Tuple.hpp"
+#include "Math/Tuple.hpp"
 
 // C++ Standard Library
 #include <iomanip>
@@ -115,4 +115,9 @@ Tuple cross(const Tuple& a, const Tuple& b)
     (a.z * b.x) - (a.x * b.z), //
     (a.x * b.y) - (a.y * b.x)  //
   );
+}
+
+Tuple reflect(const Tuple& aVector, const Tuple& aNormal)
+{
+  return aVector - aNormal * 2 * dot(aVector, aNormal);
 }

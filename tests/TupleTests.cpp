@@ -360,3 +360,35 @@ SCENARIO("Multiplying colors")
     }
   }
 }
+
+SCENARIO("Reflecting a vector approaching at 45 degrees")
+{
+  GIVEN("v = vector(1, -1, 0) && n = vector(0, 1, 0)")
+  {
+    auto v = make_vector(1, -1, 0);
+    auto n = make_vector(0, 1, 0);
+
+    WHEN("r = reflect(v, n)")
+    {
+      auto r = reflect(v, n);
+
+      THEN("r == vector(1, 1, 0)") { CHECK(r == make_vector(1, 1, 0)); }
+    }
+  }
+}
+
+SCENARIO("Reflecting a vector off a slanted surface")
+{
+  GIVEN("v = vector(0, -1, 0) && n = vector(SQRT(2)/2, SQRT(2)/2, 0)")
+  {
+    auto v = make_vector(0, -1, 0);
+    auto n = make_vector(std::sqrt(2) / 2, std::sqrt(2) / 2, 0);
+
+    WHEN("r = reflect(v, n)")
+    {
+      auto r = reflect(v, n);
+
+      THEN("r == vector(1, 0, 0)") { CHECK(r == make_vector(1, 0, 0)); }
+    }
+  }
+}

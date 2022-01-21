@@ -1,7 +1,7 @@
 add_library(RayTracer)
 file(GLOB_RECURSE RayTracer_SOURCES "*.cpp")
 file(GLOB_RECURSE RayTracer_HEADERS "*.hpp")
-target_sources(RayTracer PUBLIC ${RayTracer_SOURCES})
+target_sources(RayTracer PUBLIC ${RayTracer_SOURCES} ${RayTracer_HEADERS})
 target_compile_features(RayTracer PUBLIC cxx_std_20)
 target_include_directories(RayTracer PUBLIC ${ROOT_DIR}/lib)
 set_target_properties(RayTracer PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)

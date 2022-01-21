@@ -1,3 +1,4 @@
 add_subdirectory(ProjectileDemo)
 add_subdirectory(ClockDemo)
 add_subdirectory(SilhouetteDemo)
+add_subdirectory(Sphere3DDemo)
