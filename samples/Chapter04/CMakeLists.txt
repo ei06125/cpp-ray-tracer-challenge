@@ -1,0 +1,6 @@
+add_executable(Chapter04)
+file(GLOB_RECURSE Clock_SOURCES "*.cpp")
+target_sources(Chapter04 PUBLIC ${Clock_SOURCES})
+target_compile_features(Chapter04 PUBLIC cxx_std_20)
+target_link_libraries(Chapter04 PRIVATE RayTracer)
+target_include_directories(Chapter04 PRIVATE ${ROOT_DIR}/lib)

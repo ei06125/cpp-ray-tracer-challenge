@@ -1,6 +1,0 @@
-add_executable(ClockDemo)
-file(GLOB_RECURSE Clock_SOURCES "*.cpp")
-target_sources(ClockDemo PUBLIC ${Clock_SOURCES})
-target_compile_features(ClockDemo PUBLIC cxx_std_20)
-target_link_libraries(ClockDemo PRIVATE RayTracer)
-target_include_directories(ClockDemo PRIVATE ${ROOT_DIR}/lib)
