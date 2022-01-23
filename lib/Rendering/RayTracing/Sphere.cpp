@@ -12,7 +12,8 @@ Sphere::Sphere()
 
 bool operator==(const Sphere& lhs, const Sphere& rhs)
 {
-  return lhs.id == rhs.id;
+  return lhs.transform == rhs.transform && lhs.material == rhs.material &&
+         lhs.origin == rhs.origin && lhs.radius == rhs.radius;
 }
 
 void set_transform(Sphere& s, mat4 t)

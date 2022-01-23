@@ -46,20 +46,14 @@ int main()
       auto world_x = -half + pixel_size * x;
 
       // describe the point on the wall that the ray will target
-      auto position = make_point(world_x, world_y, wall_z);
+      auto wall_point = make_point(world_x, world_y, wall_z);
 
-      auto r = Ray{ ray_origin, normalize(position - ray_origin) };
+      auto r = Ray{ ray_origin, normalize(wall_point - ray_origin) };
       auto xs = intersect(sphere, r);
 
       if (auto aHit = hit(xs); aHit != nullptr) {
-
-        const auto make_position = [](const Ray& r, Intersection* i) -> Tuple {
-          return r.origin + r.direction * i->t;
-        };
-
         auto& material = aHit->object.material;
-        // point = position(ray, hit) << this is in the book. ??? position() ???
-        auto point = make_position(r, aHit);
+        auto point = position(r, aHit->t);
         auto normalv = normal_at(aHit->object, point);
         auto eyev = -(r.direction); // negated
         color = lighting(material, light, point, eyev, normalv);

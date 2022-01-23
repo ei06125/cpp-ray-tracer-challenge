@@ -7,10 +7,15 @@
 /// @section Intersection
 /// ===========================================================================
 
-Intersection::Intersection(float t_, const Sphere& object_)
+Intersection::Intersection(float t_, Sphere object_)
   : t(t_)
-  , object(object_)
+  , object(std::move(object_))
 {}
+
+bool operator<(const Intersection& lhs, const Intersection& rhs)
+{
+  return lhs.t < rhs.t;
+}
 
 bool operator==(const Intersection& lhs, const Intersection& rhs)
 {
@@ -38,12 +43,30 @@ Intersection& Intersections::operator[](std::size_t index)
   return intersectionPoints[index];
 }
 
+Intersection Intersections::operator[](std::size_t index) const
+{
+  assert(index >= 0 && index < intersectionPoints.size());
+  return intersectionPoints[index];
+}
+
+void Intersections::Push(Intersection&& i)
+{
+  intersectionPoints.push_back(std::move(i));
+}
+
+std::vector<Intersection>& Intersections::GetIntersectionPoints()
+{
+  return intersectionPoints;
+}
+
 /// ===========================================================================
 /// @section Functions
 /// ===========================================================================
 
 Intersections intersect(const Sphere& s, const Ray& r)
 {
+  Intersections result{};
+
   auto r2 = transform(r, inverse(s.transform));
   // the vector from the sphere's center, to the ray origin
   // remember: the sphere is centered at the world origin
@@ -55,13 +78,16 @@ Intersections intersect(const Sphere& s, const Ray& r)
 
   auto discriminant = (b * b) - (4 * a * c);
   if (discriminant < 0) {
-    return {};
+    return result;
   }
 
   auto t1 = (-b - std::sqrt(discriminant)) / (2 * a);
   auto t2 = (-b + std::sqrt(discriminant)) / (2 * a);
 
-  return { { { t1, s }, { t2, s } } };
+  result.Push({ t1, s });
+  result.Push({ t2, s });
+
+  return result;
 }
 
 Intersection* hit(Intersections& xs)
@@ -80,4 +106,19 @@ Intersection* hit(Intersections& xs)
     }
   }
   return result;
+}
+
+Computations prepare_computations(const Intersection& i, const Ray& r)
+{
+  auto point = position(r, i.t);
+  auto eyev = -r.direction;
+  auto normalv = normal_at(i.object, point);
+  Computations comps{ i.t, i.object, point, eyev, normalv };
+  if (dot(comps.normalv, comps.eyev) < 0) {
+    comps.inside = true;
+    comps.normalv = -comps.normalv;
+  } else {
+    comps.inside = false;
+  }
+  return comps;
 }

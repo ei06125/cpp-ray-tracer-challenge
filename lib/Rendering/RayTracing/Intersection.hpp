@@ -10,12 +10,13 @@
 
 struct Intersection
 {
-  Intersection(float t_, const Sphere& sphere_);
+  Intersection(float t_, Sphere sphere_);
 
   float t;
-  const Sphere& object;
+  Sphere object;
 };
 
+bool operator<(const Intersection& lhs, const Intersection& rhs);
 bool operator==(const Intersection& lhs, const Intersection& rhs);
 
 /// ===========================================================================
@@ -29,9 +30,27 @@ public:
   Intersections(std::initializer_list<Intersection> points);
   std::size_t Count() const;
   Intersection& operator[](std::size_t index);
+  Intersection operator[](std::size_t index) const;
+  void Push(Intersection&& i);
+
+  std::vector<Intersection>& GetIntersectionPoints();
 
 private:
   std::vector<Intersection> intersectionPoints;
+};
+
+/// ===========================================================================
+/// @section Computations
+/// ===========================================================================
+
+struct Computations
+{
+  float t;
+  Sphere object;
+  Tuple point;
+  Tuple eyev;
+  Tuple normalv;
+  bool inside;
 };
 
 /// ===========================================================================
@@ -40,3 +59,4 @@ private:
 
 Intersections intersect(const Sphere& s, const Ray& r);
 Intersection* hit(Intersections& xs);
+Computations prepare_computations(const Intersection& i, const Ray& r);

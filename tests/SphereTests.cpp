@@ -3,6 +3,7 @@
 
 // Project Library
 #include "Math/Constants.hpp"
+#include "Math/Transformations.hpp"
 #include "Math/Tuple.hpp"
 #include "Rendering/RayTracing/Intersection.hpp"
 #include "Rendering/RayTracing/Material.hpp"

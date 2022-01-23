@@ -2,8 +2,7 @@
 #include "doctest/doctest.h"
 
 // Project Library
-#include "Math/Matrix.hpp"
-#include "Math/Tuple.hpp"
+#include "Math/Transformations.hpp"
 
 // C Standard Library
 #include <cmath>
@@ -333,6 +332,89 @@ SCENARIO("Chained transformations must be applied in reverse order")
       auto T = C * B * A;
 
       THEN("T * p == point(15, 0, 7)") { CHECK(T * p == make_point(15, 0, 7)); }
+    }
+  }
+}
+
+SCENARIO("The transformation matrix for the default orientation")
+{
+  GIVEN("from = point(0, 0, 0) && to = point(0, 0, -1) && up = vector(0, 1, 0)")
+  {
+    auto from = make_point(0, 0, 0);
+    auto to = make_point(0, 0, -1);
+    auto up = make_vector(0, 1, 0);
+
+    WHEN("t = view_transform(from, to, up)")
+    {
+      auto t = view_transform(from, to, up);
+
+      THEN("t == scaling(-1, 1, -1)") { CHECK(t == mat4::Identity()); }
+    }
+  }
+}
+
+SCENARIO("A view transformation matrix looking in positive z direction")
+{
+  GIVEN("from = point(0, 0, 0) && to = point(0, 0, 1) && up = vector(0, 1, 0)")
+  {
+    auto from = make_point(0, 0, 0);
+    auto to = make_point(0, 0, 1);
+    auto up = make_vector(0, 1, 0);
+
+    WHEN("t = view_transform(from, to, up)")
+    {
+      auto t = view_transform(from, to, up);
+
+      THEN("t == translation(0, 0, -8)") { CHECK(t == scaling(-1, 1, -1)); }
+    }
+  }
+}
+
+// The test positions the eye at a point 8 units along the z axis
+SCENARIO("The view transformation moves the world")
+{
+  GIVEN("from = point(0, 0, 8) && to = point(0, 0, 0) && up = vector(0, 1, 0)")
+  {
+    auto from = make_point(0, 0, 8);
+    auto to = make_point(0, 0, 0);
+    auto up = make_vector(0, 1, 0);
+
+    WHEN("t = view_transform(from, to, up)")
+    {
+      auto t = view_transform(from, to, up);
+
+      THEN("t == translation(0, 0, -8)") { CHECK(t == translation(0, 0, -8)); }
+    }
+  }
+}
+
+SCENARIO("An arbitrary view transformation")
+{
+  GIVEN("from = point(1, 2, 3) && to = point(4, -2, 8) && up = vector(1, 1, 0)")
+  {
+    auto from = make_point(1, 3, 2);
+    auto to = make_point(4, -2, 8);
+    auto up = make_vector(1, 1, 0);
+
+    WHEN("t = view_transform(from, to, up)")
+    {
+      auto t = view_transform(from, to, up);
+
+      THEN("t is the following 4x4 matrix:\
+      \n | -0.50709 | 0.50709 |  0.67612 | -2.36643 |\
+      \n |  0.76772 | 0.60609 |  0.12122 | -2.82843 |\
+      \n | -0.35857 | 0.59761 | -0.71714 |  0.00000 |\
+      \n |  0.00000 | 0.00000 |  0.00000 |  1.00000 |")
+      {
+        mat4 expected = {
+          -0.50709, 0.50709, 0.67612,  -2.36643, //
+          0.76772,  0.60609, 0.12122,  -2.82843, //
+          -0.35857, 0.59761, -0.71714, 0.00000,  //
+          0.00000,  0.00000, 0.00000,  1.00000   //
+        };
+
+        CHECK(t == expected);
+      }
     }
   }
 }

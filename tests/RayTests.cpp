@@ -3,6 +3,7 @@
 
 // Project Library
 #include "Math/Matrix.hpp"
+#include "Math/Transformations.hpp"
 #include "Math/Tuple.hpp"
 #include "Rendering/RayTracing/Ray.hpp"
 

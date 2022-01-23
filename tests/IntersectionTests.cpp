@@ -150,3 +150,78 @@ SCENARIO("The hit is always the lowest nonnegative intersection")
     }
   }
 }
+
+SCENARIO("Precomputing the state of an intersection")
+{
+  GIVEN("r = ray(point(0, 0, -5), vector(0, 0, 1)) &&\
+  \n shape = sphere() && i = Intersection(4, shape)")
+  {
+    auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+    auto shape = Sphere();
+    auto i = Intersection(4, shape);
+
+    WHEN("comps = prepare_computations(i, r)")
+    {
+      auto comps = prepare_computations(i, r);
+
+      THEN("comps.t == i.t &&\
+      \n comps.object == i.object &&\
+      \n comps.point == point(0, 0, -1) &&\
+      \n comps.eyev == vector(0, 0, -1) &&\
+      \n comps.normalv == vector(0, 0, -1)")
+      {
+        CHECK(comps.t == i.t);
+        CHECK(comps.object == i.object);
+        CHECK(comps.point == make_point(0, 0, -1));
+        CHECK(comps.eyev == make_vector(0, 0, -1));
+        CHECK(comps.normalv == make_vector(0, 0, -1));
+      }
+    }
+  }
+}
+
+SCENARIO("The hit, when an intersection occurs on the outside")
+{
+  GIVEN("r = ray(point(0, 0, -5), vector(0, 0, 1)) &&\
+  \n shape = sphere() && i = Intersection(4, shape)")
+  {
+    auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+    auto shape = Sphere();
+    auto i = Intersection(4, shape);
+
+    WHEN("comps = prepare_computations(i, r)")
+    {
+      auto comps = prepare_computations(i, r);
+
+      THEN("comps.inside == false") { CHECK(comps.inside == false); }
+    }
+  }
+}
+
+SCENARIO("The hit, when an intersection occurs on the inside")
+{
+  GIVEN("r = ray(point(0, 0, 0), vector(0, 0, 1)) &&\
+  \n shape = sphere() && i = Intersection(1, shape)")
+  {
+    auto r = Ray{ make_point(0, 0, 0), make_vector(0, 0, 1) };
+    auto shape = Sphere();
+    auto i = Intersection(1, shape);
+
+    WHEN("comps = prepare_computations(i, r)")
+    {
+      auto comps = prepare_computations(i, r);
+
+      THEN("comps.point == point(0, 0, 1) &&\
+      \n comps.eyev == vector(0, 0, -1) &&\
+      \n comps.inside == true &&\
+      \n comps.normalv == vector(0, 0, -1)")
+      {
+        CHECK(comps.point == make_point(0, 0, 1));
+        CHECK(comps.eyev == make_vector(0, 0, -1));
+        CHECK(comps.inside == true);
+        // normal would have been (0, 0, 1), but is inverted!
+        CHECK(comps.normalv == make_vector(0, 0, -1));
+      }
+    }
+  }
+}

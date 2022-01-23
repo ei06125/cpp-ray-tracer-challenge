@@ -13,3 +13,5 @@ struct PointLight
 };
 
 std::ostream& operator<<(std::ostream& os, const PointLight& aLight);
+
+bool operator==(const PointLight& lhs, const PointLight& rhs);

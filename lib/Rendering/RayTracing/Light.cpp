@@ -10,3 +10,8 @@ std::ostream& operator<<(std::ostream& os, const PointLight& aLight)
      << " }";
   return os;
 }
+
+bool operator==(const PointLight& lhs, const PointLight& rhs)
+{
+  return lhs.position == rhs.position && lhs.intensity == rhs.intensity;
+}
