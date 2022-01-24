@@ -50,6 +50,7 @@ struct Computations
   Tuple point;
   Tuple eyev;
   Tuple normalv;
+  Tuple over_point;
   bool inside;
 };
 

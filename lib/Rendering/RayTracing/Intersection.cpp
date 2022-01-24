@@ -113,12 +113,17 @@ Computations prepare_computations(const Intersection& i, const Ray& r)
   auto point = position(r, i.t);
   auto eyev = -r.direction;
   auto normalv = normal_at(i.object, point);
-  Computations comps{ i.t, i.object, point, eyev, normalv };
+
+  Computations comps{ i.t, i.object, point, eyev, normalv, point };
+
   if (dot(comps.normalv, comps.eyev) < 0) {
     comps.inside = true;
     comps.normalv = -comps.normalv;
   } else {
     comps.inside = false;
   }
+
+  comps.over_point = comps.point + comps.normalv * EPSILON;
+
   return comps;
 }

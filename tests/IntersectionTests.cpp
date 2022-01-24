@@ -2,6 +2,7 @@
 #include "doctest/doctest.h"
 
 // Project Library
+#include "Math/Transformations.hpp"
 #include "Rendering/RayTracing/Intersection.hpp"
 #include "Rendering/RayTracing/Sphere.hpp"
 
@@ -221,6 +222,37 @@ SCENARIO("The hit, when an intersection occurs on the inside")
         CHECK(comps.inside == true);
         // normal would have been (0, 0, 1), but is inverted!
         CHECK(comps.normalv == make_vector(0, 0, -1));
+      }
+    }
+  }
+}
+
+/// ===========================================================================
+/// @section Shadows
+/// ===========================================================================
+
+SCENARIO("The hit should offset the point")
+{
+  GIVEN("r = ray(point(0, 0, -5), vector(0, 0, 1)) &&\
+  \n shape = sphere() with:\
+  \n | transform | translation(0, 0, 1) | &&\
+  \n i = intersection(5, shape)")
+  {
+
+    auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+    auto shape = Sphere();
+    shape.transform = translation(0, 0, 1);
+    auto i = Intersection(5, shape);
+
+    WHEN("comps = prepare_computations(i, r)")
+    {
+      auto comps = prepare_computations(i, r);
+
+      THEN("comps.over_point.z < -EPSILON/2 &&\
+      \n comps.point.z > comps.over_point.z")
+      {
+        CHECK(comps.over_point.z < -(EPSILON / 2));
+        CHECK(comps.point.z > comps.over_point.z);
       }
     }
   }

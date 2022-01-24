@@ -154,3 +154,34 @@ SCENARIO("Lighting with the light behind the surface")
     }
   }
 }
+
+/// ===========================================================================
+/// @section Shadows
+/// ===========================================================================
+
+SCENARIO("Lighting with the surface in the shadow")
+{
+  GIVEN("m = material() && position = point(0, 0, 0) &&\
+    \n eyev = vector(0, 0, -1) &&\
+    \n normalv = vector(0, 0, -1) &&\
+    \n light = point_light(point(0, 0, -10), color(1, 1, 1)) &&\
+    \n in_shadow = true")
+  {
+    auto m = Material();
+    auto position = make_point(0, 0, 0);
+    auto eyev = make_vector(0, 0, -1);
+    auto normalv = make_vector(0, 0, -1);
+    auto light = PointLight{ make_point(0, 0, -10), make_color(1, 1, 1) };
+    auto in_shadow = true;
+
+    WHEN("result = lighting(m, light, position, eyev, normalv, in_shadow)")
+    {
+      auto result = lighting(m, light, position, eyev, normalv, in_shadow);
+
+      THEN("result == color(0.1, 0.1, 0.1)")
+      {
+        CHECK(result == make_color(0.1, 0.1, 0.1));
+      }
+    }
+  }
+}

@@ -33,3 +33,9 @@ Intersections intersect_world(const World& w, const Ray& r);
 Tuple shade_hit(const World& w, const Computations& comps);
 
 Tuple color_at(const World& w, const Ray& r);
+
+/// ===========================================================================
+/// @section Shadows
+/// ===========================================================================
+
+bool is_shadowed(const World& w, const Tuple& p);

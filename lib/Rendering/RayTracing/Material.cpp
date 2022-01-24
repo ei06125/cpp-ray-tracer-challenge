@@ -15,7 +15,8 @@ Tuple lighting(const Material& material,
                const PointLight& light,
                const Tuple& point,
                const Tuple& eyev,
-               const Tuple& normalv)
+               const Tuple& normalv,
+               bool in_shadow)
 {
   // combine the surface color with the light's color/intensity
   auto effective_color = material.color * light.intensity;
@@ -25,6 +26,11 @@ Tuple lighting(const Material& material,
 
   // compute the ambient contribution
   auto ambient = effective_color * material.ambient;
+
+  // early exit point
+  if (in_shadow) {
+    return ambient;
+  }
 
   // light_dot_normal represents the cosine of the angle between the
   // light vector and the normal vector. A negative number means the

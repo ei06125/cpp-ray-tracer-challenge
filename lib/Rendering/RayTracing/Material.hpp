@@ -18,4 +18,5 @@ Tuple lighting(const Material& material,
                const PointLight& light,
                const Tuple& point,
                const Tuple& eyev,
-               const Tuple& normalv);
+               const Tuple& normalv,
+               bool in_shadow = false);

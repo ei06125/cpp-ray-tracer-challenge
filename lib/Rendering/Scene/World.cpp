@@ -81,11 +81,14 @@ Tuple shade_hit(const World& w, const Computations& comps)
   if (!w.GetLightSource()) {
     return make_color(0, 0, 0); // black
   }
+  auto shadowed = is_shadowed(w, comps.over_point);
+
   return lighting(comps.object.material,
                   w.GetLightSource().value(),
                   comps.point,
                   comps.eyev,
-                  comps.normalv);
+                  comps.normalv,
+                  shadowed);
 }
 
 Tuple color_at(const World& w, const Ray& r)
@@ -105,4 +108,28 @@ Tuple color_at(const World& w, const Ray& r)
 
   // Finally, call shade_hit to find the color at the hit
   return shade_hit(w, comps);
+}
+
+/// ===========================================================================
+/// @section Shadows
+/// ===========================================================================
+
+bool is_shadowed(const World& world, const Tuple& point)
+{
+  // if there is no light source, the Universe is in shadows
+  if (!world.GetLightSource().has_value()) {
+    return true;
+  }
+
+  auto v = world.GetLightSource().value().position - point;
+  auto distance = magnitude(v);
+  auto direction = normalize(v);
+
+  auto ray = Ray{ point, direction };
+  auto intersections = intersect_world(world, ray);
+
+  if (auto h = hit(intersections); h != nullptr && h->t < distance) {
+    return true;
+  }
+  return false;
 }
