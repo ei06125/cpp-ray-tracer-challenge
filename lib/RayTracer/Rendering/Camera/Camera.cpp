@@ -1,4 +1,4 @@
-#include "Rendering/Camera/Camera.hpp"
+#include "RayTracer/Rendering/Camera/Camera.hpp"
 
 Camera::Camera(float h, float v, float fov)
   : transform(mat4::Identity())

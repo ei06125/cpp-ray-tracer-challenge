@@ -3,7 +3,7 @@
 
 #include <iosfwd>
 
-#include "Math/Tuple.hpp"
+#include "RayTracer.hpp"
 
 struct Environment {
   using Vector = Tuple;

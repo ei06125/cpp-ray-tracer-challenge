@@ -1,9 +1,7 @@
+#include "RayTracer.hpp"
+
 #include "Environment.hpp"
-#include "Math/Tuple.hpp"
 #include "Projectile.hpp"
-#include "Rendering/Canvas.hpp"
-#include "Utils/PPMFile.hpp"
-#include "Utils/Print.hpp"
 
 inline auto toInt(auto x)
 {

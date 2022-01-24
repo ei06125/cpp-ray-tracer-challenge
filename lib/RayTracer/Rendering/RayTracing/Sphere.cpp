@@ -1,4 +1,4 @@
-#include "Rendering/RayTracing/Sphere.hpp"
+#include "RayTracer/Rendering/RayTracing/Sphere.hpp"
 
 std::size_t Sphere::SphereID = 0;
 

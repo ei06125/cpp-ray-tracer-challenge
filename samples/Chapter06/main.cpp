@@ -1,11 +1,4 @@
-#include "Rendering/Canvas.hpp"
-#include "Rendering/RayTracing/Intersection.hpp"
-#include "Rendering/RayTracing/Light.hpp"
-#include "Rendering/RayTracing/Material.hpp"
-#include "Rendering/RayTracing/Ray.hpp"
-#include "Rendering/RayTracing/Sphere.hpp"
-#include "Utils/PPMFile.hpp"
-#include "Utils/Print.hpp"
+#include "RayTracer.hpp"
 
 #ifdef NDEBUG
 constexpr auto g_scale = 10;

@@ -1,12 +1,8 @@
 // Test Framework
 #include "doctest/doctest.h"
 
-// Project Library
-#include "Math/Constants.hpp"
-#include "Math/Matrix.hpp"
-#include "Math/Transformations.hpp"
-#include "Rendering/Camera/Camera.hpp"
-#include "Rendering/Scene/World.hpp"
+// Engine
+#include "RayTracer.hpp"
 
 SCENARIO("Constructing a camera")
 {

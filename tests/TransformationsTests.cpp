@@ -1,14 +1,8 @@
 // Test Framework
 #include "doctest/doctest.h"
 
-// Project Library
-#include "Math/Transformations.hpp"
-
-// C Standard Library
-#include <cmath>
-
-// C++ Standard Library
-#include <numbers>
+// Engine
+#include "RayTracer.hpp"
 
 SCENARIO("Multiplying by a translation matrix")
 {

@@ -1,7 +1,7 @@
 add_executable(Chapter08)
-file(GLOB_RECURSE Chapter08 "*.cpp")
-target_sources(Chapter08 PUBLIC ${Chapter08})
-target_compile_features(Chapter08 PUBLIC cxx_std_20)
+file(GLOB_RECURSE Chapter08_SOURCES "*.cpp")
+target_sources(Chapter08 PUBLIC ${Chapter08_SOURCES})
 target_link_libraries(Chapter08 PRIVATE RayTracer)
 target_include_directories(Chapter08 PRIVATE ${CMAKE_CURRENT_LIST_DIR}
                                              ${ROOT_DIR}/lib)
+target_precompile_headers(Chapter08 REUSE_FROM RayTracer)

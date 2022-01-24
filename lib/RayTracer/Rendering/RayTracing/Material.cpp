@@ -1,10 +1,7 @@
-#include "Rendering/RayTracing/Material.hpp"
+#include "RayTracer/Rendering/RayTracing/Material.hpp"
 
 // Project Library
-#include "Rendering/RayTracing/Light.hpp"
-
-// C++ Standard Library
-#include <cmath>
+#include "RayTracer/Rendering/RayTracing/Light.hpp"
 
 bool operator==(const Material& lhs, const Material& rhs)
 {

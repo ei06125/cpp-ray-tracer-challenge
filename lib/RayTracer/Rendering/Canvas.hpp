@@ -1,8 +1,6 @@
 #pragma once
-#include "Math/Tuple.hpp"
 
-#include <string>
-#include <vector>
+#include "RayTracer/Math/Tuple.hpp"
 
 struct Canvas
 {

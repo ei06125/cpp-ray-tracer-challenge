@@ -1,9 +1,8 @@
 // Test Framework
 #include "doctest/doctest.h"
 
-// Project Library
-#include "Math/Tuple.hpp"
-#include "Rendering/RayTracing/Light.hpp"
+// Engine
+#include "RayTracer.hpp"
 
 // C++ Standard Library
 

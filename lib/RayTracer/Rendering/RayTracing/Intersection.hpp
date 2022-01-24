@@ -1,8 +1,7 @@
 #pragma once
-#include <vector>
 
-#include "Rendering/RayTracing/Ray.hpp"
-#include "Rendering/RayTracing/Sphere.hpp"
+#include "RayTracer/Rendering/RayTracing/Ray.hpp"
+#include "RayTracer/Rendering/RayTracing/Sphere.hpp"
 
 /// ===========================================================================
 /// @section Intersection

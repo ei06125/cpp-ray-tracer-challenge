@@ -1,17 +1,13 @@
-#ifndef PROJECTILE_HPP
-#define PROJECTILE_HPP
+#pragma once
 
-#include <iosfwd>
+#include "RayTracer.hpp"
 
-#include "Math/Tuple.hpp"
-
-struct Projectile {
+struct Projectile
+{
   using Vector = Tuple;
   using Point = Tuple;
   Point position;
   Vector velocity;
 };
 
-std::ostream &operator<<(std::ostream &os, const Projectile &rhs);
-
-#endif // PROJECTILE_HPP
+std::ostream& operator<<(std::ostream& os, const Projectile& rhs);

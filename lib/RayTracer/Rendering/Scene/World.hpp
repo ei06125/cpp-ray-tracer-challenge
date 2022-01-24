@@ -1,11 +1,8 @@
 #pragma once
 
-#include <optional>
-#include <vector>
-
-#include "Rendering/RayTracing/Intersection.hpp"
-#include "Rendering/RayTracing/Light.hpp"
-#include "Rendering/RayTracing/Sphere.hpp"
+#include "RayTracer/Rendering/RayTracing/Intersection.hpp"
+#include "RayTracer/Rendering/RayTracing/Light.hpp"
+#include "RayTracer/Rendering/RayTracing/Sphere.hpp"
 
 class World
 {

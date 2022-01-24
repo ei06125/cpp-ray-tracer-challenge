@@ -4,7 +4,7 @@
 #include <iosfwd>
 
 // Project Library
-#include "Math/Tuple.hpp"
+#include "RayTracer/Math/Tuple.hpp"
 
 struct PointLight
 {

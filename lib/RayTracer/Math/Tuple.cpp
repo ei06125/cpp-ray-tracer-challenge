@@ -1,11 +1,4 @@
-#include "Math/Tuple.hpp"
-
-// C++ Standard Library
-#include <iomanip>
-#include <iostream>
-
-// C Standard Library
-#include <cmath>
+#include "RayTracer/Math/Tuple.hpp"
 
 Tuple::Tuple(float x_, float y_, float z_, float w_)
   : x(x_)

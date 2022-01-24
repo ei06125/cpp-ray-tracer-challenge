@@ -1,13 +1,8 @@
 // Test Framework
 #include "doctest/doctest.h"
 
-// Project Library
-#include "Math/Tuple.hpp"
-#include "Rendering/RayTracing/Light.hpp"
-#include "Rendering/RayTracing/Material.hpp"
-
-// C++ Standard Library
-#include <cmath>
+// Engine
+#include "RayTracer.hpp"
 
 SCENARIO("The default material")
 {

@@ -1,11 +1,8 @@
 // Test Framework
 #include "doctest/doctest.h"
 
-// Project Library
-#include "Rendering/Canvas.hpp"
-
-// C++ Standard Library
-#include <iostream>
+// Engine
+#include "RayTracer.hpp"
 
 SCENARIO("Creating a canvas")
 {

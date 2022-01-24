@@ -1,7 +1,4 @@
-#include "Rendering/RayTracing/Intersection.hpp"
-
-#include <cassert>
-#include <cmath>
+#include "RayTracer/Rendering/RayTracing/Intersection.hpp"
 
 /// ===========================================================================
 /// @section Intersection

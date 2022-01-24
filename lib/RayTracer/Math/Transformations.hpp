@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Math/Matrix.hpp"
+#include "RayTracer/Math/Matrix.hpp"
 
 inline mat4 translation(float x, float y, float z)
 {

@@ -1,14 +1,6 @@
 #pragma once
 
-// C Standard Library
-#include <cmath>
-#include <cstring>
-
-// C++ Standard Library
-#include <stdexcept>
-#include <vector>
-
-#include "Tuple.hpp"
+#include "RayTracer/Math/Tuple.hpp"
 
 /// ===========================================================================
 /// @section Matrix

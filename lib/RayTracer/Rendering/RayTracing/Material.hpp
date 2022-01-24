@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Math/Tuple.hpp"
+#include "RayTracer/Math/Tuple.hpp"
 
 struct Material
 {

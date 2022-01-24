@@ -1,14 +1,8 @@
 // Test Framework
 #include "doctest/doctest.h"
 
-// Project Library
-#include "Math/Transformations.hpp"
-#include "Rendering/RayTracing/Light.hpp"
-#include "Rendering/RayTracing/Ray.hpp"
-#include "Rendering/RayTracing/Sphere.hpp"
-#include "Rendering/Scene/World.hpp"
-
-// C++ Standard Library
+// Engine
+#include "RayTracer.hpp"
 
 SCENARIO("Creating a world")
 {

@@ -1,14 +1,8 @@
 // Test Framework
 #include "doctest/doctest.h"
 
-// Project Library
-#include "Math/Constants.hpp"
-#include "Math/Transformations.hpp"
-#include "Math/Tuple.hpp"
-#include "Rendering/RayTracing/Intersection.hpp"
-#include "Rendering/RayTracing/Material.hpp"
-#include "Rendering/RayTracing/Ray.hpp"
-#include "Rendering/RayTracing/Sphere.hpp"
+// Engine
+#include "RayTracer.hpp"
 
 SCENARIO("A ray intersects a sphere at two points")
 {

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Math/Matrix.hpp"
-#include "Math/Tuple.hpp"
-#include "Rendering/RayTracing/Material.hpp"
+#include "RayTracer/Math/Matrix.hpp"
+#include "RayTracer/Math/Tuple.hpp"
+#include "RayTracer/Rendering/RayTracing/Material.hpp"
 
 struct Sphere
 {

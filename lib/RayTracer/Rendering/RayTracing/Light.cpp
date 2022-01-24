@@ -1,8 +1,4 @@
-#include "Rendering/RayTracing/Light.hpp"
-
-// C++ Standard Library
-#include <iomanip>
-#include <iostream>
+#include "RayTracer/Rendering/RayTracing/Light.hpp"
 
 std::ostream& operator<<(std::ostream& os, const PointLight& aLight)
 {

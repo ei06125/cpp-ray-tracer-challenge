@@ -1,15 +1,4 @@
-#include "Math/Constants.hpp"
-#include "Math/Transformations.hpp"
-#include "Rendering/Camera/Camera.hpp"
-#include "Rendering/Canvas.hpp"
-#include "Rendering/RayTracing/Intersection.hpp"
-#include "Rendering/RayTracing/Light.hpp"
-#include "Rendering/RayTracing/Material.hpp"
-#include "Rendering/RayTracing/Ray.hpp"
-#include "Rendering/RayTracing/Sphere.hpp"
-#include "Rendering/Scene/World.hpp"
-#include "Utils/PPMFile.hpp"
-#include "Utils/Print.hpp"
+#include "RayTracer.hpp"
 
 #ifdef NDEBUG
 constexpr auto g_scale = 10;

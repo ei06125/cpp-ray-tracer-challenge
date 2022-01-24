@@ -1,10 +1,4 @@
-#include "Math/Matrix.hpp"
-#include "Math/Tuple.hpp"
-#include "Rendering/Canvas.hpp"
-#include "Utils/PPMFile.hpp"
-#include "Utils/Print.hpp"
-
-#include <numbers>
+#include "RayTracer.hpp"
 
 int main()
 {

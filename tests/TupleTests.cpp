@@ -1,11 +1,8 @@
 // Test Framework
 #include "doctest/doctest.h"
 
-// C Standard Library
-#include <cmath>
-
-// Project Library
-#include "Math/Tuple.hpp"
+// Engine
+#include "RayTracer.hpp"
 
 SCENARIO("A tuple with w = 1 is a point")
 {

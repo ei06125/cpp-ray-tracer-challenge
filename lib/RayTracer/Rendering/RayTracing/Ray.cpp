@@ -1,4 +1,4 @@
-#include "Rendering/RayTracing/Ray.hpp"
+#include "RayTracer/Rendering/RayTracing/Ray.hpp"
 
 Tuple position(const Ray& ray, float time)
 {

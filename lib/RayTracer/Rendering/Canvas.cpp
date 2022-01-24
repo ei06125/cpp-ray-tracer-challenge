@@ -1,7 +1,4 @@
-#include "Canvas.hpp"
-
-#include <algorithm>
-#include <stdexcept>
+#include "RayTracer/Rendering/Canvas.hpp"
 
 Canvas::Canvas(int w, int h)
   : width(w)

@@ -1,10 +1,8 @@
 // Test Framework
 #include "doctest/doctest.h"
 
-// Project Library
-#include "Math/Transformations.hpp"
-#include "Rendering/RayTracing/Intersection.hpp"
-#include "Rendering/RayTracing/Sphere.hpp"
+// Engine
+#include "RayTracer.hpp"
 
 SCENARIO("An intersection encapsulates t and object")
 {

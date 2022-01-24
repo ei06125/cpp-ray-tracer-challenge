@@ -1,8 +1,4 @@
-#include "Rendering/Canvas.hpp"
-#include "Rendering/RayTracing/Intersection.hpp"
-#include "Rendering/RayTracing/Ray.hpp"
-#include "Rendering/RayTracing/Sphere.hpp"
-#include "Utils/PPMFile.hpp"
+#include "RayTracer.hpp"
 
 int main()
 {

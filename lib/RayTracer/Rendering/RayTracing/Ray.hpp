@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Math/Matrix.hpp"
-#include "Math/Tuple.hpp"
+#include "RayTracer/Math/Matrix.hpp"
+#include "RayTracer/Math/Tuple.hpp"
 
 struct Ray
 {

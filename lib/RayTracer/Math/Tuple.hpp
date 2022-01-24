@@ -1,10 +1,7 @@
 #pragma once
 
-// C++ Standard Library
-#include <iosfwd>
-
 // Project Library
-#include "Math/Constants.hpp"
+#include "RayTracer/Math/Constants.hpp"
 
 struct Tuple
 {

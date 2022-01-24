@@ -1,7 +1,7 @@
-#include "Rendering/Scene/World.hpp"
+#include "RayTracer/Rendering/Scene/World.hpp"
 
 // Project Library
-#include "Math/Transformations.hpp"
+#include "RayTracer/Math/Transformations.hpp"
 
 std::vector<Sphere>& World::GetObjects()
 {

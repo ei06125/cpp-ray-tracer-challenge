@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Math/Matrix.hpp"
-#include "Rendering/Canvas.hpp"
-#include "Rendering/RayTracing/Ray.hpp"
-#include "Rendering/Scene/World.hpp"
+#include "RayTracer/Math/Matrix.hpp"
+#include "RayTracer/Rendering/Canvas.hpp"
+#include "RayTracer/Rendering/RayTracing/Ray.hpp"
+#include "RayTracer/Rendering/Scene/World.hpp"
 
 struct Camera
 {

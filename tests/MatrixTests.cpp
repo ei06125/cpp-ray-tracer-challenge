@@ -1,12 +1,8 @@
 // Test Framework
 #include "doctest/doctest.h"
 
-// Project Library
-#include "Math/Matrix.hpp"
-#include "Math/Tuple.hpp"
-
-// C++ Standard Library
-#include <iostream>
+// Engine
+#include "RayTracer.hpp"
 
 SCENARIO("Constructing and inspecting a 4x4 matrix")
 {

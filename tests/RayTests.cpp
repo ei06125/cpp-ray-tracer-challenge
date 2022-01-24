@@ -1,11 +1,8 @@
 // Test Framework
 #include "doctest/doctest.h"
 
-// Project Library
-#include "Math/Matrix.hpp"
-#include "Math/Transformations.hpp"
-#include "Math/Tuple.hpp"
-#include "Rendering/RayTracing/Ray.hpp"
+// Engine
+#include "RayTracer.hpp"
 
 SCENARIO("Creating and querying a ray")
 {
