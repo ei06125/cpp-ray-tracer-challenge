@@ -29,13 +29,15 @@ SCENARIO("The default world")
   {
     auto light = PointLight{ make_point(-10, 10, -10), make_color(1, 1, 1) };
 
-    auto s1 = Sphere();
-    s1.material.color = make_color(0.8, 1.0, 0.6);
-    s1.material.diffuse = 0.7;
-    s1.material.specular = 0.2;
+    auto s1 = std::make_shared<Sphere>();
+    auto m1 = Material();
+    m1.color = make_color(0.8, 1.0, 0.6);
+    m1.diffuse = 0.7;
+    m1.specular = 0.2;
+    s1->SetMaterial(m1);
 
-    auto s2 = Sphere();
-    set_transform(s2, scaling(0.5, 0.5, 0.5));
+    auto s2 = std::make_shared<Sphere>();
+    s2->SetTransform(scaling(0.5, 0.5, 0.5));
 
     WHEN("w = default_world()")
     {
@@ -44,8 +46,8 @@ SCENARIO("The default world")
       THEN("w.light == light && w contains s1 && w contains s2")
       {
         CHECK(w.GetLightSource() == light);
-        CHECK(w.Contains(s1));
-        CHECK(w.Contains(s2));
+        CHECK(w.Contains(std::static_pointer_cast<Shape>(s1)));
+        CHECK(w.Contains(std::static_pointer_cast<Shape>(s2)));
       }
     }
   }
@@ -88,7 +90,7 @@ SCENARIO("Shading an intersection")
     auto w = default_world();
     auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
     auto shape = w.GetObjects().front();
-    auto i = Intersection(4, shape);
+    auto i = Intersection(4, shape.get());
 
     WHEN("comps = prepare_computations(i, r) &&\
     \n c = shade_hit(w, comps)")
@@ -116,7 +118,7 @@ SCENARIO("Shading an intersection from the inside")
     w.SetLight(PointLight{ make_point(0, 0.25, 0), make_color(1, 1, 1) });
     auto r = Ray{ make_point(0, 0, 0), make_vector(0, 0, 1) };
     auto shape = w.GetObjects().at(1);
-    auto i = Intersection(0.5, shape);
+    auto i = Intersection(0.5, shape.get());
 
     WHEN("comps = prepare_computations(i, r) &&\
     \n c = shade_hit(w, comps)")
@@ -178,15 +180,18 @@ SCENARIO("The color with an intersection behind the ray")
   {
     auto w = default_world();
     auto& outer = w.GetObjects()[0];
-    outer.material.ambient = 1;
+    outer->SetMaterial().ambient = 1;
     auto& inner = w.GetObjects()[1];
-    inner.material.ambient = 1;
+    inner->SetMaterial().ambient = 1;
     auto r = Ray{ make_point(0, 0, 0.75), make_vector(0, 0, -1) };
 
     WHEN("c = color_at(w, r)")
     {
       auto c = color_at(w, r);
-      THEN("c == inner.material.color") { CHECK(c == inner.material.color); }
+      THEN("c == inner.material.color")
+      {
+        CHECK(c == inner->GetMaterial().color);
+      }
     }
   }
 }
@@ -253,15 +258,15 @@ SCENARIO("shade_hit() is given an intersection in shadow")
     auto w = World();
     w.SetLight(PointLight{ make_point(0, 0, -10), make_color(1, 1, 1) });
 
-    auto s1 = Sphere();
-    w.AddObject(s1);
+    auto s1 = std::make_shared<Sphere>();
+    w.AddObject(std::static_pointer_cast<Shape>(s1));
 
-    auto s2 = Sphere();
-    s2.transform = translation(0, 0, 10);
-    w.AddObject(s2);
+    auto s2 = std::make_shared<Sphere>();
+    s2->SetTransform(translation(0, 0, 10));
+    w.AddObject(std::static_pointer_cast<Shape>(s2));
 
     auto r = Ray{ make_point(0, 0, 0), make_vector(0, 0, 1) };
-    auto i = Intersection(4, s2);
+    auto i = Intersection(4, s2.get());
 
     WHEN("comps = prepare_computations(i, r) &&\
     \n c = shade_hit(w, comps)")

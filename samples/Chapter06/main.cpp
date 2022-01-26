@@ -47,7 +47,7 @@ int main()
       if (auto aHit = hit(xs); aHit != nullptr) {
         auto& material = aHit->object.material;
         auto point = position(r, aHit->t);
-        auto normalv = normal_at(aHit->object, point);
+        auto normalv = local_normal_at(aHit->object, point);
         auto eyev = -(r.direction); // negated
         color = lighting(material, light, point, eyev, normalv);
 

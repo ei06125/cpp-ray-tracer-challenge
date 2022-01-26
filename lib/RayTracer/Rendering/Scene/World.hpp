@@ -1,21 +1,26 @@
 #pragma once
 
+#include "RayTracer/Rendering/Primitives/Shape.hpp"
+#include "RayTracer/Rendering/RayTracing/Computations.hpp"
 #include "RayTracer/Rendering/RayTracing/Intersection.hpp"
 #include "RayTracer/Rendering/RayTracing/Light.hpp"
-#include "RayTracer/Rendering/RayTracing/Sphere.hpp"
+
+#include <memory>
+#include <optional>
+#include <vector>
 
 class World
 {
 public:
-  std::vector<Sphere>& GetObjects();
-  std::vector<Sphere> GetObjects() const;
+  std::vector<std::shared_ptr<Shape>>& GetObjects();
+  std::vector<std::shared_ptr<Shape>> GetObjects() const;
   std::optional<PointLight> GetLightSource() const;
   void SetLight(PointLight p);
-  void AddObject(Sphere s);
-  bool Contains(const Sphere s) const;
+  void AddObject(std::shared_ptr<Shape> s);
+  bool Contains(const std::shared_ptr<Shape> s) const;
 
 private:
-  std::vector<Sphere> objects{};
+  std::vector<std::shared_ptr<Shape>> objects{};
   std::optional<PointLight> light{};
 };
 

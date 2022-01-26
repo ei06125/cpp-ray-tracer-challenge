@@ -12,12 +12,12 @@ SCENARIO("An intersection encapsulates t and object")
 
     WHEN("i = intersection(3.5, s)")
     {
-      auto i = Intersection(3.5, s);
+      auto i = Intersection(3.5, &s);
 
       THEN("i.t == 3.5 && i.object == s")
       {
         CHECK(i.t == 3.5);
-        CHECK(i.object == s);
+        CHECK(*i.object == s);
       }
     }
   }
@@ -30,8 +30,8 @@ SCENARIO("Aggregating intersections")
     \n i2 = intersection(2, s)")
   {
     auto s = Sphere();
-    auto i1 = Intersection(1, s);
-    auto i2 = Intersection(2, s);
+    auto i1 = Intersection(1, &s);
+    auto i2 = Intersection(2, &s);
 
     WHEN("xs = intersections(i1, i2)")
     {
@@ -55,13 +55,13 @@ SCENARIO("The hit, when all intersections have positive t")
     \n xs = intersections(i2, i1)")
   {
     auto s = Sphere();
-    auto i1 = Intersection(1, s);
-    auto i2 = Intersection(2, s);
+    auto i1 = Intersection(1, &s);
+    auto i2 = Intersection(2, &s);
     auto xs = Intersections({ i2, i1 });
 
     WHEN("i = hit(xs)")
     {
-      auto i = hit(xs);
+      auto i = xs.Hit();
 
       THEN("i == i1")
       {
@@ -81,13 +81,13 @@ SCENARIO("The hit, when some intersections have negative t")
   {
 
     auto s = Sphere();
-    auto i1 = Intersection(-1, s);
-    auto i2 = Intersection(1, s);
+    auto i1 = Intersection(-1, &s);
+    auto i2 = Intersection(1, &s);
     auto xs = Intersections({ i2, i1 });
 
     WHEN("i = hit(xs)")
     {
-      auto i = hit(xs);
+      auto i = xs.Hit();
 
       THEN("i == i2")
       {
@@ -107,13 +107,13 @@ SCENARIO("The hit, when all intersections have negative t")
   {
 
     auto s = Sphere();
-    auto i1 = Intersection(-2, s);
-    auto i2 = Intersection(-1, s);
+    auto i1 = Intersection(-2, &s);
+    auto i2 = Intersection(-1, &s);
     auto xs = Intersections({ i2, i1 });
 
     WHEN("i = hit(xs)")
     {
-      auto i = hit(xs);
+      auto i = xs.Hit();
 
       THEN("i is nothing") { CHECK(i == nullptr); }
     }
@@ -131,15 +131,15 @@ SCENARIO("The hit is always the lowest nonnegative intersection")
   {
 
     auto s = Sphere();
-    auto i1 = Intersection(5, s);
-    auto i2 = Intersection(7, s);
-    auto i3 = Intersection(-3, s);
-    auto i4 = Intersection(2, s);
+    auto i1 = Intersection(5, &s);
+    auto i2 = Intersection(7, &s);
+    auto i3 = Intersection(-3, &s);
+    auto i4 = Intersection(2, &s);
     auto xs = Intersections({ i1, i2, i3, i4 });
 
     WHEN("i = hit(xs)")
     {
-      auto i = hit(xs);
+      auto i = xs.Hit();
 
       THEN("i == i4")
       {
@@ -157,7 +157,7 @@ SCENARIO("Precomputing the state of an intersection")
   {
     auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
     auto shape = Sphere();
-    auto i = Intersection(4, shape);
+    auto i = Intersection(4, &shape);
 
     WHEN("comps = prepare_computations(i, r)")
     {
@@ -186,7 +186,7 @@ SCENARIO("The hit, when an intersection occurs on the outside")
   {
     auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
     auto shape = Sphere();
-    auto i = Intersection(4, shape);
+    auto i = Intersection(4, &shape);
 
     WHEN("comps = prepare_computations(i, r)")
     {
@@ -204,7 +204,7 @@ SCENARIO("The hit, when an intersection occurs on the inside")
   {
     auto r = Ray{ make_point(0, 0, 0), make_vector(0, 0, 1) };
     auto shape = Sphere();
-    auto i = Intersection(1, shape);
+    auto i = Intersection(1, &shape);
 
     WHEN("comps = prepare_computations(i, r)")
     {
@@ -239,8 +239,8 @@ SCENARIO("The hit should offset the point")
 
     auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
     auto shape = Sphere();
-    shape.transform = translation(0, 0, 1);
-    auto i = Intersection(5, shape);
+    shape.SetTransform(translation(0, 0, 1));
+    auto i = Intersection(5, &shape);
 
     WHEN("comps = prepare_computations(i, r)")
     {

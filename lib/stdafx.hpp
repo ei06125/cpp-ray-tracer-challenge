@@ -11,8 +11,10 @@
 #include <ios>
 #include <iosfwd>
 #include <iostream>
+#include <memory>
 #include <numbers>
 #include <optional>
 #include <stdexcept>
 #include <string>
+#include <type_traits>
 #include <vector>

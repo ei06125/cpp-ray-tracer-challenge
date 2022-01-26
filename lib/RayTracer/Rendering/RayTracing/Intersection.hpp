@@ -1,7 +1,12 @@
 #pragma once
 
 #include "RayTracer/Rendering/RayTracing/Ray.hpp"
-#include "RayTracer/Rendering/RayTracing/Sphere.hpp"
+
+#include <memory>
+#include <vector>
+
+// Forward Declared to prevent cycles
+class Shape;
 
 /// ===========================================================================
 /// @section Intersection
@@ -9,14 +14,14 @@
 
 struct Intersection
 {
-  Intersection(float t_, Sphere sphere_);
+  Intersection(float t_, const Shape* object_);
 
   float t;
-  Sphere object;
-};
+  const Shape* object;
 
-bool operator<(const Intersection& lhs, const Intersection& rhs);
-bool operator==(const Intersection& lhs, const Intersection& rhs);
+  bool operator<(const Intersection& rhs) const;
+  bool operator==(const Intersection& rhs) const;
+};
 
 /// ===========================================================================
 /// @section Intersections
@@ -30,33 +35,17 @@ public:
   std::size_t Count() const;
   Intersection& operator[](std::size_t index);
   Intersection operator[](std::size_t index) const;
-  void Push(Intersection&& i);
+
+  template<typename... Args>
+  void Add(Args&&... args)
+  {
+    intersectionPoints.emplace_back(args...);
+  }
 
   std::vector<Intersection>& GetIntersectionPoints();
+
+  Intersection* Hit();
 
 private:
   std::vector<Intersection> intersectionPoints;
 };
-
-/// ===========================================================================
-/// @section Computations
-/// ===========================================================================
-
-struct Computations
-{
-  float t;
-  Sphere object;
-  Tuple point;
-  Tuple eyev;
-  Tuple normalv;
-  Tuple over_point;
-  bool inside;
-};
-
-/// ===========================================================================
-/// @section Functions
-/// ===========================================================================
-
-Intersections intersect(const Sphere& s, const Ray& r);
-Intersection* hit(Intersections& xs);
-Computations prepare_computations(const Intersection& i, const Ray& r);
