@@ -1,7 +1,13 @@
 #pragma once
 
+#include "RayTracer/Rendering/Lighting/Intersection.hpp"
 #include "RayTracer/Rendering/Primitives/Shape.hpp"
-#include "RayTracer/Rendering/RayTracing/Intersection.hpp"
+
+namespace RayTracer {
+namespace Rendering {
+namespace Primitives {
+
+using namespace Math;
 
 class Plane : public Shape
 {
@@ -26,3 +32,7 @@ inline bool operator==(const Shape* lhs, const Plane& rhs)
 {
   return *lhs == static_cast<const Shape&>(rhs);
 }
+
+} // namespace Primitives
+} // namespace Rendering
+} // namespace RayTracer

@@ -4,6 +4,10 @@
 // Engine
 #include "RayTracer.hpp"
 
+using namespace RayTracer::Rendering::Scene;
+using namespace RayTracer::Rendering::Lighting;
+using namespace RayTracer::Math;
+
 SCENARIO("Creating a world")
 {
   GIVEN("w = world()")

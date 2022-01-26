@@ -4,6 +4,8 @@
 // Engine
 #include "RayTracer.hpp"
 
+using namespace RayTracer::Math;
+
 SCENARIO("Constructing and inspecting a 4x4 matrix")
 {
   GIVEN("the following 4x4 matrix M:\
@@ -253,10 +255,7 @@ SCENARIO("Multiplying a matrix by the identity matrix")
       4, 8, 16, 32  //
     };
 
-    THEN("A * identity_matrix == A")
-    {
-      CHECK(A * mat4::Identity() == A);
-    }
+    THEN("A * identity_matrix == A") { CHECK(A * mat4::Identity() == A); }
   }
 }
 
@@ -266,10 +265,7 @@ SCENARIO("Multiplying the identity matrix by a tuple")
   {
     auto a = Tuple(1, 2, 3, 4);
 
-    THEN("identity_matrix * a == a")
-    {
-      CHECK(mat4::Identity() * a == a);
-    }
+    THEN("identity_matrix * a == a") { CHECK(mat4::Identity() * a == a); }
   }
 }
 

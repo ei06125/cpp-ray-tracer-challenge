@@ -4,6 +4,8 @@
 // Engine
 #include "RayTracer.hpp"
 
+using namespace RayTracer::Rendering;
+
 SCENARIO("Creating a canvas")
 {
   GIVEN("c = canvas(10, 20)")

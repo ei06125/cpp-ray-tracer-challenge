@@ -2,6 +2,8 @@
 
 #include "RayTracer/Math/Matrix.hpp"
 
+namespace RayTracer::Math {
+
 inline mat4 translation(float x, float y, float z)
 {
   mat4 R = {
@@ -101,3 +103,5 @@ inline mat4 view_transform(Tuple from, Tuple to, Tuple up)
 
   return orientation * translation(-from.x, -from.y, -from.z);
 }
+
+} // namespace RayTracer::Math

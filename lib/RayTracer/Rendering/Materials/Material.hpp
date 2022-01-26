@@ -2,6 +2,18 @@
 
 #include "RayTracer/Math/Tuple.hpp"
 
+namespace RayTracer {
+namespace Rendering {
+
+namespace Lighting {
+struct PointLight;
+} // namespace Lighting
+
+namespace Materials {
+
+using namespace Math;
+using namespace Lighting;
+
 struct Material
 {
   Tuple color{ make_color(1, 1, 1) };
@@ -13,10 +25,13 @@ struct Material
 
 bool operator==(const Material& lhs, const Material& rhs);
 
-struct PointLight;
 Tuple lighting(const Material& material,
                const PointLight& light,
                const Tuple& point,
                const Tuple& eyev,
                const Tuple& normalv,
                bool in_shadow = false);
+
+} // namespace Materials
+} // namespace Rendering
+} // namespace RayTracer

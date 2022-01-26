@@ -4,7 +4,8 @@
 // Engine
 #include "RayTracer.hpp"
 
-// C++ Standard Library
+using namespace RayTracer::Math;
+using namespace RayTracer::Rendering::Lighting;
 
 SCENARIO("A point light has a position and intensity")
 {

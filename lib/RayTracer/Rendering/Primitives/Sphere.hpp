@@ -2,6 +2,9 @@
 
 #include "RayTracer/Rendering/Primitives/Shape.hpp"
 
+namespace RayTracer::Rendering::Primitives {
+using namespace Math;
+
 class Sphere : public Shape
 {
 public:
@@ -20,3 +23,5 @@ protected:
 private:
   float m_Radius;
 };
+
+} // namespace RayTracer::Rendering::Primitives

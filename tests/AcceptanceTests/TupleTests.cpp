@@ -4,6 +4,8 @@
 // Engine
 #include "RayTracer.hpp"
 
+using namespace RayTracer::Math;
+
 SCENARIO("A tuple with w = 1 is a point")
 {
   GIVEN("a = Tuple(4.3, -4.2, 3.1, 1.0")

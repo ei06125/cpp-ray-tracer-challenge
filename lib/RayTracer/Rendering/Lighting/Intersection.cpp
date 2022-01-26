@@ -1,4 +1,10 @@
-#include "RayTracer/Rendering/RayTracing/Intersection.hpp"
+#include "RayTracer/Rendering/Lighting/Intersection.hpp"
+
+namespace RayTracer {
+namespace Rendering {
+namespace Lighting {
+
+using namespace Math;
 
 /// ===========================================================================
 /// @section Intersection
@@ -76,3 +82,7 @@ Intersection* Intersections::Hit()
 
   return result;
 }
+
+} // namespace Lighting
+} // namespace Rendering
+} // namespace RayTracer

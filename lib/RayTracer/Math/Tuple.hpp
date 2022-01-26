@@ -3,6 +3,8 @@
 // Project Library
 #include "RayTracer/Math/Constants.hpp"
 
+namespace RayTracer::Math {
+
 struct Tuple
 {
   Tuple(float x_, float y_, float z_, float w_);
@@ -65,3 +67,5 @@ float dot(const Tuple& a, const Tuple& b);
 Tuple cross(const Tuple& a, const Tuple& b);
 
 Tuple reflect(const Tuple& aVector, const Tuple& aNormal);
+
+} // namespace RayTracer::Math

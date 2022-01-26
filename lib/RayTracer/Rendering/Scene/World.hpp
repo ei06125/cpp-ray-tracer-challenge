@@ -1,9 +1,17 @@
 #pragma once
 
+#include "RayTracer/Rendering/Lighting/Computations.hpp"
+#include "RayTracer/Rendering/Lighting/Intersection.hpp"
+#include "RayTracer/Rendering/Lighting/Light.hpp"
 #include "RayTracer/Rendering/Primitives/Shape.hpp"
-#include "RayTracer/Rendering/RayTracing/Computations.hpp"
-#include "RayTracer/Rendering/RayTracing/Intersection.hpp"
-#include "RayTracer/Rendering/RayTracing/Light.hpp"
+
+namespace RayTracer {
+namespace Rendering {
+namespace Scene {
+
+using namespace Math;
+using namespace Primitives;
+using namespace Lighting;
 
 class World
 {
@@ -20,10 +28,6 @@ private:
   std::optional<PointLight> light{};
 };
 
-/// ===========================================================================
-/// @section Functions
-/// ===========================================================================
-
 World default_world();
 
 Intersections intersect_world(const World& w, const Ray& r);
@@ -32,8 +36,8 @@ Tuple shade_hit(const World& w, const Computations& comps);
 
 Tuple color_at(const World& w, const Ray& r);
 
-/// ===========================================================================
-/// @section Shadows
-/// ===========================================================================
-
 bool is_shadowed(const World& w, const Tuple& p);
+
+} // namespace Scene
+} // namespace Rendering
+} // namespace RayTracer

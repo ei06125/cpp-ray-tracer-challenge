@@ -4,6 +4,9 @@
 // Engine
 #include "RayTracer.hpp"
 
+using namespace RayTracer::Rendering::Primitives;
+using namespace RayTracer::Rendering::Lighting;
+
 SCENARIO("An intersection encapsulates t and object")
 {
   GIVEN("s = sphere()")

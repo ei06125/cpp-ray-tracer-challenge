@@ -1,5 +1,7 @@
 #include "RayTracer/Math/Tuple.hpp"
 
+namespace RayTracer::Math {
+
 Tuple::Tuple(float x_, float y_, float z_, float w_)
   : x(x_)
   , y(y_)
@@ -114,3 +116,5 @@ Tuple reflect(const Tuple& aVector, const Tuple& aNormal)
 {
   return aVector - aNormal * 2 * dot(aVector, aNormal);
 }
+
+} // namespace RayTracer::Math

@@ -1,7 +1,13 @@
-#include "RayTracer/Rendering/RayTracing/Material.hpp"
+#include "RayTracer/Rendering/Materials/Material.hpp"
 
 // Project Library
-#include "RayTracer/Rendering/RayTracing/Light.hpp"
+#include "RayTracer/Rendering/Lighting/Light.hpp"
+
+namespace RayTracer {
+namespace Rendering {
+namespace Materials {
+
+using namespace Math;
 
 bool operator==(const Material& lhs, const Material& rhs)
 {
@@ -56,3 +62,7 @@ Tuple lighting(const Material& material,
   // Add the three contributions together to get the final shading
   return ambient + diffuse + specular;
 }
+
+} // namespace Materials
+} // namespace Rendering
+} // namespace RayTracer

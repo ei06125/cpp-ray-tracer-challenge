@@ -4,6 +4,9 @@
 // Engine
 #include "RayTracer.hpp"
 
+using namespace RayTracer::Rendering::Primitives;
+using namespace RayTracer::Math;
+
 SCENARIO("The normal of a plane is constant everywhere")
 {
   GIVEN("p = plane()")

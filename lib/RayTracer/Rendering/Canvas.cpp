@@ -1,5 +1,8 @@
 #include "RayTracer/Rendering/Canvas.hpp"
 
+namespace RayTracer::Rendering {
+using namespace Math;
+
 Canvas::Canvas(int w, int h)
   : width(w)
   , height(h)
@@ -109,3 +112,5 @@ std::string canvas_to_ppm(const Canvas& c)
 
   return result;
 }
+
+} // namespace RayTracer::Rendering

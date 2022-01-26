@@ -1,13 +1,19 @@
 #pragma once
 
-#include "RayTracer/Rendering/RayTracing/Ray.hpp"
+#include "RayTracer/Rendering/Lighting/Ray.hpp"
 
-// Forward Declared to prevent cycles
+namespace RayTracer {
+namespace Rendering {
+
+// Forward Declaration
+namespace Primitives {
 class Shape;
+} // namespace Primitives
 
-/// ===========================================================================
-/// @section Intersection
-/// ===========================================================================
+namespace Lighting {
+
+using namespace Math;
+using namespace Primitives;
 
 struct Intersection
 {
@@ -19,10 +25,6 @@ struct Intersection
   bool operator<(const Intersection& rhs) const;
   bool operator==(const Intersection& rhs) const;
 };
-
-/// ===========================================================================
-/// @section Intersections
-/// ===========================================================================
 
 class Intersections
 {
@@ -46,3 +48,7 @@ public:
 private:
   std::vector<Intersection> intersectionPoints;
 };
+
+} // namespace Lighting
+} // namespace Rendering
+} // namespace RayTracer

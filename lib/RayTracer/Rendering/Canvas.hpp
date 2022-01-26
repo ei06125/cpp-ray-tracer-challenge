@@ -2,6 +2,9 @@
 
 #include "RayTracer/Math/Tuple.hpp"
 
+namespace RayTracer::Rendering {
+using namespace Math;
+
 struct Canvas
 {
 public:
@@ -29,3 +32,5 @@ void write_pixel(Canvas& c, int w, int h, const Tuple& color);
 const Tuple& pixel_at(const Canvas& c, int w, int h);
 
 std::string canvas_to_ppm(const Canvas& c);
+
+} // namespace RayTracer::Rendering

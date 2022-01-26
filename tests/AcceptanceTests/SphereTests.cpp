@@ -4,6 +4,10 @@
 // Engine
 #include "RayTracer.hpp"
 
+using namespace RayTracer::Rendering::Primitives;
+using namespace RayTracer::Rendering::Lighting;
+using namespace RayTracer::Math;
+
 SCENARIO("A ray intersects a sphere at two points")
 {
   GIVEN("r = ray(point(0, 0, -5), vector(0, 0, 1)) &&\

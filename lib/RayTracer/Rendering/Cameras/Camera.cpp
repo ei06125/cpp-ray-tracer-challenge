@@ -1,4 +1,7 @@
-#include "RayTracer/Rendering/Camera/Camera.hpp"
+#include "RayTracer/Rendering/Cameras/Camera.hpp"
+
+namespace RayTracer::Rendering::Cameras {
+using namespace Math;
 
 Camera::Camera(float h, float v, float fov)
   : transform(mat4::Identity())
@@ -52,3 +55,5 @@ Canvas render(const Camera& camera, const World& world)
   }
   return image;
 }
+
+} // namespace RayTracer::Rendering::Cameras

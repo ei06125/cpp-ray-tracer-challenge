@@ -1,5 +1,8 @@
 #include "RayTracer/Rendering/Primitives/Plane.hpp"
 
+namespace RayTracer::Rendering::Primitives {
+using namespace Math;
+
 Plane::~Plane() = default;
 Plane::Plane() = default;
 
@@ -25,3 +28,5 @@ Intersections Plane::VirtualIntersect(const Ray& r) const
   result.Add(t, this);
   return result;
 }
+
+} // namespace RayTracer::Rendering::Primitives

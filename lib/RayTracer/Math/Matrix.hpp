@@ -2,6 +2,8 @@
 
 #include "RayTracer/Math/Tuple.hpp"
 
+namespace RayTracer::Math {
+
 /// ===========================================================================
 /// @section Matrix
 /// ===========================================================================
@@ -159,3 +161,5 @@ inline Matrix<ROWS, COLS> inverse(const Matrix<ROWS, COLS>& A)
     throw std::runtime_error("A is not invertible");
   }
 }
+
+} // namespace RayTracer::Math

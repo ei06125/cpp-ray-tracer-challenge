@@ -2,8 +2,16 @@
 
 #include "RayTracer/Math/Matrix.hpp"
 #include "RayTracer/Math/Tuple.hpp"
-#include "RayTracer/Rendering/RayTracing/Intersection.hpp"
-#include "RayTracer/Rendering/RayTracing/Material.hpp"
+#include "RayTracer/Rendering/Lighting/Intersection.hpp"
+#include "RayTracer/Rendering/Materials/Material.hpp"
+
+namespace RayTracer {
+namespace Rendering {
+namespace Primitives {
+
+using namespace Materials;
+using namespace Lighting;
+using namespace Math;
 
 class Shape
 {
@@ -37,3 +45,7 @@ private:
   Material m_Material;
   Tuple m_Origin;
 };
+
+} // namespace Primitives
+} // namespace Rendering
+} // namespace RayTracer

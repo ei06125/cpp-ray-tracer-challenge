@@ -1,5 +1,8 @@
 #include "RayTracer/Rendering/Primitives/Sphere.hpp"
 
+namespace RayTracer::Rendering::Primitives {
+using namespace Math;
+
 Sphere::~Sphere() = default;
 
 Sphere::Sphere()
@@ -53,3 +56,5 @@ Intersections Sphere::VirtualIntersect(const Ray& r) const
 
   return result;
 }
+
+} // namespace RayTracer::Rendering::Primitives

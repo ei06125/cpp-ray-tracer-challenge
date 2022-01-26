@@ -4,6 +4,8 @@
 // Engine
 #include "RayTracer.hpp"
 
+using namespace RayTracer::Math;
+
 SCENARIO("Multiplying by a translation matrix")
 {
   GIVEN("transform = translation(5, -3, 2) && p = point(-3, 4, 5)")

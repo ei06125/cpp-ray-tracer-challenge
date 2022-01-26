@@ -4,6 +4,9 @@
 // Engine
 #include "RayTracer.hpp"
 
+using namespace RayTracer::Rendering::Lighting;
+using namespace RayTracer::Math;
+
 SCENARIO("Creating and querying a ray")
 {
   GIVEN("origin = point(1, 2, 3) && direction = vector(4, 5, 6)")

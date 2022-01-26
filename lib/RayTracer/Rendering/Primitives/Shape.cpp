@@ -1,5 +1,11 @@
 #include "RayTracer/Rendering/Primitives/Shape.hpp"
 
+namespace RayTracer {
+namespace Rendering {
+namespace Primitives {
+
+using namespace Math;
+
 Shape::~Shape() = default;
 
 Shape::Shape()
@@ -55,17 +61,17 @@ void Shape::SetOrigin(Tuple newOrigin)
 
 Tuple Shape::GetNormalAt(Tuple worldPoint) const
 {
-  auto localPoint = ::inverse(m_Transform) * worldPoint;
+  auto localPoint = inverse(m_Transform) * worldPoint;
   auto localNormal = this->GetLocalNormalAt(localPoint);
-  auto worldNormal = ::transpose(::inverse(m_Transform)) * localNormal;
+  auto worldNormal = transpose(inverse(m_Transform)) * localNormal;
   worldNormal.w = 0;
 
-  return ::normalize(worldNormal);
+  return normalize(worldNormal);
 }
 
 Intersections Shape::Intersect(const Ray& ray) const
 {
-  auto localRay = ::transform(ray, ::inverse(m_Transform));
+  auto localRay = transform(ray, inverse(m_Transform));
   return this->VirtualIntersect(localRay);
 }
 
@@ -74,3 +80,7 @@ bool Shape::operator==(const Shape& rhs) const
   return m_Material == rhs.m_Material && m_Transform == rhs.m_Transform &&
          m_Origin == rhs.m_Origin;
 }
+
+} // namespace Primitives
+} // namespace Rendering
+} // namespace RayTracer

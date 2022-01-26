@@ -2,8 +2,14 @@
 
 // Project Library
 #include "RayTracer/Math/Transformations.hpp"
+#include "RayTracer/Rendering/Lighting/Computations.hpp"
 #include "RayTracer/Rendering/Primitives/Sphere.hpp"
-#include "RayTracer/Rendering/RayTracing/Computations.hpp"
+
+namespace RayTracer {
+namespace Rendering {
+namespace Scene {
+
+using namespace Math;
 
 std::vector<std::shared_ptr<Shape>>& World::GetObjects()
 {
@@ -145,3 +151,7 @@ bool is_shadowed(const World& world, const Tuple& point)
   }
   return false;
 }
+
+} // namespace Scene
+} // namespace Rendering
+} // namespace RayTracer

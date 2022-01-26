@@ -4,6 +4,10 @@
 // Engine
 #include "RayTracer.hpp"
 
+using namespace RayTracer::Rendering::Primitives;
+using namespace RayTracer::Rendering::Lighting;
+using namespace RayTracer::Math;
+
 /// ===========================================================================
 /// @section Stubs
 /// ===========================================================================

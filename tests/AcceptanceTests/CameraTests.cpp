@@ -4,6 +4,9 @@
 // Engine
 #include "RayTracer.hpp"
 
+using namespace RayTracer::Math;
+using namespace RayTracer::Rendering::Cameras;
+
 SCENARIO("Constructing a camera")
 {
   GIVEN("hsize = 160 && vsize = 120 && field_of_view = PI/2")

@@ -4,6 +4,9 @@
 // Engine
 #include "RayTracer.hpp"
 
+using namespace RayTracer::Math;
+using namespace RayTracer::Rendering::Materials;
+
 SCENARIO("The default material")
 {
   GIVEN("m = material()")
