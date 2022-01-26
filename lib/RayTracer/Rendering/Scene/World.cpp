@@ -5,8 +5,6 @@
 #include "RayTracer/Rendering/Primitives/Sphere.hpp"
 #include "RayTracer/Rendering/RayTracing/Computations.hpp"
 
-#include <algorithm>
-
 std::vector<std::shared_ptr<Shape>>& World::GetObjects()
 {
   return objects;

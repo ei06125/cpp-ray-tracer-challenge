@@ -7,6 +7,7 @@
 
 // C++ Standard Library
 #include <algorithm>
+#include <initializer_list>
 #include <iomanip>
 #include <ios>
 #include <iosfwd>
@@ -16,5 +17,4 @@
 #include <optional>
 #include <stdexcept>
 #include <string>
-#include <type_traits>
 #include <vector>

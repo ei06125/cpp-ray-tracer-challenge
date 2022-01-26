@@ -2,9 +2,6 @@
 
 #include "RayTracer/Rendering/RayTracing/Ray.hpp"
 
-#include <memory>
-#include <vector>
-
 // Forward Declared to prevent cycles
 class Shape;
 

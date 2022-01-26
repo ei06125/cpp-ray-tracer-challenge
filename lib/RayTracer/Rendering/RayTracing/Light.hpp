@@ -1,8 +1,5 @@
 #pragma once
 
-// C++ Standard Library
-#include <iosfwd>
-
 // Project Library
 #include "RayTracer/Math/Tuple.hpp"
 

@@ -5,10 +5,6 @@
 #include "RayTracer/Rendering/RayTracing/Intersection.hpp"
 #include "RayTracer/Rendering/RayTracing/Light.hpp"
 
-#include <memory>
-#include <optional>
-#include <vector>
-
 class World
 {
 public:
