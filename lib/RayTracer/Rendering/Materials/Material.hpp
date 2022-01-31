@@ -2,17 +2,33 @@
 
 #include "RayTracer/Math/Tuple.hpp"
 
+#include <memory>
+#include <optional>
+
 namespace RayTracer {
 namespace Rendering {
 
+/// ===========================================================================
+/// @section Forward Declarations
 namespace Lighting {
 struct PointLight;
 } // namespace Lighting
 
+namespace Patterns {
+class Pattern;
+} // namespace Patterns
+
+namespace Primitives {
+class Shape;
+} // namespace Primitives
+/// ===========================================================================
+
 namespace Materials {
 
-using namespace Math;
 using namespace Lighting;
+using namespace Primitives;
+using namespace Patterns;
+using namespace Math;
 
 struct Material
 {
@@ -21,6 +37,7 @@ struct Material
   float diffuse{ 0.9 };
   float specular{ 0.9 };
   float shininess{ 200.0 };
+  std::optional<std::shared_ptr<Pattern>> pattern;
 };
 
 bool operator==(const Material& lhs, const Material& rhs);
@@ -30,7 +47,8 @@ Tuple lighting(const Material& material,
                const Tuple& point,
                const Tuple& eyev,
                const Tuple& normalv,
-               bool in_shadow = false);
+               bool in_shadow = false,
+               const Shape* object = nullptr);
 
 } // namespace Materials
 } // namespace Rendering

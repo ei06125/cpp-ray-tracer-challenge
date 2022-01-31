@@ -3,28 +3,41 @@
 namespace RayTracer::Rendering::Primitives {
 using namespace Math;
 
-Sphere::~Sphere() = default;
+/// ===========================================================================
+/// @section Member functions
+/// ===========================================================================
 
+Sphere::~Sphere() = default;
 Sphere::Sphere()
   : Shape()
   , m_Radius(1.0f)
 {}
+Sphere::Sphere(const Sphere& other) = default;
+Sphere::Sphere(Sphere&& other) noexcept = default;
+Sphere& Sphere::operator=(const Sphere& other) = default;
+Sphere& Sphere::operator=(Sphere&& other) noexcept = default;
+
+/// ---------------------------------------------------------------------------
+/// @subsection Observers
+/// ---------------------------------------------------------------------------
 
 float Sphere::GetRadius() const
 {
   return m_Radius;
 }
 
+/// ---------------------------------------------------------------------------
+/// @subsection Modifiers
+/// ---------------------------------------------------------------------------
+
 void Sphere::SetRadius(float newRadius)
 {
   m_Radius = newRadius;
 }
 
-bool Sphere::operator==(const Sphere& rhs) const
-{
-  return m_Radius == rhs.m_Radius &&
-         static_cast<const Shape&>(*this) == static_cast<const Shape&>(rhs);
-}
+/// ===========================================================================
+/// @section Virtual functions
+/// ===========================================================================
 
 Tuple Sphere::GetLocalNormalAt(Tuple localPoint) const
 {
@@ -51,10 +64,20 @@ Intersections Sphere::VirtualIntersect(const Ray& r) const
   auto t1 = (-b - std::sqrt(discriminant)) / (2 * a);
   auto t2 = (-b + std::sqrt(discriminant)) / (2 * a);
 
-  result.Add(t1, this);
-  result.Add(t2, this);
+  result.EmplaceBack(t1, this);
+  result.EmplaceBack(t2, this);
 
   return result;
+}
+
+/// ===========================================================================
+/// @section Non-member functions
+/// ===========================================================================
+
+bool operator==(const Sphere& lhs, const Sphere& rhs)
+{
+  return lhs.m_Radius == rhs.m_Radius &&
+         static_cast<const Shape&>(lhs) == static_cast<const Shape&>(rhs);
 }
 
 } // namespace RayTracer::Rendering::Primitives

@@ -8,25 +8,31 @@ using namespace Math;
 struct Canvas
 {
 public:
+  /// @section Member functions
   Canvas(int w, int h);
 
-  std::size_t size() const;
+  /// @subsection Iterators
   std::vector<Tuple>::iterator begin();
   std::vector<Tuple>::iterator end();
 
-  void write_pixel_at(int w, int h, const Tuple& color);
+  /// @subsection Capacity
+  std::size_t size() const;
+
+  /// @subsection Observers
   const Tuple& pixel_at(int w, int h) const;
 
-  bool isBlank() const;
+  /// @subsection Modifiers
+  void write_pixel_at(int w, int h, const Tuple& color);
 
+  /// @section Member data
   int width;
   int height;
 
 private:
   std::vector<Tuple> pixels;
-  bool m_IsBlank{ true };
 };
 
+/// @section Non-member functions
 void write_pixel(Canvas& c, int w, int h, const Tuple& color);
 
 const Tuple& pixel_at(const Canvas& c, int w, int h);

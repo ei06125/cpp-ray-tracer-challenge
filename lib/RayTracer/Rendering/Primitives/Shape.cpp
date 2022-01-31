@@ -6,13 +6,24 @@ namespace Primitives {
 
 using namespace Math;
 
-Shape::~Shape() = default;
+/// ===========================================================================
+/// @section Member functions
+/// ===========================================================================
 
+Shape::~Shape() = default;
 Shape::Shape()
   : m_Transform(mat4::Identity())
   , m_Material(Material())
   , m_Origin(make_point(0, 0, 0))
 {}
+Shape::Shape(const Shape& other) = default;
+Shape::Shape(Shape&& other) noexcept = default;
+Shape& Shape::operator=(const Shape& other) = default;
+Shape& Shape::operator=(Shape&& other) noexcept = default;
+
+/// ---------------------------------------------------------------------------
+/// @subsection Observers
+/// ---------------------------------------------------------------------------
 
 mat4 Shape::GetTransform() const
 {
@@ -72,7 +83,7 @@ Tuple Shape::GetNormalAt(Tuple worldPoint) const
 Intersections Shape::Intersect(const Ray& ray) const
 {
   auto localRay = transform(ray, inverse(m_Transform));
-  return this->VirtualIntersect(localRay);
+  return VirtualIntersect(localRay);
 }
 
 bool Shape::operator==(const Shape& rhs) const

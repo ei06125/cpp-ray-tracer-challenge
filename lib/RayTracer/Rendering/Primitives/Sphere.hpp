@@ -8,13 +8,22 @@ using namespace Math;
 class Sphere : public Shape
 {
 public:
+  /// @section Member functions
   ~Sphere() override;
   Sphere();
+  Sphere(const Sphere&);
+  Sphere(Sphere&&) noexcept;
+  Sphere& operator=(const Sphere&);
+  Sphere& operator=(Sphere&&) noexcept;
 
+  /// @subsection Observers
   float GetRadius() const;
+
+  /// @subsection Modifiers
   void SetRadius(float r);
 
-  bool operator==(const Sphere& rhs) const;
+  /// @section Friend functions
+  friend bool operator==(const Sphere& lhs, const Sphere& rhs);
 
 protected:
   Tuple GetLocalNormalAt(Tuple point) const override;
@@ -23,5 +32,8 @@ protected:
 private:
   float m_Radius;
 };
+
+/// @section Non-member functions
+bool operator==(const Sphere& lhs, const Sphere& rhs);
 
 } // namespace RayTracer::Rendering::Primitives

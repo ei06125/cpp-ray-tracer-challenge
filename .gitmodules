@@ -1,3 +1,6 @@
 [submodule "external/doctest"]
 	path = external/doctest
 	url = git@github.com:doctest/doctest.git
+[submodule "tools"]
+	path = tools
+	url = git@github.com:ei06125/cpp-build-tools.git

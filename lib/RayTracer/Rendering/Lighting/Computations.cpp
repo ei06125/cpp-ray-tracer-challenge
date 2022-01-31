@@ -1,5 +1,6 @@
 #include "RayTracer/Rendering/Lighting/Computations.hpp"
 
+#include "RayTracer/Math/Constants.hpp"
 #include "RayTracer/Rendering/Lighting/Intersection.hpp"
 #include "RayTracer/Rendering/Lighting/Ray.hpp"
 #include "RayTracer/Rendering/Primitives/Shape.hpp"
@@ -8,7 +9,7 @@ namespace RayTracer {
 namespace Rendering {
 namespace Lighting {
 
-using namespace Math;
+using namespace Math::Constants;
 
 Computations prepare_computations(const Intersection& i, const Ray& r)
 {

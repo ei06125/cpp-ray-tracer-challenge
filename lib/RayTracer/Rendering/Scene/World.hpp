@@ -17,7 +17,7 @@ class World
 {
 public:
   std::vector<std::shared_ptr<Shape>>& GetObjects();
-  std::vector<std::shared_ptr<Shape>> GetObjects() const;
+  const std::vector<std::shared_ptr<Shape>>& GetObjects() const;
   std::optional<PointLight> GetLightSource() const;
   void SetLight(PointLight p);
   void AddObject(std::shared_ptr<Shape> s);

@@ -45,14 +45,20 @@ Ray ray_for_pixel(const Camera& c, float px, float py)
 Canvas render(const Camera& camera, const World& world)
 {
   auto image = Canvas(camera.hsize, camera.vsize);
+  const int hsize = camera.hsize;
+  const int vsize = camera.vsize;
 
-  for (auto y = 0; y < camera.vsize; ++y) {
-    for (auto x = 0; x < camera.hsize; ++x) {
-      auto ray = ray_for_pixel(camera, x, y);
-      auto color = color_at(world, ray);
+#if defined(_OPENMP)
+#pragma omp parallel for schedule(dynamic, 1) shared(camera, world, image)
+#endif
+  for (int y = 0; y < vsize; ++y) {
+    for (int x = 0; x < hsize; ++x) {
+      const auto ray = ray_for_pixel(camera, x, y);
+      const auto color = color_at(world, ray);
       write_pixel(image, x, y, color);
     }
   }
+
   return image;
 }
 

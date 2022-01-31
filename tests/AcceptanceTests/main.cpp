@@ -1,7 +1,12 @@
 #define DOCTEST_CONFIG_IMPLEMENT
 #include <doctest/doctest.h>
 
-int main(int argc, char **argv) {
+#include "RayTracer/Profiling/TrackTime.hpp"
+
+using namespace RayTracer::Profiling;
+
+int main(int argc, char** argv)
+{
   doctest::Context context;
 
   context.addFilter("test-case-exclude", "");
@@ -9,7 +14,9 @@ int main(int argc, char **argv) {
   context.setOption("order-by", "rand"); // RANDOMIZE the test cases
   context.applyCommandLine(argc, argv);
 
+  Timer testTimer("to test");
   int res = context.run();
+
   if (context.shouldExit()) {
     return res;
   }

@@ -1,8 +1,11 @@
 #pragma once
 
+#include "RayTracer/Math/Constants.hpp"
 #include "RayTracer/Math/Tuple.hpp"
 
 namespace RayTracer::Math {
+
+using namespace Constants;
 
 /// ===========================================================================
 /// @section Matrix
@@ -16,6 +19,8 @@ struct Matrix
   float const* operator[](std::size_t row) const { return data[row]; }
 
   static Matrix Identity();
+
+  Matrix& operator*=(const Matrix& rhs) { return *this = *this * rhs; }
 };
 
 using mat4 = Matrix<4, 4>;

@@ -2,6 +2,8 @@
 
 // Project Library
 #include "RayTracer/Rendering/Lighting/Light.hpp"
+#include "RayTracer/Rendering/Primitives/Shape.hpp"
+#include "RayTracer/Rendering/Patterns/Pattern.hpp"
 
 namespace RayTracer {
 namespace Rendering {
@@ -11,7 +13,9 @@ using namespace Math;
 
 bool operator==(const Material& lhs, const Material& rhs)
 {
-  return memcmp(&lhs, &rhs, sizeof(Material)) == 0;
+  return lhs.color == rhs.color && lhs.ambient == rhs.ambient &&
+         lhs.diffuse == rhs.diffuse && lhs.specular == rhs.specular &&
+         lhs.shininess == rhs.shininess && lhs.pattern == rhs.pattern;
 }
 
 Tuple lighting(const Material& material,
@@ -19,10 +23,19 @@ Tuple lighting(const Material& material,
                const Tuple& point,
                const Tuple& eyev,
                const Tuple& normalv,
-               bool in_shadow)
+               bool in_shadow,
+               const Shape* object)
 {
+  auto color = material.color;
+  if (material.pattern.has_value()) {
+    if (object) {
+      color = material.pattern.value()->AtShape(object, point);
+    } else {
+      color = material.pattern.value()->At(point);
+    }
+  }
   // combine the surface color with the light's color/intensity
-  auto effective_color = material.color * light.intensity;
+  auto effective_color = color * light.intensity;
 
   // find the direction to the light source
   auto lightv = normalize(light.position - point);

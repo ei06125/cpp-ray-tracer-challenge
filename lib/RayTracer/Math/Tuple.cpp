@@ -1,6 +1,10 @@
 #include "RayTracer/Math/Tuple.hpp"
 
+#include "RayTracer/Math/Constants.hpp"
+
 namespace RayTracer::Math {
+
+using namespace Constants;
 
 Tuple::Tuple(float x_, float y_, float z_, float w_)
   : x(x_)

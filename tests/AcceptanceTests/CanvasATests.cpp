@@ -38,6 +38,8 @@ SCENARIO("Writing pixels to a canvas")
   }
 }
 
+#include <sstream>
+
 SCENARIO("Constructing the PPM header")
 {
   GIVEN("c = canvas(5, 3)")
@@ -51,11 +53,18 @@ SCENARIO("Constructing the PPM header")
         5 3\n\
         255")
       {
-        std::string expected = "";
-        expected += "P3\n";
-        expected += "5 3\n";
-        expected += "255\n";
-        CHECK(ppm == expected);
+        std::vector<std::string> expected;
+        expected.push_back("P3");
+        expected.push_back("5 3");
+        expected.push_back("255");
+
+        std::stringstream ss;
+        ss << ppm;
+        for (const auto& line : expected) {
+          std::string ppmLine;
+          std::getline(ss, ppmLine);
+          CHECK(line == ppmLine);
+        }
       }
     }
   }

@@ -113,10 +113,10 @@ SCENARIO("Rotating a point around the x axis")
     \n half_quarter = rotation_x(PI / 4) &&\
     \n full_quarter = rotation_x(PI / 2)")
   {
-    using namespace std::numbers;
+    using namespace RayTracer::Math::Constants;
     auto p = make_point(0, 1, 0);
-    auto half_quarter = rotation_x(pi / 4);
-    auto full_quarter = rotation_x(pi / 2);
+    auto half_quarter = rotation_x(PI / 4);
+    auto full_quarter = rotation_x(PI / 2);
     ;
     THEN("half_quarter * p == point(0, SQRT(2)/2, SQRT(2)/2) &&\
         \n full_quarter * p == point(0, 0, 1)")
@@ -134,9 +134,8 @@ SCENARIO("The inverse of an x-rotation rotates in the opposite direction")
     \n half_quarter = rotation_x(PI / 4) &&\
     \n inv = inverse(half_quarter)")
   {
-    using namespace std::numbers;
     auto p = make_point(0, 1, 0);
-    auto half_quarter = rotation_x(pi / 4);
+    auto half_quarter = rotation_x(PI / 4);
     auto inv = inverse(half_quarter);
 
     THEN("inv * p == point(0, SQRT(2)/2, -SQRT(2)/2)")
@@ -152,10 +151,9 @@ SCENARIO("Rotating a point around the y axis")
     \n half_quarter = rotation_y(PI / 4) &&\
     \n full_quarter = rotation_y(PI / 2)")
   {
-    using namespace std::numbers;
     auto p = make_point(0, 0, 1);
-    auto half_quarter = rotation_y(pi / 4);
-    auto full_quarter = rotation_y(pi / 2);
+    auto half_quarter = rotation_y(PI / 4);
+    auto full_quarter = rotation_y(PI / 2);
     ;
     THEN("half_quarter * p == point(SQRT(2)/2, 0, SQRT(2)/2) &&\
         \n full_quarter * p == point(1, 0, 0)")
@@ -173,10 +171,9 @@ SCENARIO("Rotating a point around the z axis")
     \n half_quarter = rotation_z(PI / 4) &&\
     \n full_quarter = rotation_z(PI / 2)")
   {
-    using namespace std::numbers;
     auto p = make_point(0, 1, 0);
-    auto half_quarter = rotation_z(pi / 4);
-    auto full_quarter = rotation_z(pi / 2);
+    auto half_quarter = rotation_z(PI / 4);
+    auto full_quarter = rotation_z(PI / 2);
     ;
     THEN("half_quarter * p == point(-SQRT(2)/2, SQRT(2)/2, 0) &&\
         \n full_quarter * p == point(-1, 0, 0)")
@@ -280,7 +277,7 @@ SCENARIO("Individual transformations are applied in sequence")
     \n C = translation(10, 5, 7)")
   {
     auto p = make_point(1, 0, 1);
-    auto A = rotation_x(std::numbers::pi / 2);
+    auto A = rotation_x(PI / 2);
     auto B = scaling(5, 5, 5);
     auto C = translation(10, 5, 7);
 
@@ -319,7 +316,7 @@ SCENARIO("Chained transformations must be applied in reverse order")
     \n C = translation(10, 5, 7)")
   {
     auto p = make_point(1, 0, 1);
-    auto A = rotation_x(std::numbers::pi / 2);
+    auto A = rotation_x(PI / 2);
     auto B = scaling(5, 5, 5);
     auto C = translation(10, 5, 7);
 

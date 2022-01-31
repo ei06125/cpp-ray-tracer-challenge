@@ -12,8 +12,13 @@ using namespace Math;
 class Plane : public Shape
 {
 public:
+  /// @section Member functions
   ~Plane() override;
   Plane();
+  Plane(const Plane&);
+  Plane(Plane&&) noexcept;
+  Plane& operator=(const Plane&);
+  Plane& operator=(Plane&&) noexcept;
 
   Tuple GetNormalAt(Tuple point) const override;
   // Intersections Intersect(const Ray& r) const override;

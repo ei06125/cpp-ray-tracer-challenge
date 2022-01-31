@@ -16,7 +16,12 @@ using namespace Math;
 class Shape
 {
 public:
+  /// @section Member functions
   virtual ~Shape();
+  Shape(const Shape&);
+  Shape(Shape&&) noexcept;
+  Shape& operator=(const Shape&);
+  Shape& operator=(Shape&&) noexcept;
 
   mat4 GetTransform() const;
   mat4& SetTransform();
