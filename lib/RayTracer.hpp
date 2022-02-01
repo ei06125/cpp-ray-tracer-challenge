@@ -27,6 +27,7 @@
 #include "RayTracer/Rendering/Materials/Material.hpp"
 
 /// @subsection Primitives
+#include "RayTracer/Rendering/Primitives/Cube.hpp"
 #include "RayTracer/Rendering/Primitives/Plane.hpp"
 #include "RayTracer/Rendering/Primitives/Shape.hpp"
 #include "RayTracer/Rendering/Primitives/Sphere.hpp"
