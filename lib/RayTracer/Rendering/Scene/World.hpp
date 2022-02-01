@@ -32,11 +32,14 @@ World default_world();
 
 Intersections intersect_world(const World& w, const Ray& r);
 
-Tuple shade_hit(const World& w, const Computations& comps);
+Tuple shade_hit(const World& w, const Computations& comps, int depth = 5);
 
-Tuple color_at(const World& w, const Ray& r);
+Tuple color_at(const World& w, const Ray& r, int depth = 5);
 
 bool is_shadowed(const World& w, const Tuple& p);
+
+Tuple reflected_color(const World& w, const Computations& comps, int depth = 5);
+Tuple refracted_color(const World& w, const Computations& comps, int depth = 5);
 
 } // namespace Scene
 } // namespace Rendering

@@ -36,4 +36,7 @@ private:
 /// @section Non-member functions
 bool operator==(const Sphere& lhs, const Sphere& rhs);
 
+/// @subsection Creation methods
+Sphere GlassSphere();
+
 } // namespace RayTracer::Rendering::Primitives

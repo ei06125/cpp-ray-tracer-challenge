@@ -6,3 +6,5 @@ target_link_libraries(RayTracerAcceptanceTests PRIVATE RayTracer
                                                        doctest::doctest)
 target_include_directories(RayTracerAcceptanceTests PRIVATE ${ROOT_DIR}/lib)
 target_precompile_headers(RayTracerAcceptanceTests REUSE_FROM RayTracer)
+
+add_dependencies(RayTracerAcceptanceTests RayTracer)

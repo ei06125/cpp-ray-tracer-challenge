@@ -224,3 +224,35 @@ SCENARIO("Lighting with a pattern applied")
     }
   }
 }
+
+/// ===========================================================================
+/// @section Reflection
+/// ===========================================================================
+
+SCENARIO("Reflectivity for the default material")
+{
+  GIVEN("m = material()")
+  {
+    auto m = Material();
+
+    THEN("m.reflective = 0.0") { CHECK(m.reflective == 0.0); }
+  }
+}
+
+/// ===========================================================================
+/// @section Refraction
+/// ===========================================================================
+
+SCENARIO("Transparency and Refractive Index for the default material")
+{
+  GIVEN("m = material()")
+  {
+    auto m = Material();
+
+    THEN("m.transparency == 0.0 && m.refractive_index == 1.0")
+    {
+      CHECK(m.transparency == 0.0);
+      CHECK(m.refractiveIndex == 1.0);
+    }
+  }
+}

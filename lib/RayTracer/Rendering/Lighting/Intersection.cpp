@@ -9,39 +9,6 @@ namespace Lighting {
 using namespace Math;
 
 /// ===========================================================================
-/// @section Intersection
-/// ===========================================================================
-
-/// ---------------------------------------------------------------------------
-/// @subsection Member functions
-/// ---------------------------------------------------------------------------
-
-Intersection::Intersection() = default;
-Intersection::Intersection(float t_, const Shape* object_)
-  : t(t_)
-  , object(object_)
-{}
-Intersection::Intersection(const Intersection& other) = default;
-Intersection::Intersection(Intersection&& other) noexcept = default;
-Intersection::~Intersection() = default;
-Intersection& Intersection::operator=(const Intersection& other) = default;
-Intersection& Intersection::operator=(Intersection&& other) noexcept = default;
-
-/// ---------------------------------------------------------------------------
-/// @subsection Non-member functions
-/// ---------------------------------------------------------------------------
-
-bool Intersection::operator<(const Intersection& rhs) const
-{
-  return t < rhs.t;
-}
-
-bool Intersection::operator==(const Intersection& rhs) const
-{
-  return t == rhs.t && object == rhs.object;
-}
-
-/// ===========================================================================
 /// @section Intersections
 /// ===========================================================================
 
@@ -50,14 +17,21 @@ bool Intersection::operator==(const Intersection& rhs) const
 /// ---------------------------------------------------------------------------
 
 Intersections::Intersections() = default;
+
 Intersections::Intersections(std::initializer_list<Intersection> points)
   : intersectionPoints(points)
 {}
+
+Intersections::Intersections(std::vector<Intersection>&& points)
+  : intersectionPoints(points)
+{}
+
 Intersections::Intersections(float t, const Shape* shapePtr)
   : intersectionPoints()
 {
   intersectionPoints.emplace_back(t, shapePtr);
 }
+
 Intersections::Intersections(const Intersections& other) = default;
 Intersections::Intersections(Intersections&& other) = default;
 Intersections::~Intersections() = default;
@@ -96,6 +70,15 @@ void Intersections::Reserve(std::size_t newCapacity)
 void Intersections::Sort()
 {
   std::sort(intersectionPoints.begin(), intersectionPoints.end());
+}
+
+/// ---------------------------------------------------------------------------
+/// @subsubsection Observers
+/// ---------------------------------------------------------------------------
+
+const std::vector<Intersection>& Intersections::GetIntersectionPoints() const
+{
+  return intersectionPoints;
 }
 
 /// ---------------------------------------------------------------------------

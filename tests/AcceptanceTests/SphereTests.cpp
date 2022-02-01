@@ -215,3 +215,24 @@ SCENARIO("The normal is a normalized vector")
     }
   }
 }
+
+/// ===========================================================================
+/// @section Refraction
+/// ===========================================================================
+
+SCENARIO("A helper for producing a sphere with a glassy material")
+{
+  GIVEN("s = glass_sphere()")
+  {
+    auto s = GlassSphere();
+
+    THEN("s.transform == identity_matrix &&\
+    \n s.material.transparency == 1.0 &&\
+    \n s.material.refractive_index == 1.5")
+    {
+      CHECK(s.GetTransform() == mat4::Identity());
+      CHECK(s.GetMaterial().transparency == 1.0);
+      CHECK(s.GetMaterial().refractiveIndex == 1.5);
+    }
+  }
+}

@@ -37,6 +37,9 @@ struct Material
   float diffuse{ 0.9 };
   float specular{ 0.9 };
   float shininess{ 200.0 };
+  float reflective{ 0.0 };
+  float transparency{ 0.0 };
+  float refractiveIndex{ 1.0 };
   std::optional<std::shared_ptr<Pattern>> pattern;
 };
 

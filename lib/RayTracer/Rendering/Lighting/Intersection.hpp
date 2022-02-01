@@ -24,23 +24,19 @@ using namespace Primitives;
 
 struct Intersection
 {
-  /// @section Member functions
-  Intersection();
-  explicit Intersection(float t_, const Shape* object_);
-  Intersection(const Intersection&);
-  Intersection(Intersection&&) noexcept;
-  Intersection& operator=(const Intersection&);
-  Intersection& operator=(Intersection&&) noexcept;
-  ~Intersection();
-
-  // TODO: move to Non-member functions
-  bool operator<(const Intersection& rhs) const;
-  bool operator==(const Intersection& rhs) const;
-
-  /// @section Member functions
   float t;
   const Shape* object;
 };
+
+inline bool operator<(const Intersection& lhs, const Intersection& rhs)
+{
+  return lhs.t < rhs.t;
+}
+
+inline bool operator==(const Intersection& lhs, const Intersection& rhs)
+{
+  return lhs.t == rhs.t && lhs.object == rhs.object;
+}
 
 /// ===========================================================================
 /// @section Intersections
@@ -52,6 +48,7 @@ public:
   /// @section Member functions
   Intersections();
   explicit Intersections(std::initializer_list<Intersection> points);
+  explicit Intersections(std::vector<Intersection>&& points);
   Intersections(float t, const Shape* shapePtr);
   Intersections(const Intersections&);
   Intersections(Intersections&&);
@@ -66,6 +63,9 @@ public:
   /// @subsection Capacity
   std::size_t Count() const;
   void Reserve(std::size_t newCapacity);
+
+  /// @subsection Observers
+  const std::vector<Intersection>& GetIntersectionPoints() const;
 
   /// @subsection Modifiers
   std::vector<Intersection>& Data();

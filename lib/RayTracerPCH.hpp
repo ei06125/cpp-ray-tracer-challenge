@@ -9,6 +9,7 @@
 
 /// @section C++ Standard Library
 #include <algorithm>
+#include <array>
 #include <chrono>
 #include <initializer_list>
 #include <iomanip>

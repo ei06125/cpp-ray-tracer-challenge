@@ -80,4 +80,16 @@ bool operator==(const Sphere& lhs, const Sphere& rhs)
          static_cast<const Shape&>(lhs) == static_cast<const Shape&>(rhs);
 }
 
+/// ---------------------------------------------------------------------------
+/// @subsection Creation methods
+/// ---------------------------------------------------------------------------
+
+Sphere GlassSphere()
+{
+  Sphere s;
+  s.SetMaterial().transparency = 1.0;
+  s.SetMaterial().refractiveIndex = 1.5;
+  return s;
+}
+
 } // namespace RayTracer::Rendering::Primitives

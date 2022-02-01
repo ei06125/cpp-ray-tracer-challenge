@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 project(RayTracerChallenge)
 
-
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(ROOT_DIR ${CMAKE_CURRENT_LIST_DIR})
 include(${ROOT_DIR}/tools/cmake/Modules/BuildToolsMain.cmake)
@@ -33,3 +32,5 @@ add_subdirectory(external)
 add_subdirectory(lib)
 add_subdirectory(samples)
 add_subdirectory(tests)
+
+add_custom_target(AllProjects DEPENDS RayTracer RayTracerAcceptanceTests)
