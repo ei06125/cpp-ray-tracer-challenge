@@ -61,8 +61,9 @@ Intersections Sphere::VirtualIntersect(const Ray& r) const
     return result;
   }
 
-  auto t1 = (-b - std::sqrt(discriminant)) / (2 * a);
-  auto t2 = (-b + std::sqrt(discriminant)) / (2 * a);
+  auto sqrtd = std::sqrt(discriminant);
+  auto t1 = (-b - sqrtd) / (2 * a);
+  auto t2 = (-b + sqrtd) / (2 * a);
 
   result.EmplaceBack(t1, this);
   result.EmplaceBack(t2, this);

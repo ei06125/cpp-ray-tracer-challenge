@@ -32,5 +32,3 @@ add_subdirectory(external)
 add_subdirectory(lib)
 add_subdirectory(samples)
 add_subdirectory(tests)
-
-add_custom_target(AllProjects DEPENDS RayTracer RayTracerAcceptanceTests)
