@@ -82,12 +82,17 @@ const std::vector<Intersection>& Intersections::GetIntersectionPoints() const
 }
 
 /// ---------------------------------------------------------------------------
-/// @subsubsection Observers
+/// @subsubsection Modifiers
 /// ---------------------------------------------------------------------------
 
 std::vector<Intersection>& Intersections::Data()
 {
   return intersectionPoints;
+}
+
+void Intersections::Add(Intersection i)
+{
+  intersectionPoints.push_back(i);
 }
 
 /// ===========================================================================

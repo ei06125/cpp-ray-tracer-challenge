@@ -10,16 +10,17 @@ using namespace Math;
 /// @section Member functions
 /// ===========================================================================
 
+/// ---------------------------------------------------------------------------
+/// @subsection Special member functions
+/// ---------------------------------------------------------------------------
+
 Shape::~Shape() = default;
 Shape::Shape()
   : m_Transform(mat4::Identity())
   , m_Material(Material())
   , m_Origin(make_point(0, 0, 0))
+  , m_Parent()
 {}
-Shape::Shape(const Shape& other) = default;
-Shape::Shape(Shape&& other) noexcept = default;
-Shape& Shape::operator=(const Shape& other) = default;
-Shape& Shape::operator=(Shape&& other) noexcept = default;
 
 /// ---------------------------------------------------------------------------
 /// @subsection Observers
@@ -30,6 +31,62 @@ mat4 Shape::GetTransform() const
   return m_Transform;
 }
 
+Material Shape::GetMaterial() const
+{
+  return m_Material;
+}
+
+Tuple Shape::GetOrigin() const
+{
+  return m_Origin;
+}
+
+std::weak_ptr<Shape> Shape::GetParent() const
+{
+  return m_Parent;
+}
+
+Tuple Shape::WorldToObject(Tuple point) const
+{
+  if (!m_Parent.expired()) {
+    point = m_Parent.lock()->WorldToObject(point);
+  }
+  return inverse(m_Transform) * point;
+}
+
+Tuple Shape::NormalToWorld(Tuple normal) const
+{
+  normal = transpose(inverse(m_Transform)) * normal;
+  normal.w = 0;
+  normal = normalize(normal);
+
+  if (!m_Parent.expired()) {
+    normal = m_Parent.lock()->NormalToWorld(normal);
+  }
+  return normal;
+}
+
+///
+/// @subsubsection Virtual member functions
+///
+
+Tuple Shape::GetNormalAt(Tuple worldPoint) const
+{
+  auto localPoint = WorldToObject(worldPoint);
+  auto localNormal = GetLocalNormalAt(localPoint);
+  return NormalToWorld(localNormal);
+}
+
+Intersections Shape::Intersect(const Ray& ray) const
+{
+  auto localRay = transform(ray, inverse(m_Transform));
+  return VirtualIntersect(localRay);
+}
+
+/// ---------------------------------------------------------------------------
+/// @subsection Modifiers
+/// ---------------------------------------------------------------------------
+
 mat4& Shape::SetTransform()
 {
   return m_Transform;
@@ -38,11 +95,6 @@ mat4& Shape::SetTransform()
 void Shape::SetTransform(mat4 newTransform)
 {
   m_Transform = newTransform;
-}
-
-Material Shape::GetMaterial() const
-{
-  return m_Material;
 }
 
 Material& Shape::SetMaterial()
@@ -55,11 +107,6 @@ void Shape::SetMaterial(Material newMaterial)
   m_Material = newMaterial;
 }
 
-Tuple Shape::GetOrigin() const
-{
-  return m_Origin;
-}
-
 Tuple& Shape::SetOrigin()
 {
   return m_Origin;
@@ -70,21 +117,14 @@ void Shape::SetOrigin(Tuple newOrigin)
   m_Origin = newOrigin;
 }
 
-Tuple Shape::GetNormalAt(Tuple worldPoint) const
+void Shape::SetParent(std::shared_ptr<Shape> parent)
 {
-  auto localPoint = inverse(m_Transform) * worldPoint;
-  auto localNormal = this->GetLocalNormalAt(localPoint);
-  auto worldNormal = transpose(inverse(m_Transform)) * localNormal;
-  worldNormal.w = 0;
-
-  return normalize(worldNormal);
+  m_Parent = parent;
 }
 
-Intersections Shape::Intersect(const Ray& ray) const
-{
-  auto localRay = transform(ray, inverse(m_Transform));
-  return VirtualIntersect(localRay);
-}
+/// ===========================================================================
+/// @section Non-member functions
+/// ===========================================================================
 
 bool Shape::operator==(const Shape& rhs) const
 {

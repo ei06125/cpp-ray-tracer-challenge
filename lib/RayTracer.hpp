@@ -30,6 +30,7 @@
 #include "RayTracer/Rendering/Primitives/Cone.hpp"
 #include "RayTracer/Rendering/Primitives/Cube.hpp"
 #include "RayTracer/Rendering/Primitives/Cylinder.hpp"
+#include "RayTracer/Rendering/Primitives/Group.hpp"
 #include "RayTracer/Rendering/Primitives/Plane.hpp"
 #include "RayTracer/Rendering/Primitives/Shape.hpp"
 #include "RayTracer/Rendering/Primitives/Sphere.hpp"

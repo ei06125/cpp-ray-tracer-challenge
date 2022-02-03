@@ -74,6 +74,8 @@ public:
   {
     intersectionPoints.emplace_back(std::forward<Args>(args)...);
   }
+  void Add(Intersection i);
+
   void Sort();
   const Intersection* Hit() const;
 

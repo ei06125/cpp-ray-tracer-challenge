@@ -17,27 +17,31 @@ class Shape
 {
 public:
   /// @section Member functions
+  /// @subsection Special member functions
   virtual ~Shape();
-  Shape(const Shape&);
-  Shape(Shape&&) noexcept;
-  Shape& operator=(const Shape&);
-  Shape& operator=(Shape&&) noexcept;
 
+  /// @subsection Observers
   mat4 GetTransform() const;
-  mat4& SetTransform();
-  void SetTransform(mat4 t);
-
   Material GetMaterial() const;
-  Material& SetMaterial();
-  void SetMaterial(Material m);
-
   Tuple GetOrigin() const;
-  Tuple& SetOrigin();
-  void SetOrigin(Tuple t);
+  std::weak_ptr<Shape> GetParent() const;
+  Tuple WorldToObject(Tuple point) const;
+  Tuple NormalToWorld(Tuple normal) const;
 
+  /// @subsubsection Virtual member functions
   virtual Tuple GetNormalAt(Tuple point) const;
   virtual Intersections Intersect(const Ray& r) const;
 
+  /// @subsection Modifiers
+  mat4& SetTransform();
+  void SetTransform(mat4 t);
+  Material& SetMaterial();
+  void SetMaterial(Material m);
+  Tuple& SetOrigin();
+  void SetOrigin(Tuple t);
+  void SetParent(std::shared_ptr<Shape> parent);
+
+  /// @section Friend functions
   bool operator==(const Shape& rhs) const;
 
 protected:
@@ -49,7 +53,11 @@ private:
   mat4 m_Transform;
   Material m_Material;
   Tuple m_Origin;
+  std::weak_ptr<Shape> m_Parent;
 };
+
+/// @section Non-member functions
+Tuple world_to_object(const std::shared_ptr<Shape>& shape, Tuple worldPoint);
 
 } // namespace Primitives
 } // namespace Rendering

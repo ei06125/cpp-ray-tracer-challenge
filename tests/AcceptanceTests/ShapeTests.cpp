@@ -3,41 +3,11 @@
 
 // Engine
 #include "RayTracer.hpp"
+#include "TestShape.hpp"
 
 using namespace RayTracer::Rendering::Primitives;
 using namespace RayTracer::Rendering::Lighting;
 using namespace RayTracer::Math;
-
-/// ===========================================================================
-/// @section Stubs
-/// ===========================================================================
-
-class TestShape : public Shape
-{
-public:
-  TestShape()
-    : Shape()
-    , saved_ray({ make_point(0, 0, 0), make_vector(0, 0, 1) })
-  {}
-
-  mutable Ray saved_ray;
-
-protected:
-  Tuple GetLocalNormalAt(Tuple point) const override
-  {
-    return make_vector(point.x, point.y, point.z);
-  }
-
-  Intersections VirtualIntersect(const Ray& r) const override
-  {
-    saved_ray = r;
-    return {};
-  }
-};
-
-/// ===========================================================================
-/// @section Tests
-/// ===========================================================================
 
 SCENARIO("A shape's default transformation")
 {
@@ -182,6 +152,66 @@ SCENARIO("Computing the normal on a transformed shape")
       THEN("n == vector(0, 0.97014, -0.24254)")
       {
         CHECK(n == make_vector(0, 0.97014, -0.24254));
+      }
+    }
+  }
+}
+
+SCENARIO("Converting a point from world to object space")
+{
+  GIVEN("g1 = group()\
+  \n\t And set_transform(g1, rotation_y(PI/2))\
+  \n\t And g2 = group()\
+  \n\t And set_transform(g2, scaling(2, 2, 2))\
+  \n\t And add_child(g1, g2)\
+  \n\t And s = sphere()\
+  \n\t And set_transform(s, translation(5, 0, 0))\
+  \n\t And add_child(g2, s)")
+  {
+    auto g1 = std::make_shared<Group>();
+    g1->SetTransform(rotation_y(PI / 2));
+    auto g2 = std::make_shared<Group>();
+    g2->SetTransform(scaling(2, 2, 2));
+    g1->AddChild(g2);
+    auto s = std::make_shared<Sphere>();
+    s->SetTransform(translation(5, 0, 0));
+    g2->AddChild(s);
+
+    WHEN("p = world_to_object(s, point(-2, 0, -10))")
+    {
+      auto p = s->WorldToObject(make_point(-2, 0, -10));
+      THEN("p == point(0, 0, -1)") { CHECK(p == make_point(0, 0, -1)); }
+    }
+  }
+}
+
+SCENARIO("Converting a normal from object to world space")
+{
+  GIVEN("g1 = group()\
+  \n\t And set_transform(g1, rotation_y(PI/2))\
+  \n\t And g2 = group()\
+  \n\t And set_transform(g2, scaling(1, 2, 3))\
+  \n\t And add_child(g1, g2)\
+  \n\t And s = sphere()\
+  \n\t And set_transform(s, translation(5, 0, 0))\
+  \n\t And add_child(g2, s)")
+  {
+    auto g1 = std::make_shared<Group>();
+    g1->SetTransform(rotation_y(PI / 2));
+    auto g2 = std::make_shared<Group>();
+    g2->SetTransform(scaling(1, 2, 3));
+    g1->AddChild(g2);
+    auto s = std::make_shared<Sphere>();
+    s->SetTransform(translation(5, 0, 0));
+    g2->AddChild(s);
+
+    WHEN("n = normal_to_world(s, vector(SQRT(3)/3, SQRT(3)/3, SQRT(3)/3))")
+    {
+      float sqrt3 = std::sqrt(3);
+      auto n = s->NormalToWorld(make_vector(sqrt3 / 3, sqrt3 / 3, sqrt3 / 3));
+      THEN("n == vector(0.2857, 0.4286, -0.8571)")
+      {
+        CHECK(n == make_vector(0.2857, 0.4286, -0.8571));
       }
     }
   }
