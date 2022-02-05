@@ -39,7 +39,7 @@ void Sphere::SetRadius(float newRadius)
 /// @section Virtual functions
 /// ===========================================================================
 
-Tuple Sphere::GetLocalNormalAt(Tuple localPoint) const
+Tuple Sphere::GetLocalNormalAt(Tuple localPoint, const Intersection*) const
 {
   return (localPoint - make_point(0, 0, 0));
 }

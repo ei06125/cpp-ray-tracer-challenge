@@ -254,7 +254,7 @@ SCENARIO("The hit should offset the point")
       THEN("comps.over_point.z < -EPSILON/2 &&\
       \n comps.point.z > comps.over_point.z")
       {
-        CHECK(comps.over_point.z < -(EPSILON / 2));
+        CHECK(comps.over_point.z < EPSILON / -2.0f);
         CHECK(comps.point.z > comps.over_point.z);
       }
     }
@@ -451,3 +451,22 @@ SCENARIO("The under point is offset below the surface")
 //     }
 //   }
 // }
+
+SCENARIO("An intersection can encapsulate 'u' and 'v'")
+{
+  GIVEN("s = triangle(point(0, 1, 0), point(-1, 0, 0), point(1, 0, 0))")
+  {
+    auto s =
+      Triangle(make_point(0, 1, 0), make_point(-1, 0, 0), make_point(1, 0, 0));
+
+    WHEN("i = intersection_with_uv(3.5, s, 0.2, 0.4)")
+    {
+      auto i = Intersection{ 3.5, &s, 0.2, 0.4 };
+      THEN("i.u == 0.2 And i.v == 0.4")
+      {
+        CHECK(i.u == 0.2f);
+        CHECK(i.v == 0.4f);
+      }
+    }
+  }
+}

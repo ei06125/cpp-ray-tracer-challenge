@@ -1,4 +1,5 @@
 #pragma once
+#include "RayTracerPCH.hpp"
 
 // Project Library
 #include "RayTracer/Math/Constants.hpp"

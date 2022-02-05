@@ -1,4 +1,5 @@
 #pragma once
+#include "RayTracerPCH.hpp"
 
 #include "RayTracer/Math/Constants.hpp"
 #include "RayTracer/Math/Tuple.hpp"

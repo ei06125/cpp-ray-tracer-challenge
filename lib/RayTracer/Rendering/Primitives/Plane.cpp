@@ -18,14 +18,9 @@ Plane& Plane::operator=(Plane&& other) noexcept = default;
 /// @subsection
 /// ---------------------------------------------------------------------------
 
-Tuple Plane::GetNormalAt(Tuple point) const
+Tuple Plane::GetLocalNormalAt(Tuple point, const Intersection*) const
 {
-  return GetLocalNormalAt(point);
-}
-
-Tuple Plane::GetLocalNormalAt(Tuple point) const
-{
-  return make_vector(0, 1, 0);
+  return make_vector(0, 1, 0); // m_Transform * make_vector(0, 1, 0);
 }
 
 Intersections Plane::VirtualIntersect(const Ray& r) const

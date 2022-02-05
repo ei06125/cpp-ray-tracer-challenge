@@ -1,4 +1,5 @@
 #pragma once
+#include "RayTracerPCH.hpp"
 
 #include "RayTracer/Rendering/Primitives/Shape.hpp"
 
@@ -19,10 +20,9 @@ public:
   Cube& operator=(const Cube&);
   Cube& operator=(Cube&&) noexcept;
 
-  Tuple GetNormalAt(Tuple point) const override;
-
 protected:
-  Tuple GetLocalNormalAt(Tuple point) const override;
+  Tuple GetLocalNormalAt(Tuple point,
+                         const Intersection* i = nullptr) const override;
   Intersections VirtualIntersect(const Ray& r) const override;
 };
 

@@ -11,7 +11,7 @@ using namespace Math;
 /// @subsection Observers
 /// ---------------------------------------------------------------------------
 
-Tuple Cone::GetNormalAt(Tuple point) const
+Tuple Cone::GetNormalAt(Tuple point, const Intersection*) const
 {
   return GetLocalNormalAt(point);
 }
@@ -31,7 +31,7 @@ bool Cone::IsClosed() const
   return m_Closed;
 }
 
-Tuple Cone::GetLocalNormalAt(Tuple point) const
+Tuple Cone::GetLocalNormalAt(Tuple point, const Intersection*) const
 {
   // compute the square of the distance from the y axis
   auto dist = (point.x * point.x) + (point.z * point.z);

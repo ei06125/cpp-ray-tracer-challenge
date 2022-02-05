@@ -1,4 +1,5 @@
 #pragma once
+#include "RayTracerPCH.hpp"
 
 #ifdef NDEBUG
 #define DEBUG_ASSERT(expr)

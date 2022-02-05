@@ -1,9 +1,7 @@
 #pragma once
+#include "RayTracerPCH.hpp"
 
 #include "RayTracer/Rendering/Lighting/Ray.hpp"
-
-#include <initializer_list>
-#include <vector>
 
 namespace RayTracer {
 namespace Rendering {
@@ -11,7 +9,7 @@ namespace Rendering {
 // Forward Declaration
 namespace Primitives {
 class Shape;
-} // namespace Primitives
+}
 
 namespace Lighting {
 
@@ -26,6 +24,8 @@ struct Intersection
 {
   float t;
   const Shape* object;
+  float u{ 0.0 };
+  float v{ 0.0 };
 };
 
 inline bool operator<(const Intersection& lhs, const Intersection& rhs)

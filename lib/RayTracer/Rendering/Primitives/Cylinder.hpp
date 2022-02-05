@@ -1,4 +1,5 @@
 #pragma once
+#include "RayTracerPCH.hpp"
 
 #include "RayTracer/Rendering/Primitives/Shape.hpp"
 
@@ -20,7 +21,6 @@ public:
   Cylinder& operator=(Cylinder&&) noexcept;
 
   /// @subsection Observers
-  Tuple GetNormalAt(Tuple point) const override;
   float GetMinimum() const;
   float GetMaximum() const;
   bool IsClosed() const;
@@ -31,7 +31,8 @@ public:
   void SetClosed(bool closed);
 
 protected:
-  Tuple GetLocalNormalAt(Tuple point) const override;
+  Tuple GetLocalNormalAt(Tuple point,
+                         const Intersection* i = nullptr) const override;
   Intersections VirtualIntersect(const Ray& r) const override;
 
 private:

@@ -1,6 +1,7 @@
 /// @copyright Vandevoorde, Josuttis, Gregor.
 
 #pragma once
+#include "RayTracerPCH.hpp"
 
 namespace RayTracer {
 namespace Profiling {

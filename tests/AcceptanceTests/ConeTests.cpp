@@ -126,11 +126,11 @@ SCENARIO("Computing the normal vector on a cone")
       Tuple normal;
     };
 
-    const std::array<TestData, 3> testData{
-      { { make_point(0, 0, 0), make_vector(0, 0, 0) },
-        { make_point(1, 1, 1), make_vector(1, -std::sqrt(2), 1) },
-        { make_point(-1, -1, 0), make_vector(-1, 1, 0) } }
-    };
+    const std::array<TestData, 3> testData{ {
+      { make_point(0, 0, 0), make_vector(0, 0, 0) },
+      { make_point(1, 1, 1), make_vector(1, -std::sqrt(2), 1) },
+      { make_point(-1, -1, 0), make_vector(-1, 1, 0) },
+    } };
     /// -----------------------------------------------------------------------
 
     auto shape = Cone();

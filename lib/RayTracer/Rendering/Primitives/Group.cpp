@@ -21,16 +21,11 @@ bool Group::Contains(const std::shared_ptr<Shape>& shape) const
   return m_Children.contains(shape);
 }
 
-Tuple Group::GetNormalAt(Tuple point) const
-{
-  return GetLocalNormalAt(point);
-}
-
 ///
 /// @subsubsection Virtual member functions
 ///
 
-Tuple Group::GetLocalNormalAt(Tuple point) const
+Tuple Group::GetLocalNormalAt(Tuple point, const Intersection*) const
 {
   return make_point(0, 0, 1);
 }
@@ -41,7 +36,7 @@ Intersections Group::VirtualIntersect(const Ray& r) const
   for (auto child : m_Children) {
     auto childXS = child->Intersect(r);
     auto childPoints = childXS.GetIntersectionPoints();
-    for(auto point : childPoints) {
+    for (auto point : childPoints) {
       xs.Add(point);
     }
   }

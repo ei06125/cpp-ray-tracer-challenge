@@ -70,10 +70,10 @@ Tuple Shape::NormalToWorld(Tuple normal) const
 /// @subsubsection Virtual member functions
 ///
 
-Tuple Shape::GetNormalAt(Tuple worldPoint) const
+Tuple Shape::GetNormalAt(Tuple worldPoint, const Intersection* i) const
 {
   auto localPoint = WorldToObject(worldPoint);
-  auto localNormal = GetLocalNormalAt(localPoint);
+  auto localNormal = GetLocalNormalAt(localPoint, i);
   return NormalToWorld(localNormal);
 }
 

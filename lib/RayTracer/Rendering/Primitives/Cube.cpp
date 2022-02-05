@@ -18,12 +18,7 @@ Cube& Cube::operator=(Cube&& other) noexcept = default;
 /// @subsection
 /// ---------------------------------------------------------------------------
 
-Tuple Cube::GetNormalAt(Tuple point) const
-{
-  return GetLocalNormalAt(point);
-}
-
-Tuple Cube::GetLocalNormalAt(Tuple point) const
+Tuple Cube::GetLocalNormalAt(Tuple point, const Intersection*) const
 {
   auto maxc =
     std::max(std::abs(point.x), std::max(std::abs(point.y), std::abs(point.z)));

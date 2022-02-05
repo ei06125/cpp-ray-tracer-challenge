@@ -28,6 +28,10 @@ add_library(GlobalSettings INTERFACE)
 target_compile_features(GlobalSettings INTERFACE cxx_std_20)
 target_link_libraries(GlobalSettings INTERFACE OpenMP::OpenMP_CXX)
 
+add_library(RayTracerPCH OBJECT)
+target_sources(RayTracerPCH PRIVATE ${ROOT_DIR}/lib/RayTracerPCH.cpp)
+target_link_libraries(RayTracerPCH PUBLIC GlobalSettings)
+
 add_subdirectory(external)
 add_subdirectory(lib)
 add_subdirectory(samples)

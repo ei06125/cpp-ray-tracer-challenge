@@ -1,4 +1,5 @@
 #pragma once
+#include "RayTracerPCH.hpp"
 
 #include "RayTracer/Rendering/Lighting/Computations.hpp"
 #include "RayTracer/Rendering/Lighting/Intersection.hpp"

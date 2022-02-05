@@ -1,4 +1,5 @@
 #pragma once
+#include "RayTracerPCH.hpp"
 
 #include "RayTracer/Math/Matrix.hpp"
 #include "RayTracer/Math/Tuple.hpp"
@@ -29,7 +30,7 @@ public:
   Tuple NormalToWorld(Tuple normal) const;
 
   /// @subsubsection Virtual member functions
-  virtual Tuple GetNormalAt(Tuple point) const;
+  virtual Tuple GetNormalAt(Tuple point, const Intersection* i = nullptr) const;
   virtual Intersections Intersect(const Ray& r) const;
 
   /// @subsection Modifiers
@@ -46,7 +47,8 @@ public:
 
 protected:
   Shape();
-  virtual Tuple GetLocalNormalAt(Tuple point) const = 0;
+  virtual Tuple GetLocalNormalAt(Tuple point,
+                                 const Intersection* i = nullptr) const = 0;
   virtual Intersections VirtualIntersect(const Ray& r) const = 0;
 
 private:

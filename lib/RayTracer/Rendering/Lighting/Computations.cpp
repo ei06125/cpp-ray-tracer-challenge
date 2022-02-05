@@ -22,7 +22,7 @@ Computations prepare_computations(const Intersection& i,
 {
   auto point = position(r, i.t);
   auto eyev = -r.direction;
-  auto normalv = i.object->GetNormalAt(point);
+  auto normalv = i.object->GetNormalAt(point, &i);
 
   Computations comps{ i.t,   i.object, point, eyev, normalv,
                       point, point,    false, point };

@@ -1,4 +1,5 @@
 #pragma once
+#include "RayTracerPCH.hpp"
 
 #include "RayTracer/Rendering/Primitives/Shape.hpp"
 
@@ -26,7 +27,8 @@ public:
   friend bool operator==(const Sphere& lhs, const Sphere& rhs);
 
 protected:
-  Tuple GetLocalNormalAt(Tuple point) const override;
+  Tuple GetLocalNormalAt(Tuple point,
+                         const Intersection* i = nullptr) const override;
   Intersections VirtualIntersect(const Ray& r) const override;
 
 private:

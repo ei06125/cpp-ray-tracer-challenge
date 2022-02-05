@@ -1,4 +1,5 @@
 #pragma once
+#include "RayTracerPCH.hpp"
 
 #include "RayTracer/Rendering/Primitives/Shape.hpp"
 
@@ -13,7 +14,6 @@ class Cone : public Shape
 public:
   /// @section Member functions
   /// @subsection Observers
-  Tuple GetNormalAt(Tuple point) const override;
   float GetMinimum() const;
   float GetMaximum() const;
   bool IsClosed() const;
@@ -23,8 +23,13 @@ public:
   void SetMaximum(float newMaximum);
   void SetClosed(bool closed);
 
+  // TODO: this should be removed but the tests fail if we do so
+  Tuple GetNormalAt(Tuple point,
+                    const Intersection* i = nullptr) const override;
+
 protected:
-  Tuple GetLocalNormalAt(Tuple point) const override;
+  Tuple GetLocalNormalAt(Tuple point,
+                         const Intersection* i = nullptr) const override;
   Intersections VirtualIntersect(const Ray& r) const override;
 
 private:

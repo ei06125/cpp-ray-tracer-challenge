@@ -18,11 +18,6 @@ Cylinder& Cylinder::operator=(Cylinder&& other) noexcept = default;
 /// @subsection Observers
 /// ---------------------------------------------------------------------------
 
-Tuple Cylinder::GetNormalAt(Tuple point) const
-{
-  return GetLocalNormalAt(point);
-}
-
 float Cylinder::GetMinimum() const
 {
   return m_Minimum;
@@ -38,7 +33,7 @@ bool Cylinder::IsClosed() const
   return m_Closed;
 }
 
-Tuple Cylinder::GetLocalNormalAt(Tuple point) const
+Tuple Cylinder::GetLocalNormalAt(Tuple point, const Intersection*) const
 {
   // compute the square of the distance from the y axis
   auto dist = (point.x * point.x) + (point.z * point.z);

@@ -1,4 +1,5 @@
 #pragma once
+#include "RayTracerPCH.hpp"
 
 // Engine
 #include "RayTracer.hpp"
@@ -18,7 +19,7 @@ public:
   mutable Ray saved_ray;
 
 protected:
-  Tuple GetLocalNormalAt(Tuple point) const override
+  Tuple GetLocalNormalAt(Tuple point, const Intersection*) const override
   {
     return make_vector(point.x, point.y, point.z);
   }

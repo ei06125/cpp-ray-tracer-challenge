@@ -1,8 +1,7 @@
 #pragma once
+#include "RayTracerPCH.hpp"
 
 #include "RayTracer/Rendering/Primitives/Shape.hpp"
-
-#include <unordered_set>
 
 namespace RayTracer {
 namespace Rendering {
@@ -10,7 +9,9 @@ namespace Primitives {
 
 using namespace Math;
 
-class Group : public Shape, public std::enable_shared_from_this<Group>
+class Group
+  : public Shape
+  , public std::enable_shared_from_this<Group>
 {
 public:
   /// @section Member functions
@@ -18,14 +19,12 @@ public:
   bool IsEmpty() const;
   bool Contains(const std::shared_ptr<Shape>& shape) const;
 
-  /// @subsubsection Virtual member functions
-  Tuple GetNormalAt(Tuple point) const override;
-
   /// @subsection Modifiers
   void AddChild(std::shared_ptr<Shape> newChild);
 
 protected:
-  Tuple GetLocalNormalAt(Tuple point) const override;
+  Tuple GetLocalNormalAt(Tuple point,
+                         const Intersection* i = nullptr) const override;
   Intersections VirtualIntersect(const Ray& r) const override;
 
 private:
