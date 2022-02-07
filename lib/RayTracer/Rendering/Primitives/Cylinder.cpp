@@ -7,13 +7,6 @@ using namespace Math;
 /// @section Member functions
 /// ===========================================================================
 
-Cylinder::~Cylinder() = default;
-Cylinder::Cylinder() = default;
-Cylinder::Cylinder(const Cylinder& other) = default;
-Cylinder::Cylinder(Cylinder&& other) noexcept = default;
-Cylinder& Cylinder::operator=(const Cylinder& other) = default;
-Cylinder& Cylinder::operator=(Cylinder&& other) noexcept = default;
-
 /// ---------------------------------------------------------------------------
 /// @subsection Observers
 /// ---------------------------------------------------------------------------
@@ -39,14 +32,14 @@ Tuple Cylinder::GetLocalNormalAt(Tuple point, const Intersection*) const
   auto dist = (point.x * point.x) + (point.z * point.z);
 
   if (dist < 1 && point.y >= m_Maximum - EPSILON) {
-    return make_vector(0, 1, 0);
+    return Vector(0, 1, 0);
   } else if (dist < 1 && point.y <= m_Minimum + EPSILON) {
-    return make_vector(0, -1, 0);
+    return Vector(0, -1, 0);
   }
-  return make_vector(point.x, 0, point.z);
+  return Vector(point.x, 0, point.z);
 }
 
-Intersections Cylinder::VirtualIntersect(const Ray& r) const
+Intersections Cylinder::GetLocalIntersect(const Ray& r) const
 {
   auto a = (r.direction.x * r.direction.x) + (r.direction.z * r.direction.z);
 

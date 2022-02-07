@@ -15,12 +15,10 @@ public:
   /// @subsection Special member functions
   Triangle(Tuple p1, Tuple p2, Tuple p3);
 
-  /// @subsection Observers
-  /// @subsection Modifiers
-
 protected:
+  /// @subsection Observers
   Tuple GetLocalNormalAt(Tuple point, const Intersection*) const override;
-  Intersections VirtualIntersect(const Ray& r) const override;
+  Intersections GetLocalIntersect(const Ray& r) const override;
 
   virtual Intersections MakeIntersections(float t, float u, float v) const;
 

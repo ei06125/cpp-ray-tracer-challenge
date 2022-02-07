@@ -1,9 +1,12 @@
 #include "RayTracer/Rendering/Canvas.hpp"
 
+// TODO: include Core.hpp instead
 #include "RayTracer/Core/Assertions.hpp"
 
+#include "RayTracer/Rendering/Color.hpp"
+
 namespace RayTracer::Rendering {
-using namespace Math;
+using namespace Colors;
 
 /// ===========================================================================
 /// @section Member functions
@@ -15,7 +18,7 @@ Canvas::Canvas(int w, int h)
 {
   pixels.reserve(width * height);
   for (std::size_t i = 0; i < pixels.capacity(); ++i) {
-    pixels.push_back(make_color(0, 0, 0));
+    pixels.emplace_back(0.0f, 0.0f, 0.0f);
   }
 }
 
@@ -23,12 +26,12 @@ Canvas::Canvas(int w, int h)
 /// @subsection Iterators
 /// ---------------------------------------------------------------------------
 
-std::vector<Tuple>::iterator Canvas::begin()
+std::vector<Color>::iterator Canvas::begin()
 {
   return pixels.begin();
 }
 
-std::vector<Tuple>::iterator Canvas::end()
+std::vector<Color>::iterator Canvas::end()
 {
   return pixels.end();
 }
@@ -46,7 +49,7 @@ std::size_t Canvas::size() const
 /// @subsection Observers
 /// ---------------------------------------------------------------------------
 
-const Tuple& Canvas::pixel_at(int w, int h) const
+const Color& Canvas::pixel_at(int w, int h) const
 {
   return pixels.at(h * width + w);
 }
@@ -55,7 +58,7 @@ const Tuple& Canvas::pixel_at(int w, int h) const
 /// @subsection Modifiers
 /// ---------------------------------------------------------------------------
 
-void Canvas::write_pixel_at(int w, int h, const Tuple& color)
+void Canvas::write_pixel_at(int w, int h, const Color& color)
 {
   // TODO: pixels[] vs pixels.at
   pixels.at(h * width + w) = color;
@@ -65,14 +68,14 @@ void Canvas::write_pixel_at(int w, int h, const Tuple& color)
 /// @section Non-member functions
 /// ===========================================================================
 
-void write_pixel(Canvas& c, int x, int y, const Tuple& color)
+void write_pixel(Canvas& c, int x, int y, const Color& color)
 {
   DEBUG_ASSERT(x >= 0 && x < c.width);
   DEBUG_ASSERT(y >= 0 && y < c.height);
   c.write_pixel_at(x, y, color);
 }
 
-const Tuple& pixel_at(const Canvas& c, int w, int h)
+const Color& pixel_at(const Canvas& c, int w, int h)
 {
   return c.pixel_at(w, h);
 }
@@ -94,11 +97,10 @@ std::string canvas_to_ppm(const Canvas& c)
     for (auto col = 0U; col < c.width; ++col) {
       const auto& color = c.pixel_at(col, row);
       line +=
-        std::to_string((int)(std::clamp(color.red * 256, 0.0f, 255.0f))) + " ";
+        std::to_string((int)(std::clamp(color.r * 256, 0.0f, 255.0f))) + " ";
       line +=
-        std::to_string((int)(std::clamp(color.green * 256, 0.0f, 255.0f))) +
-        " ";
-      line += std::to_string((int)(std::clamp(color.blue * 256, 0.0f, 255.0f)));
+        std::to_string((int)(std::clamp(color.g * 256, 0.0f, 255.0f))) + " ";
+      line += std::to_string((int)(std::clamp(color.b * 256, 0.0f, 255.0f)));
 
       if (col < c.width - 1) {
         line += " ";

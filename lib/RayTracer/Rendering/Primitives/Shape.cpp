@@ -18,7 +18,7 @@ Shape::~Shape() = default;
 Shape::Shape()
   : m_Transform(mat4::Identity())
   , m_Material(Material())
-  , m_Origin(make_point(0, 0, 0))
+  , m_Origin(Point(0, 0, 0))
   , m_Parent()
 {}
 
@@ -80,7 +80,7 @@ Tuple Shape::GetNormalAt(Tuple worldPoint, const Intersection* i) const
 Intersections Shape::Intersect(const Ray& ray) const
 {
   auto localRay = transform(ray, inverse(m_Transform));
-  return VirtualIntersect(localRay);
+  return GetLocalIntersect(localRay);
 }
 
 /// ---------------------------------------------------------------------------

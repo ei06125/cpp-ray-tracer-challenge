@@ -11,19 +11,12 @@ using namespace Math;
 
 class Cube : public Shape
 {
-public:
-  /// @section Member functions
-  ~Cube() override;
-  Cube();
-  Cube(const Cube&);
-  Cube(Cube&&) noexcept;
-  Cube& operator=(const Cube&);
-  Cube& operator=(Cube&&) noexcept;
-
 protected:
+  /// @section Member functions
+  /// @subsection Observers
   Tuple GetLocalNormalAt(Tuple point,
                          const Intersection* i = nullptr) const override;
-  Intersections VirtualIntersect(const Ray& r) const override;
+  Intersections GetLocalIntersect(const Ray& r) const override;
 };
 
 /// @section Non-member functions

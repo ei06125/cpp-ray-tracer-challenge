@@ -59,11 +59,11 @@ World default_world()
 {
   World w;
 
-  w.SetLight({ make_point(-10, 10, -10), make_color(1, 1, 1) });
+  w.SetLight({ Point(-10, 10, -10), Color{ 1.0f, 1.0f, 1.0f } });
 
   auto s1 = std::make_shared<Sphere>();
   Material newMaterial;
-  newMaterial.color = make_color(0.8, 1.0, 0.6);
+  newMaterial.color = Color{ 0.8, 1.0, 0.6 };
   newMaterial.diffuse = 0.7;
   newMaterial.specular = 0.2;
   s1->SetMaterial(newMaterial);
@@ -93,10 +93,10 @@ Intersections intersect_world(const World& w, const Ray& r)
 }
 
 /// @todo Supporting Multiple Light Sources
-Tuple shade_hit(const World& w, const Computations& comps, int depth)
+Color shade_hit(const World& w, const Computations& comps, int depth)
 {
   if (!w.GetLightSource()) {
-    return make_color(0, 0, 0); // black
+    return Colors::Black;
   }
 
   const auto shadowed = is_shadowed(w, comps.over_point);
@@ -120,7 +120,7 @@ Tuple shade_hit(const World& w, const Computations& comps, int depth)
   return surface + reflected + refracted;
 }
 
-Tuple color_at(const World& w, const Ray& r, int depth)
+Color color_at(const World& w, const Ray& r, int depth)
 {
   // find the intersections of the given ray with the given world
   const auto intersections = intersect_world(w, r);
@@ -130,8 +130,9 @@ Tuple color_at(const World& w, const Ray& r, int depth)
 
   // Return the color black if there is no such intersection
   if (!theHit) {
-    return make_color(0, 0, 0);
+    return Colors::Black;
   }
+
   // Otherwise, precompute the necessary values with prepare_computations
   const auto comps = prepare_computations(*theHit, r, &intersections);
 
@@ -168,11 +169,11 @@ bool is_shadowed(const World& world, const Tuple& point)
 /// @section Reflection
 /// ===========================================================================
 
-Tuple reflected_color(const World& w, const Computations& comps, int depth)
+Color reflected_color(const World& w, const Computations& comps, int depth)
 {
   // reflected color for a nonreflective material OR too many recursive calls
   if (comps.object->GetMaterial().reflective == 0 || depth < 1) {
-    return make_color(0, 0, 0);
+    return Colors::Black;
   }
 
   auto reflect_ray = Ray{ comps.over_point, comps.reflectv };
@@ -180,10 +181,10 @@ Tuple reflected_color(const World& w, const Computations& comps, int depth)
   return color * comps.object->GetMaterial().reflective;
 }
 
-Tuple refracted_color(const World& w, const Computations& comps, int depth)
+Color refracted_color(const World& w, const Computations& comps, int depth)
 {
   if (comps.object->GetMaterial().transparency == 0 || depth < 1) {
-    return make_color(0, 0, 0);
+    return Colors::Black;
   }
 
   // Snell's Law:
@@ -199,7 +200,7 @@ Tuple refracted_color(const World& w, const Computations& comps, int depth)
 
   // if greater than 1, we got total internal reflection
   if (sin2_t > 1) {
-    return make_color(0, 0, 0);
+    return Colors::Black;
   }
 
   // Find cos(theta_t) via trignometric identity

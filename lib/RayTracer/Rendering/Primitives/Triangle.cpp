@@ -28,7 +28,7 @@ Tuple Triangle::GetLocalNormalAt(Tuple point, const Intersection*) const
   return normal;
 }
 
-Intersections Triangle::VirtualIntersect(const Ray& r) const
+Intersections Triangle::GetLocalIntersect(const Ray& r) const
 {
   auto dir_cross_e2 = cross(r.direction, e2);
   auto det = dot(e1, dir_cross_e2);

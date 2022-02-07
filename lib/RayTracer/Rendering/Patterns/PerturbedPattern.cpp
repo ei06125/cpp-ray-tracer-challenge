@@ -1,6 +1,6 @@
 #include "RayTracer/Rendering/Patterns/PerturbedPattern.hpp"
 
-#include "RayTracer/Math/PerlinNoise.hpp"
+#include "PerlinNoise/PerlinNoise.hpp"
 
 namespace RayTracer {
 namespace Rendering {
@@ -29,13 +29,13 @@ Color PerturbedPattern::At(Tuple point) const
 
   const auto localPoint = inverse(m_SubPattern->GetTransform()) * point;
 
-  auto perturbedPoint = make_point(perlin.noise1D_01(localPoint.x),
-                                   perlin.noise1D_01(localPoint.y),
-                                   perlin.noise1D_01(localPoint.z));
+  auto perturbedPoint = Point(perlin.noise1D_01(localPoint.x),
+                              perlin.noise1D_01(localPoint.y),
+                              perlin.noise1D_01(localPoint.z));
 
   return m_SubPattern->At(perturbedPoint);
 }
 
-} // namespace Textures
+} // namespace Patterns
 } // namespace Rendering
 } // namespace RayTracer

@@ -6,9 +6,13 @@
 namespace RayTracer {
 namespace Rendering {
 namespace Primitives {
-
 using namespace Math;
 
+/**
+ * @brief Base class for all composite shapes
+ * @implements Composite design pattern
+ *
+ */
 class Group
   : public Shape
   , public std::enable_shared_from_this<Group>
@@ -25,7 +29,7 @@ public:
 protected:
   Tuple GetLocalNormalAt(Tuple point,
                          const Intersection* i = nullptr) const override;
-  Intersections VirtualIntersect(const Ray& r) const override;
+  Intersections GetLocalIntersect(const Ray& r) const override;
 
 private:
   std::unordered_set<std::shared_ptr<Shape>> m_Children;

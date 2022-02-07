@@ -11,8 +11,8 @@ SCENARIO("A point light has a position and intensity")
 {
   GIVEN("intensity = color(1, 1, 1) && position = point(0, 0, 0)")
   {
-    auto intensity = make_color(1, 1, 1);
-    auto position = make_point(0, 0, 0);
+    auto intensity = Color{ 1.0f, 1.0f, 1.0f };
+    auto position = Point(0, 0, 0);
 
     WHEN("light = point_light(position, intensity)")
     {

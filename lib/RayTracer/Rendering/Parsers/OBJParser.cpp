@@ -25,11 +25,11 @@ OBJParser::OBJParser(const OBJFile& file)
 {
   m_Vertices.reserve(file.GetLines().size());
   // OBJ vertices are 1-based (NOT 0-based)
-  m_Vertices.push_back(make_point(0, 0, 0));
+  m_Vertices.push_back(Point(0, 0, 0));
 
   m_Normals.reserve(file.GetLines().size());
   // OBJ normals are 1-based (NOT 0-based)
-  m_Normals.push_back(make_vector(0, 0, 0));
+  m_Normals.push_back(Vector(0, 0, 0));
 
   for (const auto& line : file.GetLines()) {
     switch (line[0]) {
@@ -109,7 +109,7 @@ void OBJParser::ParseVertex(const std::string& line)
   float y = std::atof(yView.data());
   float z = std::atof(zView.data());
 
-  m_Vertices.push_back(make_point(x, y, z));
+  m_Vertices.push_back(Point(x, y, z));
 }
 
 void OBJParser::ParseNormal(const std::string& line)
@@ -129,7 +129,7 @@ void OBJParser::ParseNormal(const std::string& line)
   float y = std::atof(yView.data());
   float z = std::atof(zView.data());
 
-  m_Normals.push_back(make_vector(x, y, z));
+  m_Normals.push_back(Vector(x, y, z));
 }
 
 void OBJParser::ParseFaces(const std::string& line)

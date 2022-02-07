@@ -27,10 +27,10 @@ bool Group::Contains(const std::shared_ptr<Shape>& shape) const
 
 Tuple Group::GetLocalNormalAt(Tuple point, const Intersection*) const
 {
-  return make_point(0, 0, 1);
+  return Point(0, 0, 1);
 }
 
-Intersections Group::VirtualIntersect(const Ray& r) const
+Intersections Group::GetLocalIntersect(const Ray& r) const
 {
   Intersections xs{};
   for (auto child : m_Children) {

@@ -67,7 +67,7 @@ int main()
   world.AddObject(std::static_pointer_cast<Shape>(left));
 
   // light
-  world.SetLight(PointLight{ make_point(-10, 10, -10), make_color(1, 1, 1) });
+  world.SetLight(PointLight{ Point(-10, 10, -10), make_color(1, 1, 1) });
 
   // camera
 #ifdef NDEBUG
@@ -77,7 +77,7 @@ int main()
 #endif
 
   camera.transform = view_transform(
-    make_point(0, 1.5, -5), make_point(0, 1, 0), make_vector(0, 1, 0));
+    Point(0, 1.5, -5), Point(0, 1, 0), Vector(0, 1, 0));
 
   // render the result to a canvas.
   auto canvas = render(camera, world);

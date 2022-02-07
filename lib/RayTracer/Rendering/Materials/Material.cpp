@@ -2,14 +2,18 @@
 
 // Project Library
 #include "RayTracer/Rendering/Lighting/Light.hpp"
-#include "RayTracer/Rendering/Primitives/Shape.hpp"
 #include "RayTracer/Rendering/Patterns/Pattern.hpp"
+#include "RayTracer/Rendering/Primitives/Shape.hpp"
 
 namespace RayTracer {
 namespace Rendering {
 namespace Materials {
 
-using namespace Math;
+using namespace RayTracer::Math;
+using namespace RayTracer::Rendering::Lighting;
+using namespace RayTracer::Rendering::Primitives;
+using namespace RayTracer::Rendering::Patterns;
+using namespace RayTracer::Rendering::Colors;
 
 bool operator==(const Material& lhs, const Material& rhs)
 {
@@ -18,7 +22,7 @@ bool operator==(const Material& lhs, const Material& rhs)
          lhs.shininess == rhs.shininess && lhs.pattern == rhs.pattern;
 }
 
-Tuple lighting(const Material& material,
+Color lighting(const Material& material,
                const PointLight& light,
                const Tuple& point,
                const Tuple& eyev,
@@ -53,8 +57,8 @@ Tuple lighting(const Material& material,
   // light is on the other side of the surface
   auto light_dot_normal = dot(lightv, normalv);
 
-  Tuple diffuse = make_color(0, 0, 0);  // black
-  Tuple specular = make_color(0, 0, 0); // black
+  Color diffuse = Colors::Black;
+  Color specular = Colors::Black;
   if (light_dot_normal >= 0) {
     // compute the diffuse contribution
     diffuse = effective_color * material.diffuse * light_dot_normal;

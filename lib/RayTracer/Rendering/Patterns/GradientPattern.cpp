@@ -24,6 +24,6 @@ Color GradientPattern::At(Tuple point) const
   return m_ColorA + distance * fraction;
 }
 
-} // namespace Textures
+} // namespace Patterns
 } // namespace Rendering
 } // namespace RayTracer

@@ -1,10 +1,10 @@
 #pragma once
 #include "RayTracerPCH.hpp"
 
-#include "RayTracer/Math/Tuple.hpp"
+#include "RayTracer/Rendering/Color.hpp"
 
 namespace RayTracer::Rendering {
-using namespace Math;
+using namespace Colors;
 
 struct Canvas
 {
@@ -13,30 +13,30 @@ public:
   Canvas(int w, int h);
 
   /// @subsection Iterators
-  std::vector<Tuple>::iterator begin();
-  std::vector<Tuple>::iterator end();
+  std::vector<Color>::iterator begin();
+  std::vector<Color>::iterator end();
 
   /// @subsection Capacity
   std::size_t size() const;
 
   /// @subsection Observers
-  const Tuple& pixel_at(int w, int h) const;
+  const Color& pixel_at(int w, int h) const;
 
   /// @subsection Modifiers
-  void write_pixel_at(int w, int h, const Tuple& color);
+  void write_pixel_at(int w, int h, const Color& color);
 
   /// @section Member data
   int width;
   int height;
 
 private:
-  std::vector<Tuple> pixels;
+  std::vector<Color> pixels;
 };
 
 /// @section Non-member functions
-void write_pixel(Canvas& c, int w, int h, const Tuple& color);
+void write_pixel(Canvas& c, int w, int h, const Color& color);
 
-const Tuple& pixel_at(const Canvas& c, int w, int h);
+const Color& pixel_at(const Canvas& c, int w, int h);
 
 std::string canvas_to_ppm(const Canvas& c);
 

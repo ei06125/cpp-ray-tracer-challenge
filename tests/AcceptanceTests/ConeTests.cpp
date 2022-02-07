@@ -24,9 +24,9 @@ SCENARIO("Intersecting a cone with a ray")
     };
 
     const std::array<TestData, 3> testData{ {
-      { make_point(0, 0, -5), make_vector(0, 0, 1), 5, 5 },
-      { make_point(0, 0, -5), make_vector(1, 1, 1), 8.66025, 8.66025 },
-      { make_point(1, 1, -5), make_vector(-0.5, -1, 1), 4.55006, 49.44994 },
+      { Point(0, 0, -5), Vector(0, 0, 1), 5, 5 },
+      { Point(0, 0, -5), Vector(1, 1, 1), 8.66025, 8.66025 },
+      { Point(1, 1, -5), Vector(-0.5, -1, 1), 4.55006, 49.44994 },
     } };
     /// -----------------------------------------------------------------------
 
@@ -57,8 +57,8 @@ SCENARIO("Intersecting a cone with a ray parallel to one of its halves")
     \n\t And r = ray(point(0, 0, -1), direction)")
   {
     auto shape = Cone();
-    auto direction = normalize(make_vector(0, 1, 1));
-    auto r = Ray{ make_point(0, 0, -1), direction };
+    auto direction = normalize(Vector(0, 1, 1));
+    auto r = Ray{ Point(0, 0, -1), direction };
 
     WHEN("xs = local_intersect(shape, r)")
     {
@@ -93,9 +93,9 @@ SCENARIO("Intersecting a cone's end caps")
     };
 
     const std::array<TestData, 3> testData{ {
-      { make_point(0, 0, -5), make_vector(0, 1, 0), 0 },
-      { make_point(0, 0, -0.25), make_vector(0, 1, 1), 2 },
-      { make_point(0, 0, -0.25), make_vector(0, 1, 0), 4 },
+      { Point(0, 0, -5), Vector(0, 1, 0), 0 },
+      { Point(0, 0, -0.25), Vector(0, 1, 1), 2 },
+      { Point(0, 0, -0.25), Vector(0, 1, 0), 4 },
     } };
     /// -----------------------------------------------------------------------
 
@@ -127,9 +127,9 @@ SCENARIO("Computing the normal vector on a cone")
     };
 
     const std::array<TestData, 3> testData{ {
-      { make_point(0, 0, 0), make_vector(0, 0, 0) },
-      { make_point(1, 1, 1), make_vector(1, -std::sqrt(2), 1) },
-      { make_point(-1, -1, 0), make_vector(-1, 1, 0) },
+      { Point(0, 0, 0), Vector(0, 0, 0) },
+      { Point(1, 1, 1), Vector(1, -std::sqrt(2), 1) },
+      { Point(-1, -1, 0), Vector(-1, 1, 0) },
     } };
     /// -----------------------------------------------------------------------
 
@@ -137,7 +137,7 @@ SCENARIO("Computing the normal vector on a cone")
     for (const auto& [point, normal] : testData) {
       WHEN("n = local_normal_at(shape, <point>)")
       {
-        auto n = shape.GetNormalAt(point);
+        auto n = shape.TestLocalNormalAt(point);
         THEN("n == <normal>") { CHECK(n == normal); }
       }
     }

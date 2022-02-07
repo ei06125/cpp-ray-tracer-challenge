@@ -10,13 +10,6 @@ class Sphere : public Shape
 {
 public:
   /// @section Member functions
-  ~Sphere() override;
-  Sphere();
-  Sphere(const Sphere&);
-  Sphere(Sphere&&) noexcept;
-  Sphere& operator=(const Sphere&);
-  Sphere& operator=(Sphere&&) noexcept;
-
   /// @subsection Observers
   float GetRadius() const;
 
@@ -29,10 +22,10 @@ public:
 protected:
   Tuple GetLocalNormalAt(Tuple point,
                          const Intersection* i = nullptr) const override;
-  Intersections VirtualIntersect(const Ray& r) const override;
+  Intersections GetLocalIntersect(const Ray& r) const override;
 
 private:
-  float m_Radius;
+  float m_Radius{ 1.0f };
 };
 
 /// @section Non-member functions

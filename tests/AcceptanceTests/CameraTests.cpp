@@ -66,8 +66,8 @@ SCENARIO("Constructing a ray through the center of the canvas")
       THEN("r.origin == point(0, 0, 0) &&\
       \n r.direction == vector(0, 0, -1)")
       {
-        CHECK(r.origin == make_point(0, 0, 0));
-        CHECK(r.direction == make_vector(0, 0, -1));
+        CHECK(r.origin == Point(0, 0, 0));
+        CHECK(r.direction == Vector(0, 0, -1));
       }
     }
   }
@@ -86,8 +86,8 @@ SCENARIO("Constructing a ray through a corner of the canvas")
       THEN("r.origin == point(0, 0, 0) &&\
       \n r.direction == vector(0.66519, 0.33259, -0.66851)")
       {
-        CHECK(r.origin == make_point(0, 0, 0));
-        CHECK(r.direction == make_vector(0.66519, 0.33259, -0.66851));
+        CHECK(r.origin == Point(0, 0, 0));
+        CHECK(r.direction == Vector(0.66519, 0.33259, -0.66851));
       }
     }
   }
@@ -108,9 +108,8 @@ SCENARIO("Constructing a ray when the camera is transformed")
       THEN("r.origin == point(0, 2, -5) &&\
       \n r.direction == vector(SQRT(2)/2, 0, -SQRT(2)/2)")
       {
-        CHECK(r.origin == make_point(0, 2, -5));
-        CHECK(r.direction ==
-              make_vector(std::sqrt(2) / 2, 0, -std::sqrt(2) / 2));
+        CHECK(r.origin == Point(0, 2, -5));
+        CHECK(r.direction == Vector(std::sqrt(2) / 2, 0, -std::sqrt(2) / 2));
       }
     }
   }
@@ -126,10 +125,10 @@ SCENARIO("Rendering a world with a camera")
     \n c.transform = view_transform(from, to, up)")
   {
     auto w = default_world();
-    auto c = Camera{ 11, 11, PI / 2 };
-    auto from = make_point(0, 0, -5);
-    auto to = make_point(0, 0, 0);
-    auto up = make_vector(0, 1, 0);
+    auto c = Camera{ 11.0f, 11.0f, PI / 2.0f };
+    auto from = Point(0.0f, 0.0f, -5.0f);
+    auto to = Point(0.0f, 0.0f, 0.0f);
+    auto up = Vector(0.0f, 1.0f, 0.0f);
     c.transform = view_transform(from, to, up);
 
     WHEN("image = render(c, w)")
@@ -138,7 +137,7 @@ SCENARIO("Rendering a world with a camera")
 
       THEN("pixel_at(image, 5, 5) == color(0.38066, 0.47583, 0.2855)")
       {
-        CHECK(pixel_at(image, 5, 5) == make_color(0.38066, 0.47583, 0.2855));
+        CHECK(pixel_at(image, 5, 5) == Color{ 0.38066f, 0.47583f, 0.2855f });
       }
     }
   }

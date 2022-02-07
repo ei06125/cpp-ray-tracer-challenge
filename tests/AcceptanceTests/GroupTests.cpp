@@ -52,7 +52,7 @@ SCENARIO("Intersecting a ray with an empty group")
     \n\t And r = ray(point(0, 0, 0), vector(0, 0, 1))")
   {
     auto g = Group();
-    auto r = Ray{ make_point(0, 0, 0), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, 0), Vector(0, 0, 1) };
 
     WHEN("xs = local_intersect(g, r)")
     {
@@ -88,7 +88,7 @@ SCENARIO("Intersecting a ray with a nonempty group")
     WHEN("r = ray(point(0, 0, -5), vector(0, 0, 1))\
       \n\t And xs = local_intersect(g, r)")
     {
-      auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+      auto r = Ray{ Point(0, 0, -5), Vector(0, 0, 1) };
       auto xs = g->Intersect(r);
 
       THEN("xs.count == 4\
@@ -124,7 +124,7 @@ SCENARIO("Intersecting a transformed group")
     WHEN("r = ray(point(10, 0, -10), vector(0, 0, 1))\
     \n\t And xs = intersect(g, r)")
     {
-      auto r = Ray{ make_point(10, 0, -10), make_vector(0, 0, 1) };
+      auto r = Ray{ Point(10, 0, -10), Vector(0, 0, 1) };
       auto xs = g->Intersect(r);
 
       THEN("xs.count == 2") { CHECK(xs.Count() == 2); }
@@ -154,8 +154,8 @@ SCENARIO("Converting a point from world to object space")
 
     WHEN("p = world_to_object(s, point(-2, 0, -10))")
     {
-      auto p = s->WorldToObject(make_point(-2, 0, -10));
-      THEN("p == point(0, 0, -1)") { CHECK(p == make_point(0, 0, -1)); }
+      auto p = s->WorldToObject(Point(-2, 0, -10));
+      THEN("p == point(0, 0, -1)") { CHECK(p == Point(0, 0, -1)); }
     }
   }
 }
@@ -183,10 +183,10 @@ SCENARIO("Converting a normal from object to world space")
     WHEN("n = normal_to_world(s, vector(SQRT(3)/3, SQRT(3)/3, SQRT(3)/3))")
     {
       float sqrt3 = std::sqrt(3);
-      auto n = s->NormalToWorld(make_vector(sqrt3 / 3, sqrt3 / 3, sqrt3 / 3));
+      auto n = s->NormalToWorld(Vector(sqrt3 / 3, sqrt3 / 3, sqrt3 / 3));
       THEN("n == vector(0.2857, 0.4286, -0.8571)")
       {
-        CHECK(n == make_vector(0.2857, 0.4286, -0.8571));
+        CHECK(n == Vector(0.2857, 0.4286, -0.8571));
       }
     }
   }
@@ -214,10 +214,10 @@ SCENARIO("Finding a normal on a child object")
 
     WHEN("n = normal_at(s, point(1.7321, 1.1547, -5.5774))")
     {
-      auto n = s->GetNormalAt(make_point(1.7321, 1.1547, -5.5774));
+      auto n = s->GetNormalAt(Point(1.7321, 1.1547, -5.5774));
       THEN("n == vector(0.2857, 0.4286, -0.8571)")
       {
-        CHECK(n == make_vector(0.2857, 0.4286, -0.8571));
+        CHECK(n == Vector(0.2857, 0.4286, -0.8571));
       }
     }
   }

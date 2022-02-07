@@ -3,6 +3,7 @@
 
 #include "RayTracer/Math/Matrix.hpp"
 #include "RayTracer/Math/Tuple.hpp"
+#include "RayTracer/Rendering/Color.hpp"
 
 namespace RayTracer {
 namespace Rendering {
@@ -13,9 +14,9 @@ class Shape;
 
 namespace Patterns {
 
-using namespace Rendering::Primitives;
 using namespace Math;
-using Color = Tuple;
+using namespace Rendering::Colors;
+using namespace Rendering::Primitives;
 
 class Pattern
 {

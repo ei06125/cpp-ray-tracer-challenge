@@ -24,6 +24,6 @@ private:
   std::shared_ptr<Pattern> m_PatternB;
 };
 
-} // namespace Textures
+} // namespace Patterns
 } // namespace Rendering
 } // namespace RayTracer

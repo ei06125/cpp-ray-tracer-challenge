@@ -12,19 +12,12 @@ using namespace Math;
 
 class Plane : public Shape
 {
-public:
-  /// @section Member functions
-  ~Plane() override;
-  Plane();
-  Plane(const Plane&);
-  Plane(Plane&&) noexcept;
-  Plane& operator=(const Plane&);
-  Plane& operator=(Plane&&) noexcept;
-
 protected:
+  /// @section Member functions
+  /// @subsection Observers
   Tuple GetLocalNormalAt(Tuple point,
                          const Intersection* i = nullptr) const override;
-  Intersections VirtualIntersect(const Ray& r) const override;
+  Intersections GetLocalIntersect(const Ray& r) const override;
 };
 
 inline bool operator==(const Shape& lhs, const Plane& rhs)

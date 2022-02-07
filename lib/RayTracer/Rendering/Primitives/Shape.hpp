@@ -14,6 +14,10 @@ using namespace Materials;
 using namespace Lighting;
 using namespace Math;
 
+/**
+ * @brief Base class for all shapes
+ * @implements Composite design pattern
+ */
 class Shape
 {
 public:
@@ -49,7 +53,7 @@ protected:
   Shape();
   virtual Tuple GetLocalNormalAt(Tuple point,
                                  const Intersection* i = nullptr) const = 0;
-  virtual Intersections VirtualIntersect(const Ray& r) const = 0;
+  virtual Intersections GetLocalIntersect(const Ray& r) const = 0;
 
 private:
   mat4 m_Transform;

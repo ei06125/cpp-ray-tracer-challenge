@@ -19,11 +19,11 @@ public:
   Color B() const;
   Color At(Tuple point) const override;
 
-  private:
+private:
   Color m_ColorA;
   Color m_ColorB;
 };
 
-} // namespace Textures
+} // namespace Patterns
 } // namespace Rendering
 } // namespace RayTracer

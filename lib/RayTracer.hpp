@@ -17,6 +17,7 @@
 /// ===========================================================================
 /// @section Rendering
 #include "RayTracer/Rendering/Canvas.hpp"
+#include "RayTracer/Rendering/Color.hpp"
 
 /// ---------------------------------------------------------------------------
 /// @subsection Cameras

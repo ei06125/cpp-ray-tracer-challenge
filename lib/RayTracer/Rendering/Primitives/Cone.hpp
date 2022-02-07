@@ -23,14 +23,14 @@ public:
   void SetMaximum(float newMaximum);
   void SetClosed(bool closed);
 
-  // TODO: this should be removed but the tests fail if we do so
-  Tuple GetNormalAt(Tuple point,
-                    const Intersection* i = nullptr) const override;
+#ifndef NDEBUG
+  Tuple TestLocalNormalAt(Tuple point) const;
+#endif
 
 protected:
   Tuple GetLocalNormalAt(Tuple point,
                          const Intersection* i = nullptr) const override;
-  Intersections VirtualIntersect(const Ray& r) const override;
+  Intersections GetLocalIntersect(const Ray& r) const override;
 
 private:
   bool CheckCap(const Ray& r, float t) const;

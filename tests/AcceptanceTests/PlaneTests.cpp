@@ -17,17 +17,17 @@ SCENARIO("The normal of a plane is constant everywhere")
         \n n2 = local_normal_at(p, point(10, 0, -10)) &&\
         \n n3 = local_normal_at(p, point(-5, 0, 150))")
     {
-      auto n1 = p.GetNormalAt(make_point(0, 0, 0));
-      auto n2 = p.GetNormalAt(make_point(10, 0, -10));
-      auto n3 = p.GetNormalAt(make_point(-5, 0, 150));
+      auto n1 = p.GetNormalAt(Point(0, 0, 0));
+      auto n2 = p.GetNormalAt(Point(10, 0, -10));
+      auto n3 = p.GetNormalAt(Point(-5, 0, 150));
 
       THEN("n1 == vector(0, 1, 0) &&\
             \n n2 == vector(0, 1, 0) &&\
             \n n3 == vector(0, 1, 0)")
       {
-        CHECK(n1 == make_vector(0, 1, 0));
-        CHECK(n2 == make_vector(0, 1, 0));
-        CHECK(n3 == make_vector(0, 1, 0));
+        CHECK(n1 == Vector(0, 1, 0));
+        CHECK(n2 == Vector(0, 1, 0));
+        CHECK(n3 == Vector(0, 1, 0));
       }
     }
   }
@@ -38,7 +38,7 @@ SCENARIO("Intersect with a ray parallel to the plane")
   GIVEN("p = plane() && r = ray(point(0, 10, 0), vector(0, 0, 1))")
   {
     auto p = Plane();
-    auto r = Ray({ make_point(0, 10, 0), make_vector(0, 0, 1) });
+    auto r = Ray({ Point(0, 10, 0), Vector(0, 0, 1) });
 
     WHEN("xs = local_intersect(p, r)")
     {
@@ -54,7 +54,7 @@ SCENARIO("Intersect with a coplanar ray")
   GIVEN("p = plane() && r = ray(point(0, 0, 0), vector(0, 0, 1))")
   {
     auto p = Plane();
-    auto r = Ray({ make_point(0, 0, 0), make_vector(0, 0, 1) });
+    auto r = Ray({ Point(0, 0, 0), Vector(0, 0, 1) });
 
     WHEN("xs = local_intersect(p, r)")
     {
@@ -70,7 +70,7 @@ SCENARIO("A ray intersecting a plane from above")
   GIVEN("p = plane() && r = ray(point(0, 1, 0), vector(0, -1, 0))")
   {
     auto p = Plane();
-    auto r = Ray({ make_point(0, 1, 0), make_vector(0, -1, 0) });
+    auto r = Ray({ Point(0, 1, 0), Vector(0, -1, 0) });
 
     WHEN("xs = local_intersect_at(p, r)")
     {
@@ -91,7 +91,7 @@ SCENARIO("A ray intersecting a plane from below")
   GIVEN("p = plane() && r = ray(point(0, -1, 0), vector(0, 1, 0))")
   {
     auto p = Plane();
-    auto r = Ray({ make_point(0, -1, 0), make_vector(0, 1, 0) });
+    auto r = Ray({ Point(0, -1, 0), Vector(0, 1, 0) });
 
     WHEN("xs = local_intersect_at(p, r)")
     {

@@ -17,12 +17,12 @@ Projectile tick(Environment env, Projectile proj)
 
 int main()
 {
-  auto start = make_point(0, 1, 0);
-  auto velocity = normalize(make_vector(1, 1.8, 0)) * 11.25;
+  auto start = Point(0, 1, 0);
+  auto velocity = normalize(Vector(1, 1.8, 0)) * 11.25;
   auto p = Projectile{ start, velocity };
 
-  auto gravity = make_vector(0, -0.1, 0);
-  auto wind = make_vector(-0.01, 0, 0);
+  auto gravity = Vector(0, -0.1, 0);
+  auto wind = Vector(-0.01, 0, 0);
   auto e = Environment{ gravity, wind };
 
   auto w = 900;

@@ -4,3 +4,6 @@
 [submodule "tools"]
 	path = tools
 	url = git@github.com:ei06125/cpp-build-tools.git
+[submodule "external/PerlinNoise"]
+	path = external/PerlinNoise
+	url = git@github.com:Reputeless/PerlinNoise.git

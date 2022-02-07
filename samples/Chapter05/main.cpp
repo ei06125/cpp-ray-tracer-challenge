@@ -3,7 +3,7 @@
 int main()
 {
   // start the ray at z = -5
-  auto ray_origin = make_point(0, 0, -5);
+  auto ray_origin = Point(0, 0, -5);
 
   // put the wall at z = 10
   auto wall_z = 10;
@@ -42,7 +42,7 @@ int main()
       auto world_x = -half + pixel_size * x;
 
       // describe the point on the wall that the ray will target
-      auto position = make_point(world_x, world_y, wall_z);
+      auto position = Point(world_x, world_y, wall_z);
 
       auto r = Ray{ ray_origin, normalize(position - ray_origin) };
       auto xs = intersect(shape, r);

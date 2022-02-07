@@ -30,6 +30,6 @@ Color RadialGradientPattern::At(Tuple point) const
   return std::fmod(std::floor(magnitude), 2.0f) == 0 ? gradientA : gradientB;
 }
 
-} // namespace Textures
+} // namespace Patterns
 } // namespace Rendering
 } // namespace RayTracer

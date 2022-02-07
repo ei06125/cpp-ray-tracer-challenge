@@ -4,9 +4,10 @@
 // Engine
 #include "RayTracer.hpp"
 
-using namespace RayTracer::Rendering::Scene;
-using namespace RayTracer::Rendering::Lighting;
 using namespace RayTracer::Math;
+using namespace RayTracer::Rendering::Colors;
+using namespace RayTracer::Rendering::Lighting;
+using namespace RayTracer::Rendering::Scene;
 
 SCENARIO("Creating a world")
 {
@@ -31,11 +32,10 @@ SCENARIO("The default world")
     \n AND s2 = sphere() with:\
     \n | transform  | scaling(0.5, 0.5, 0.5) |")
   {
-    auto light = PointLight{ make_point(-10, 10, -10), make_color(1, 1, 1) };
-
+    auto light = PointLight{ Point(-10, 10, -10), Color{ 1.0f, 1.0f, 1.0f } };
     auto s1 = std::make_shared<Sphere>();
     auto m1 = Material();
-    m1.color = make_color(0.8, 1.0, 0.6);
+    m1.color = Color{ 0.8f, 1.0f, 0.6f };
     m1.diffuse = 0.7;
     m1.specular = 0.2;
     s1->SetMaterial(m1);
@@ -62,7 +62,7 @@ SCENARIO("Intersect a world with a ray")
   GIVEN("w = default_world() && r = ray(point(0, 0, -5), vector(0, 0, 1))")
   {
     auto w = default_world();
-    auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, -5), Vector(0, 0, 1) };
 
     WHEN("xs = intersect_world(w, r)")
     {
@@ -92,7 +92,7 @@ SCENARIO("Shading an intersection")
   \n i = intersection(4, shape)")
   {
     auto w = default_world();
-    auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, -5), Vector(0, 0, 1) };
     auto shape = w.GetObjects().front();
     auto i = Intersection(4, shape.get());
 
@@ -104,7 +104,7 @@ SCENARIO("Shading an intersection")
 
       THEN("c == color(0.38066, 0.47583, 0.2855)")
       {
-        CHECK(c == make_color(0.38066, 0.47583, 0.2855));
+        CHECK(c == Color{ 0.38066f, 0.47583f, 0.2855f });
       }
     }
   }
@@ -119,8 +119,8 @@ SCENARIO("Shading an intersection from the inside")
   \n i = intersection(0.5, shape)")
   {
     auto w = default_world();
-    w.SetLight(PointLight{ make_point(0, 0.25, 0), make_color(1, 1, 1) });
-    auto r = Ray{ make_point(0, 0, 0), make_vector(0, 0, 1) };
+    w.SetLight(PointLight{ Point(0, 0.25, 0), Color{ 1.0f, 1.0f, 1.0f } });
+    auto r = Ray{ Point(0, 0, 0), Vector(0, 0, 1) };
     auto shape = w.GetObjects().at(1);
     auto i = Intersection(0.5, shape.get());
 
@@ -132,7 +132,7 @@ SCENARIO("Shading an intersection from the inside")
 
       THEN("c == color(0.90498, 0.90498, 0.90498)")
       {
-        CHECK(c == make_color(0.90498, 0.90498, 0.90498));
+        CHECK(c == Color{ 0.90498f, 0.90498f, 0.90498f });
       }
     }
   }
@@ -143,13 +143,13 @@ SCENARIO("The color when a ray misses")
   GIVEN("w = default_world && r = ray(point(0, 0, -5), vector(0, 1, 0))")
   {
     auto w = default_world();
-    auto r = Ray{ make_point(0, 0, -5), make_vector(0, 1, 0) };
+    auto r = Ray{ Point(0, 0, -5), Vector(0, 1, 0) };
 
     WHEN("c = color_at(w, r)")
     {
       auto c = color_at(w, r);
 
-      THEN("c == color(0, 0, 0)") { CHECK(c == make_color(0, 0, 0)); }
+      THEN("c == color(0, 0, 0)") { CHECK(c == Color{ 0.0f, 0.0f, 0.0f }); }
     }
   }
 }
@@ -159,7 +159,7 @@ SCENARIO("The color when a ray hits")
   GIVEN("w = default_world && r = ray(point(0, 0, -5), vector(0, 0, 1))")
   {
     auto w = default_world();
-    auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, -5), Vector(0, 0, 1) };
 
     WHEN("c = color_at(w, r)")
     {
@@ -167,7 +167,7 @@ SCENARIO("The color when a ray hits")
 
       THEN("c == color(0.38066, 0.47583, 0.2855)")
       {
-        CHECK(c == make_color(0.38066, 0.47583, 0.2855));
+        CHECK(c == Color{ 0.38066f, 0.47583f, 0.2855f });
       }
     }
   }
@@ -187,7 +187,7 @@ SCENARIO("The color with an intersection behind the ray")
     outer->SetMaterial().ambient = 1;
     auto& inner = w.GetObjects()[1];
     inner->SetMaterial().ambient = 1;
-    auto r = Ray{ make_point(0, 0, 0.75), make_vector(0, 0, -1) };
+    auto r = Ray{ Point(0, 0, 0.75), Vector(0, 0, -1) };
 
     WHEN("c = color_at(w, r)")
     {
@@ -209,7 +209,7 @@ SCENARIO("There is no shadow when nothing is collinear with point and light")
   GIVEN("w = default_world() && p = point(0, 10, 0)")
   {
     auto w = default_world();
-    auto p = make_point(0, 10, 0);
+    auto p = Point(0, 10, 0);
 
     THEN("is_shadowed(w, p) is false") { CHECK(is_shadowed(w, p) == false); }
   }
@@ -220,7 +220,7 @@ SCENARIO("The shadow when an object is between the point and the light")
   GIVEN("w = default_world() && p = point(10, -10, 10)")
   {
     auto w = default_world();
-    auto p = make_point(10, -10, 10);
+    auto p = Point(10, -10, 10);
 
     THEN("is_shadowed(w, p) is true") { CHECK(is_shadowed(w, p) == true); }
   }
@@ -231,7 +231,7 @@ SCENARIO("There is no shadow when an object is behind the light")
   GIVEN("w = default_world() && p = point(-20, 20, -20)")
   {
     auto w = default_world();
-    auto p = make_point(-20, 20, -20);
+    auto p = Point(-20, 20, -20);
 
     THEN("is_shadowed(w, p) is false") { CHECK(is_shadowed(w, p) == false); }
   }
@@ -242,7 +242,7 @@ SCENARIO("There is no shadow when an object is behind the point")
   GIVEN("w = default_world() && p = point(-2, 2, -2)")
   {
     auto w = default_world();
-    auto p = make_point(-2, 2, -2);
+    auto p = Point(-2, 2, -2);
 
     THEN("is_shadowed(w, p) is false") { CHECK(is_shadowed(w, p) == false); }
   }
@@ -260,7 +260,7 @@ SCENARIO("shade_hit() is given an intersection in shadow")
   \n i = intersection(4, s2)")
   {
     auto w = World();
-    w.SetLight(PointLight{ make_point(0, 0, -10), make_color(1, 1, 1) });
+    w.SetLight(PointLight{ Point(0, 0, -10), Color{ 1.0f, 1.0f, 1.0f } });
 
     auto s1 = std::make_shared<Sphere>();
     w.AddObject(std::static_pointer_cast<Shape>(s1));
@@ -269,7 +269,7 @@ SCENARIO("shade_hit() is given an intersection in shadow")
     s2->SetTransform(translation(0, 0, 10));
     w.AddObject(std::static_pointer_cast<Shape>(s2));
 
-    auto r = Ray{ make_point(0, 0, 0), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, 0), Vector(0, 0, 1) };
     auto i = Intersection(4, s2.get());
 
     WHEN("comps = prepare_computations(i, r) &&\
@@ -280,7 +280,7 @@ SCENARIO("shade_hit() is given an intersection in shadow")
 
       THEN("c == color(0.1, 0.1, 0.1)")
       {
-        CHECK(c == make_color(0.1, 0.1, 0.1));
+        CHECK(c == Color{ 0.1f, 0.1f, 0.1f });
       }
     }
   }
@@ -299,7 +299,7 @@ SCENARIO("The reflected color for a nonreflective material")
   \n i = intersection(1, shape)")
   {
     auto w = default_world();
-    auto r = Ray{ make_point(0, 0, 0), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, 0), Vector(0, 0, 1) };
     auto& shape = w.GetObjects()[1];
     shape->SetMaterial().ambient = 1;
     auto i = Intersection(1, shape.get());
@@ -310,7 +310,10 @@ SCENARIO("The reflected color for a nonreflective material")
       auto comps = prepare_computations(i, r);
       auto color = reflected_color(w, comps);
 
-      THEN("color == color(0, 0, 0,)") { CHECK(color == make_color(0, 0, 0)); }
+      THEN("color == color(0, 0, 0,)")
+      {
+        CHECK(color == Color{ 0.0f, 0.0f, 0.0f });
+      }
     }
   }
 }
@@ -331,7 +334,7 @@ SCENARIO("shade_hit() for a reflective material")
     shape->SetTransform(translation(0, -1, 0));
     w.AddObject(shape);
     auto sqrt2 = std::sqrt(2);
-    auto r = Ray{ make_point(0, 0, -3), make_vector(0, -sqrt2 / 2, sqrt2 / 2) };
+    auto r = Ray{ Point(0, 0, -3), Vector(0, -sqrt2 / 2, sqrt2 / 2) };
     auto i = Intersection(sqrt2, shape.get());
 
     WHEN("comps = prepare_computations(i, r) &&\
@@ -342,7 +345,7 @@ SCENARIO("shade_hit() for a reflective material")
 
       THEN("color == color(0.87677, 0.92436, 0.82918)")
       {
-        CHECK(color == make_color(0.87677, 0.92436, 0.82918));
+        CHECK(color == Color{ 0.87677f, 0.92436f, 0.82918f });
       }
     }
   }
@@ -364,7 +367,7 @@ SCENARIO("color_at() with mutually reflective surfaces")
   {
     auto w = World();
 
-    w.SetLight(PointLight(make_point(0, 0, 0), make_vector(1, 1, 1)));
+    w.SetLight(PointLight(Point(0, 0, 0), Color{ 1.0f, 1.0f, 1.0f }));
 
     auto lower = std::make_shared<Plane>();
     lower->SetMaterial().reflective = 1;
@@ -376,7 +379,7 @@ SCENARIO("color_at() with mutually reflective surfaces")
     upper->SetTransform(translation(0, 1, 0));
     w.AddObject(upper);
 
-    auto r = Ray{ make_point(0, 0, 0), make_vector(0, 1, 0) };
+    auto r = Ray{ Point(0, 0, 0), Vector(0, 1, 0) };
 
     THEN("color_at(w, r) should terminate successfully")
     {
@@ -401,7 +404,7 @@ SCENARIO("The reflected color at the maximum recursive depth")
     shape->SetTransform(translation(0, -1, 0));
     w.AddObject(shape);
     auto sqrt2 = std::sqrt(2);
-    auto r = Ray{ make_point(0, 0, -3), make_vector(0, -sqrt2 / 2, sqrt2 / 2) };
+    auto r = Ray{ Point(0, 0, -3), Vector(0, -sqrt2 / 2, sqrt2 / 2) };
     auto i = Intersection(sqrt2, shape.get());
 
     WHEN("comps = prepare_computations(i, r) &&\
@@ -410,7 +413,10 @@ SCENARIO("The reflected color at the maximum recursive depth")
       auto comps = prepare_computations(i, r);
       auto color = reflected_color(w, comps, 0);
 
-      THEN("color == color(0, 0, 0)") { CHECK(color == make_color(0, 0, 0)); }
+      THEN("color == color(0, 0, 0)")
+      {
+        CHECK(color == Color{ 0.0f, 0.0f, 0.0f });
+      }
     }
   }
 }
@@ -428,7 +434,7 @@ SCENARIO("The refracted color with an opaque surface")
   {
     const auto w = default_world();
     const auto& shape = w.GetObjects().front();
-    const auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+    const auto r = Ray{ Point(0, 0, -5), Vector(0, 0, 1) };
     const Intersections xs{ { 4, shape.get() }, { 6, shape.get() } };
 
     WHEN("comps = prepare_computations(xs[0], r, xs) &&\
@@ -437,7 +443,7 @@ SCENARIO("The refracted color with an opaque surface")
       auto comps = prepare_computations(xs[0], r, &xs);
       auto c = refracted_color(w, comps, 5);
 
-      THEN("c == color(0, 0, 0)") { CHECK(c == make_color(0, 0, 0)); }
+      THEN("c == color(0, 0, 0)") { CHECK(c == Color{ 0.0f, 0.0f, 0.0f }); }
     }
   }
 }
@@ -456,7 +462,7 @@ SCENARIO("The refracted color at the maximum recursive depth")
     const auto shape = w.GetObjects().front();
     shape->SetMaterial().transparency = 1.0;
     shape->SetMaterial().refractiveIndex = 1.5;
-    const auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+    const auto r = Ray{ Point(0, 0, -5), Vector(0, 0, 1) };
     const auto xs = Intersections{ { 4, shape.get() }, { 6, shape.get() } };
 
     WHEN("comps = prepare_computations(xs[0], r, xs) &&\
@@ -465,7 +471,7 @@ SCENARIO("The refracted color at the maximum recursive depth")
       auto comps = prepare_computations(xs[0], r, &xs);
       auto c = refracted_color(w, comps, 0);
 
-      THEN("c == color(0, 0, 0)") { CHECK(c == make_color(0, 0, 0)); }
+      THEN("c == color(0, 0, 0)") { CHECK(c == Color{ 0.0f, 0.0f, 0.0f }); }
     }
   }
 }
@@ -485,7 +491,7 @@ SCENARIO("The refracted color under total internal reflection")
     shape->SetMaterial().transparency = 1.0;
     shape->SetMaterial().refractiveIndex = 1.5;
     const auto sqrt2 = static_cast<float>(std::sqrt(2));
-    const auto r = Ray{ make_point(0, 0, sqrt2 / 2), make_vector(0, 1, 0) };
+    const auto r = Ray{ Point(0, 0, sqrt2 / 2), Vector(0, 1, 0) };
     const auto xs =
       Intersections{ { -sqrt2 / 2, shape.get() }, { sqrt2 / 2, shape.get() } };
 
@@ -495,7 +501,7 @@ SCENARIO("The refracted color under total internal reflection")
       auto comps = prepare_computations(xs[1], r, &xs);
       auto c = refracted_color(w, comps, 5);
 
-      THEN("c == color(0, 0, 0)") { CHECK(c == make_color(0, 0, 0)); }
+      THEN("c == color(0, 0, 0)") { CHECK(c == Color{ 0.0f, 0.0f, 0.0f }); }
     }
   }
 }
@@ -509,7 +515,7 @@ public:
 
   Color At(Tuple point) const override
   {
-    return make_color(point.x, point.y, point.z);
+    return Color{ point.x, point.y, point.z };
   }
 };
 /// ---------------------------------------------------------------------------
@@ -535,7 +541,7 @@ public:
 //     Shape* B = w.GetObjects()[1].get();
 //     B->SetMaterial().transparency = 1.0;
 //     B->SetMaterial().refractiveIndex = 1.5;
-//     const auto r = Ray{ make_point(0, 0, 0.1), make_vector(0, 1, 0) };
+//     const auto r = Ray{ Point(0, 0, 0.1), Vector(0, 1, 0) };
 //     const auto xs = Intersections{
 //       { -0.9899, A }, { -0.4899, B }, { 0.4899, B }, { 0.9899, A }
 //     };
@@ -581,8 +587,8 @@ public:
 //     ball->SetMaterial().ambient = 0.5;
 //     w.AddObject(ball);
 //     float sqrt2 = std::sqrt(2);
-//     auto r = Ray{ make_point(0, 0, -3), make_vector(0, -sqrt2 / 2, sqrt2 / 2) };
-//     auto xs = Intersections{ { sqrt2, floor.get() } };
+//     auto r = Ray{ Point(0, 0, -3), Vector(0, -sqrt2 / 2, sqrt2 / 2)
+//     }; auto xs = Intersections{ { sqrt2, floor.get() } };
 
 //     WHEN("comps = prepare_computations(xs[0], r, xs)\
 //     \n\t And color = shade_hit(w, comps, 5)")
@@ -616,8 +622,8 @@ public:
 //   {
 //     auto w = default_world();
 //     auto sqrt2 = static_cast<float>(std::sqrt(2));
-//     auto r = Ray{ make_point(0, 0, -3), make_vector(0, -sqrt2 / 2, sqrt2 / 2) };
-//     auto floor = std::make_shared<Plane>();
+//     auto r = Ray{ Point(0, 0, -3), Vector(0, -sqrt2 / 2, sqrt2 / 2)
+//     }; auto floor = std::make_shared<Plane>();
 //     floor->SetTransform(translation(0, -1, 0));
 //     floor->SetMaterial().reflective = 0.5;
 //     floor->SetMaterial().transparency = 0.5;

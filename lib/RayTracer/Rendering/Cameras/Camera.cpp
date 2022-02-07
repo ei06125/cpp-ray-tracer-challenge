@@ -35,8 +35,8 @@ Ray ray_for_pixel(const Camera& c, float px, float py)
   // using the camera matrix, transform the canvas point and the origin,
   // and then compute the ray's direction vector.
   // (remember that the canvas is at z=-1)
-  auto pixel = inverse(c.transform) * make_point(world_x, world_y, -1);
-  auto origin = inverse(c.transform) * make_point(0, 0, 0);
+  auto pixel = inverse(c.transform) * Point(world_x, world_y, -1);
+  auto origin = inverse(c.transform) * Point(0, 0, 0);
   auto direction = normalize(pixel - origin);
 
   return { origin, direction };

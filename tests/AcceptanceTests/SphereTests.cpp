@@ -13,7 +13,7 @@ SCENARIO("A ray intersects a sphere at two points")
   GIVEN("r = ray(point(0, 0, -5), vector(0, 0, 1)) &&\
   \n s = sphere()")
   {
-    auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, -5), Vector(0, 0, 1) };
     auto s = Sphere();
 
     WHEN("xs = intersect(s, r)")
@@ -35,7 +35,7 @@ SCENARIO("A ray intersects a sphere at a tangent")
   GIVEN("r = ray(point(0, 1, -5), vector(0, 0, 1)) &&\
     \n s = sphere()")
   {
-    auto r = Ray{ make_point(0, 1, -5), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 1, -5), Vector(0, 0, 1) };
     auto s = Sphere();
 
     WHEN("xs = intersect(s, r)")
@@ -57,7 +57,7 @@ SCENARIO("A ray misses a sphere")
   GIVEN("r = ray(point(0, 2, -5), vector(0, 0, 1)) &&\
     \n s = sphere()")
   {
-    auto r = Ray{ make_point(0, 2, -5), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 2, -5), Vector(0, 0, 1) };
     auto s = Sphere();
 
     WHEN("xs = intersect(s, r)")
@@ -74,7 +74,7 @@ SCENARIO("A ray originates inside a sphere")
   GIVEN("r = ray(point(0, 0, 0), vector(0, 0, 1)) &&\
     \n s = sphere()")
   {
-    auto r = Ray{ make_point(0, 0, 0), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, 0), Vector(0, 0, 1) };
     auto s = Sphere();
 
     WHEN("xs = intersect(s, r)")
@@ -96,7 +96,7 @@ SCENARIO("A sphere is behind a ray")
   GIVEN("r = ray(point(0, 0, 5), vector(0, 0, 1)) &&\
     \n s = sphere()")
   {
-    auto r = Ray{ make_point(0, 0, 5), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, 5), Vector(0, 0, 1) };
     auto s = Sphere();
 
     WHEN("xs = intersect(s, r)")
@@ -117,7 +117,7 @@ SCENARIO("Intersect sets the object on the intersection")
 {
   GIVEN("r = ray(point(0, 0, -5), vector(0, 0, 1) && s = sphere()")
   {
-    auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, -5), Vector(0, 0, 1) };
     auto s = Sphere();
 
     WHEN("xs = intersect(s, r)")
@@ -142,9 +142,9 @@ SCENARIO("The normal on a sphere at a point on the x axis")
 
     WHEN("n = normal_at(s, point(1, 0, 0))")
     {
-      auto n = s.GetNormalAt(make_point(1, 0, 0));
+      auto n = s.GetNormalAt(Point(1, 0, 0));
 
-      THEN("n == vector(1, 0, 0)") { CHECK(n == make_vector(1, 0, 0)); }
+      THEN("n == vector(1, 0, 0)") { CHECK(n == Vector(1, 0, 0)); }
     }
   }
 }
@@ -157,9 +157,9 @@ SCENARIO("The normal on a sphere at a point on the y axis")
 
     WHEN("n = normal_at(s, point(0, 1, 0))")
     {
-      auto n = s.GetNormalAt(make_point(0, 1, 0));
+      auto n = s.GetNormalAt(Point(0, 1, 0));
 
-      THEN("n == vector(0, 1, 0)") { CHECK(n == make_vector(0, 1, 0)); }
+      THEN("n == vector(0, 1, 0)") { CHECK(n == Vector(0, 1, 0)); }
     }
   }
 }
@@ -172,9 +172,9 @@ SCENARIO("The normal on a sphere at a point on the z axis")
 
     WHEN("n = normal_at(s, point(0, 0, 1))")
     {
-      auto n = s.GetNormalAt(make_point(0, 0, 1));
+      auto n = s.GetNormalAt(Point(0, 0, 1));
 
-      THEN("n == vector(0, 0, 1)") { CHECK(n == make_vector(0, 0, 1)); }
+      THEN("n == vector(0, 0, 1)") { CHECK(n == Vector(0, 0, 1)); }
     }
   }
 }
@@ -189,11 +189,11 @@ SCENARIO("The normal on a sphere at a nonaxial point")
     {
       auto sqrt3 = std::sqrt(3);
       auto sqrt3over3 = sqrt3 / 3;
-      auto n = s.GetNormalAt(make_point(sqrt3over3, sqrt3over3, sqrt3over3));
+      auto n = s.GetNormalAt(Point(sqrt3over3, sqrt3over3, sqrt3over3));
 
       THEN("n == vector(SQRT(3)/3, SQRT(3)/3, SQRT(3)/3))")
       {
-        CHECK(n == make_vector(sqrt3over3, sqrt3over3, sqrt3over3));
+        CHECK(n == Vector(sqrt3over3, sqrt3over3, sqrt3over3));
       }
     }
   }
@@ -209,7 +209,7 @@ SCENARIO("The normal is a normalized vector")
     {
       auto sqrt3 = std::sqrt(3);
       auto sqrt3over3 = sqrt3 / 3;
-      auto n = s.GetNormalAt(make_point(sqrt3over3, sqrt3over3, sqrt3over3));
+      auto n = s.GetNormalAt(Point(sqrt3over3, sqrt3over3, sqrt3over3));
 
       THEN("n == normalize(n)") { CHECK(n == normalize(n)); }
     }

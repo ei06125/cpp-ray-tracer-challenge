@@ -9,41 +9,25 @@ namespace RayTracer::Math {
 struct Tuple
 {
   Tuple(float x_, float y_, float z_, float w_);
-  union
-  {
-    float x;
-    float red;
-  };
-  union
-  {
-    float y;
-    float green;
-  };
-  union
-  {
-    float z;
-    float blue;
-  };
-  union
-  {
-    float w;
-    float alpha;
-  };
+  float x;
+  float y;
+  float z;
+  float w;
 };
 
-Tuple make_point(float x, float y, float z);
+/// @section Non-member functions
 
-Tuple make_vector(float x, float y, float z);
+/// @subsection Creation Methods
 
-Tuple make_color(float r, float g, float b);
+Tuple Point(float x, float y, float z);
+Tuple Vector(float x, float y, float z);
 
-bool isPoint(Tuple aTuple);
+bool isPoint(Tuple aTuple);  // Useless API (only used in tests)
+bool isVector(Tuple aTuple); // Useless API (only used in tests)
 
-bool isVector(Tuple aTuple);
+/// @subsection Arithmetic operators
 
 std::ostream& operator<<(std::ostream& os, const Tuple& aTuple);
-
-bool operator==(const Tuple& lhs, const Tuple& rhs);
 
 Tuple operator+(const Tuple& lhs, const Tuple& rhs);
 
@@ -58,6 +42,12 @@ Tuple operator*(float s, const Tuple& rhs);
 Tuple operator*(const Tuple& lhs, const Tuple& rhs); // Hadamard product
 
 Tuple operator/(const Tuple& lhs, float s);
+
+/// @subsection Logic operators
+
+bool operator==(const Tuple& lhs, const Tuple& rhs);
+
+/// @subsection Vector API
 
 float magnitude(Tuple aTuple);
 

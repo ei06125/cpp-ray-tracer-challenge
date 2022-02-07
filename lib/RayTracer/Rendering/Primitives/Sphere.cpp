@@ -7,16 +7,6 @@ using namespace Math;
 /// @section Member functions
 /// ===========================================================================
 
-Sphere::~Sphere() = default;
-Sphere::Sphere()
-  : Shape()
-  , m_Radius(1.0f)
-{}
-Sphere::Sphere(const Sphere& other) = default;
-Sphere::Sphere(Sphere&& other) noexcept = default;
-Sphere& Sphere::operator=(const Sphere& other) = default;
-Sphere& Sphere::operator=(Sphere&& other) noexcept = default;
-
 /// ---------------------------------------------------------------------------
 /// @subsection Observers
 /// ---------------------------------------------------------------------------
@@ -41,16 +31,16 @@ void Sphere::SetRadius(float newRadius)
 
 Tuple Sphere::GetLocalNormalAt(Tuple localPoint, const Intersection*) const
 {
-  return (localPoint - make_point(0, 0, 0));
+  return (localPoint - Point(0, 0, 0));
 }
 
-Intersections Sphere::VirtualIntersect(const Ray& r) const
+Intersections Sphere::GetLocalIntersect(const Ray& r) const
 {
   Intersections result{};
 
   // the vector from the sphere's center, to the ray origin
   // remember: the sphere is centered at the world origin
-  auto sphere_to_ray = r.origin - make_point(0, 0, 0);
+  auto sphere_to_ray = r.origin - Point(0, 0, 0);
 
   auto a = dot(r.direction, r.direction);
   auto b = 2 * dot(r.direction, sphere_to_ray);

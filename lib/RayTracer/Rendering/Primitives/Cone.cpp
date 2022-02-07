@@ -11,11 +11,6 @@ using namespace Math;
 /// @subsection Observers
 /// ---------------------------------------------------------------------------
 
-Tuple Cone::GetNormalAt(Tuple point, const Intersection*) const
-{
-  return GetLocalNormalAt(point);
-}
-
 float Cone::GetMinimum() const
 {
   return m_Minimum;
@@ -31,20 +26,27 @@ bool Cone::IsClosed() const
   return m_Closed;
 }
 
+#ifndef NDEBUG
+Tuple Cone::TestLocalNormalAt(Tuple point) const
+{
+  return GetLocalNormalAt(point, nullptr);
+}
+#endif
+
 Tuple Cone::GetLocalNormalAt(Tuple point, const Intersection*) const
 {
   // compute the square of the distance from the y axis
   auto dist = (point.x * point.x) + (point.z * point.z);
 
   if (dist < 1 && point.y >= m_Maximum - EPSILON) {
-    return make_vector(0, 1, 0);
+    return Vector(0, 1, 0);
   } else if (dist < 1 && point.y <= m_Minimum + EPSILON) {
-    return make_vector(0, -1, 0);
+    return Vector(0, -1, 0);
   }
-  return make_vector(point.x, 0, point.z);
+  return Vector(point.x, 0, point.z);
 }
 
-Intersections Cone::VirtualIntersect(const Ray& r) const
+Intersections Cone::GetLocalIntersect(const Ray& r) const
 {
   const auto o = r.origin;
   const auto d = r.direction;

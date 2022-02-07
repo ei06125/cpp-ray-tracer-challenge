@@ -2,9 +2,7 @@
 #include "RayTracerPCH.hpp"
 
 #include "RayTracer/Math/Tuple.hpp"
-
-#include <memory>
-#include <optional>
+#include "RayTracer/Rendering/Color.hpp"
 
 namespace RayTracer {
 namespace Rendering {
@@ -26,14 +24,15 @@ class Shape;
 
 namespace Materials {
 
-using namespace Lighting;
-using namespace Primitives;
-using namespace Patterns;
-using namespace Math;
+using namespace RayTracer::Math;
+using namespace RayTracer::Rendering::Lighting;
+using namespace RayTracer::Rendering::Primitives;
+using namespace RayTracer::Rendering::Patterns;
+using namespace RayTracer::Rendering::Colors;
 
 struct Material
 {
-  Tuple color{ make_color(1, 1, 1) };
+  Color color{ Colors::White };
   float ambient{ 0.1 };
   float diffuse{ 0.9 };
   float specular{ 0.9 };
@@ -44,9 +43,13 @@ struct Material
   std::optional<std::shared_ptr<Pattern>> pattern;
 };
 
+/// @section Non-member functions
+
 bool operator==(const Material& lhs, const Material& rhs);
 
-Tuple lighting(const Material& material,
+/// @section API
+
+Color lighting(const Material& material,
                const PointLight& light,
                const Tuple& point,
                const Tuple& eyev,

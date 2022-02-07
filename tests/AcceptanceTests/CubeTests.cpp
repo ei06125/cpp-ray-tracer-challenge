@@ -23,13 +23,13 @@ SCENARIO("A ray intersects a cube")
     };
 
     const std::array<TestData, 7> testData{ {
-      { make_point(5, 0.5, 0), make_vector(-1, 0, 0), 4, 6 },
-      { make_point(-5, 0.5, 0), make_vector(1, 0, 0), 4, 6 },
-      { make_point(0.5, 5, 0), make_vector(0, -1, 0), 4, 6 },
-      { make_point(0.5, -5, 0), make_vector(0, 1, 0), 4, 6 },
-      { make_point(0.5, 0, 5), make_vector(0, 0, -1), 4, 6 },
-      { make_point(0.5, 0, -5), make_vector(0, 0, 1), 4, 6 },
-      { make_point(0, 0.5, 0), make_vector(0, 0, 1), -1, 1 },
+      { Point(5, 0.5, 0), Vector(-1, 0, 0), 4, 6 },
+      { Point(-5, 0.5, 0), Vector(1, 0, 0), 4, 6 },
+      { Point(0.5, 5, 0), Vector(0, -1, 0), 4, 6 },
+      { Point(0.5, -5, 0), Vector(0, 1, 0), 4, 6 },
+      { Point(0.5, 0, 5), Vector(0, 0, -1), 4, 6 },
+      { Point(0.5, 0, -5), Vector(0, 0, 1), 4, 6 },
+      { Point(0, 0.5, 0), Vector(0, 0, 1), -1, 1 },
     } };
     /// -----------------------------------------------------------------------
 
@@ -66,12 +66,12 @@ SCENARIO("A ray misses a cube")
     };
 
     const std::array<TestData, 6> testData{ {
-      { make_point(-2, 0, 0), make_vector(0.2673, 0.5345, 0.8018) },
-      { make_point(0, -2, 0), make_vector(0.8018, 0.2673, 0.5345) },
-      { make_point(0, 0, -2), make_vector(0.5345, 0.8018, 0.2673) },
-      { make_point(2, 0, 2), make_vector(0, 0, -1) },
-      { make_point(0, 2, 2), make_vector(0, -1, 0) },
-      { make_point(2, 2, 0), make_vector(-1, 0, 0) },
+      { Point(-2, 0, 0), Vector(0.2673, 0.5345, 0.8018) },
+      { Point(0, -2, 0), Vector(0.8018, 0.2673, 0.5345) },
+      { Point(0, 0, -2), Vector(0.5345, 0.8018, 0.2673) },
+      { Point(2, 0, 2), Vector(0, 0, -1) },
+      { Point(0, 2, 2), Vector(0, -1, 0) },
+      { Point(2, 2, 0), Vector(-1, 0, 0) },
     } };
     /// -----------------------------------------------------------------------
 
@@ -102,14 +102,14 @@ SCENARIO("The normal on the surface of a cube")
     };
 
     const std::array<TestData, 8> testData{ {
-      { make_point(1, 0.5, -0.8), make_vector(1, 0, 0) },
-      { make_point(-1, -0.2, 0.9), make_vector(-1, 0, 0) },
-      { make_point(-0.4, 1, -0.1), make_vector(0, 1, 0) },
-      { make_point(0.3, -1, -0.7), make_vector(0, -1, 0) },
-      { make_point(-0.6, 0.3, 1), make_vector(0, 0, 1) },
-      { make_point(0.4, 0.4, -1), make_vector(0, 0, -1) },
-      { make_point(1, 1, 1), make_vector(1, 0, 0) },
-      { make_point(-1, -1, -1), make_vector(-1, 0, 0) },
+      { Point(1, 0.5, -0.8), Vector(1, 0, 0) },
+      { Point(-1, -0.2, 0.9), Vector(-1, 0, 0) },
+      { Point(-0.4, 1, -0.1), Vector(0, 1, 0) },
+      { Point(0.3, -1, -0.7), Vector(0, -1, 0) },
+      { Point(-0.6, 0.3, 1), Vector(0, 0, 1) },
+      { Point(0.4, 0.4, -1), Vector(0, 0, -1) },
+      { Point(1, 1, 1), Vector(1, 0, 0) },
+      { Point(-1, -1, -1), Vector(-1, 0, 0) },
     } };
     /// -----------------------------------------------------------------------
 

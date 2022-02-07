@@ -14,9 +14,9 @@ SCENARIO("Constructing a triangle")
     \n\t And p3 = point(1, 0, 0)\
     \n\t And t = triangle(p1, p2, p3)")
   {
-    const auto p1 = make_point(0, 1, 0);
-    const auto p2 = make_point(-1, 0, 0);
-    const auto p3 = make_point(1, 0, 0);
+    const auto p1 = Point(0, 1, 0);
+    const auto p2 = Point(-1, 0, 0);
+    const auto p3 = Point(1, 0, 0);
     auto t = Triangle(p1, p2, p3);
 
     THEN("t.p1 == p1\
@@ -29,9 +29,9 @@ SCENARIO("Constructing a triangle")
       CHECK(t.p1 == p1);
       CHECK(t.p2 == p2);
       CHECK(t.p3 == p3);
-      CHECK(t.e1 == make_vector(-1, -1, 0));
-      CHECK(t.e2 == make_vector(1, -1, 0));
-      CHECK(t.normal == make_vector(0, 0, -1));
+      CHECK(t.e1 == Vector(-1, -1, 0));
+      CHECK(t.e2 == Vector(1, -1, 0));
+      CHECK(t.normal == Vector(0, 0, -1));
     }
   }
 }
@@ -40,16 +40,15 @@ SCENARIO("Finding the normal on a triangle")
 {
   GIVEN("t = triangle(point(0, 1, 0), point(-1, 0, 0), point(1, 0, 0))")
   {
-    auto t =
-      Triangle(make_point(0, 1, 0), make_point(-1, 0, 0), make_point(1, 0, 0));
+    auto t = Triangle(Point(0, 1, 0), Point(-1, 0, 0), Point(1, 0, 0));
 
     WHEN("n1 = local_normal_at(t, point(0, 0.5, 0))\
     \n\t And n2 = local_normal_at(t, point(-0.5, 0.75, 0))\
     \n\t And n3 = local_normal_at(t, point(0.5, 0.25, 0))")
     {
-      auto n1 = t.GetNormalAt(make_point(0, 0.5, 0));
-      auto n2 = t.GetNormalAt(make_point(-0.5, 0.75, 0));
-      auto n3 = t.GetNormalAt(make_point(0.5, 0.25, 0));
+      auto n1 = t.GetNormalAt(Point(0, 0.5, 0));
+      auto n2 = t.GetNormalAt(Point(-0.5, 0.75, 0));
+      auto n3 = t.GetNormalAt(Point(0.5, 0.25, 0));
 
       THEN("n1 == t.normal\
       \n\t And n2 == t.normal\
@@ -68,9 +67,8 @@ SCENARIO("Intersecting a ray parallel to the triangle")
   GIVEN("t = triangle(point(0, 1, 0), point(-1, 0, 0), point(1, 0, 0))\
     \n\t And r = ray(point(0, -1, -2), vector(0, 1, 0))")
   {
-    auto t =
-      Triangle(make_point(0, 1, 0), make_point(-1, 0, 0), make_point(1, 0, 0));
-    auto r = Ray{ make_point(0, -1, -2), make_vector(0, 1, 0) };
+    auto t = Triangle(Point(0, 1, 0), Point(-1, 0, 0), Point(1, 0, 0));
+    auto r = Ray{ Point(0, -1, -2), Vector(0, 1, 0) };
 
     WHEN("xs = local_intersect(t, r)")
     {
@@ -86,9 +84,8 @@ SCENARIO("A ray misses the p1-p3 edge")
   GIVEN("t = triangle(point(0, 1, 0), point(-1, 0, 0), point(1, 0, 0))\
     \n\t And r = ray(point(1, 1, -2), vector(0, 0, 1))")
   {
-    auto t =
-      Triangle(make_point(0, 1, 0), make_point(-1, 0, 0), make_point(1, 0, 0));
-    auto r = Ray{ make_point(1, 1, -2), make_vector(0, 0, 1) };
+    auto t = Triangle(Point(0, 1, 0), Point(-1, 0, 0), Point(1, 0, 0));
+    auto r = Ray{ Point(1, 1, -2), Vector(0, 0, 1) };
 
     WHEN("xs = local_intersect(t, r)")
     {
@@ -104,9 +101,8 @@ SCENARIO("A ray misses the p1-p2 edge")
   GIVEN("t = triangle(point(0, 1, 0), point(-1, 0, 0), point(1, 0, 0))\
     \n\t And r = ray(point(-1, 1, -2), vector(0, 0, 1))")
   {
-    auto t =
-      Triangle(make_point(0, 1, 0), make_point(-1, 0, 0), make_point(1, 0, 0));
-    auto r = Ray{ make_point(-1, 1, -2), make_vector(0, 0, 1) };
+    auto t = Triangle(Point(0, 1, 0), Point(-1, 0, 0), Point(1, 0, 0));
+    auto r = Ray{ Point(-1, 1, -2), Vector(0, 0, 1) };
 
     WHEN("xs = local_intersect(t, r)")
     {
@@ -122,9 +118,8 @@ SCENARIO("A ray misses the p2-p3 edge")
   GIVEN("t = triangle(point(0, 1, 0), point(-1, 0, 0), point(1, 0, 0))\
     \n\t And r = ray(point(0, -1, -2), vector(0, 0, 1))")
   {
-    auto t =
-      Triangle(make_point(0, 1, 0), make_point(-1, 0, 0), make_point(1, 0, 0));
-    auto r = Ray{ make_point(0, -1, -2), make_vector(0, 0, 1) };
+    auto t = Triangle(Point(0, 1, 0), Point(-1, 0, 0), Point(1, 0, 0));
+    auto r = Ray{ Point(0, -1, -2), Vector(0, 0, 1) };
 
     WHEN("xs = local_intersect(t, r)")
     {
@@ -140,9 +135,8 @@ SCENARIO("A ray strikes a triangle")
   GIVEN("t = triangle(point(0, 1, 0), point(-1, 0, 0), point(1, 0, 0))\
     \n\t And r = ray(point(0, 0.5, -2), vector(0, 0, 1))")
   {
-    auto t =
-      Triangle(make_point(0, 1, 0), make_point(-1, 0, 0), make_point(1, 0, 0));
-    auto r = Ray{ make_point(0, 0.5, -2), make_vector(0, 0, 1) };
+    auto t = Triangle(Point(0, 1, 0), Point(-1, 0, 0), Point(1, 0, 0));
+    auto r = Ray{ Point(0, 0.5, -2), Vector(0, 0, 1) };
 
     WHEN("xs = local_intersect(t, r)")
     {

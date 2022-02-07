@@ -28,6 +28,6 @@ Color BlendedPattern::At(Tuple point) const
   return colorA + colorB;
 }
 
-} // namespace Textures
+} // namespace Patterns
 } // namespace Rendering
 } // namespace RayTracer

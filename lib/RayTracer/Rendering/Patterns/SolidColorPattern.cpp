@@ -22,6 +22,6 @@ Color SolidColorPattern::At(Tuple point) const
   return m_Color;
 }
 
-} // namespace Textures
+} // namespace Patterns
 } // namespace Rendering
 } // namespace RayTracer

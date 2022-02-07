@@ -21,7 +21,7 @@ constexpr auto g_scale = 5;
 int main()
 {
   // start the ray at z = -5
-  auto ray_origin = make_point(0, 0, -5 * g_scale);
+  auto ray_origin = Point(0, 0, -5 * g_scale);
 
   // put the wall at z = 10
   auto wall_z = 10 * g_scale;
@@ -37,7 +37,7 @@ int main()
   sphere.SetTransform(scaling(1 * g_scale, 1 * g_scale, 1 * g_scale));
   sphere.SetMaterial().color = make_color(1, 0.2, 1);
 
-  auto light_position = make_point(-10 * g_scale, 10 * g_scale, -10 * g_scale);
+  auto light_position = Point(-10 * g_scale, 10 * g_scale, -10 * g_scale);
   auto light_color = make_color(1, 1, 1);
   auto light = PointLight{ light_position, light_color };
 
@@ -52,7 +52,7 @@ int main()
       auto world_x = -half + pixel_size * x;
 
       // describe the point on the wall that the ray will target
-      auto wall_point = make_point(world_x, world_y, wall_z);
+      auto wall_point = Point(world_x, world_y, wall_z);
 
       auto r = Ray{ ray_origin, normalize(wall_point - ray_origin) };
       auto xs = sphere.Intersect(r);

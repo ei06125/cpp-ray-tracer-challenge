@@ -56,12 +56,12 @@ int main()
   World world;
 
   // light
-  world.SetLight(PointLight{ make_point(-10, 10, -10), make_color(1, 1, 1) });
+  world.SetLight(PointLight{ Point(-10, 10, -10), Color{ 1.0f, 1.0f, 1.0f } });
 
   // the floor
   auto floor = std::make_shared<Plane>();
   floor->SetTransform(translation(0, -2, 0) * scaling(10, 0.01, 10));
-  floor->SetMaterial().color = make_color(1, 0.9, 0.9);
+  floor->SetMaterial().color = Color{ 1.0f, 0.9f, 0.9f };
   floor->SetMaterial().specular = 0;
   world.AddObject(floor);
 
@@ -76,8 +76,8 @@ int main()
   // Low-Definition 16:9
   auto camera = Camera{ 426, 240, PI / 3 };
 #endif
-  camera.transform = view_transform(
-    make_point(0, 2.5, -10), make_point(0, 1, 0), make_vector(0, 1, 0));
+  camera.transform =
+    view_transform(Point(0, 2.5, -10), Point(0, 1, 0), Vector(0, 1, 0));
 
   /// =========================================================================
   /// @section Rendering

@@ -1,6 +1,7 @@
 #pragma once
 #include "RayTracerPCH.hpp"
 
+#include "RayTracer/Rendering/Color.hpp"
 #include "RayTracer/Rendering/Lighting/Computations.hpp"
 #include "RayTracer/Rendering/Lighting/Intersection.hpp"
 #include "RayTracer/Rendering/Lighting/Light.hpp"
@@ -9,10 +10,10 @@
 namespace RayTracer {
 namespace Rendering {
 namespace Scene {
-
 using namespace Math;
 using namespace Primitives;
 using namespace Lighting;
+using namespace Colors;
 
 class World
 {
@@ -33,14 +34,14 @@ World default_world();
 
 Intersections intersect_world(const World& w, const Ray& r);
 
-Tuple shade_hit(const World& w, const Computations& comps, int depth = 5);
+Color shade_hit(const World& w, const Computations& comps, int depth = 5);
 
-Tuple color_at(const World& w, const Ray& r, int depth = 5);
+Color color_at(const World& w, const Ray& r, int depth = 5);
 
 bool is_shadowed(const World& w, const Tuple& p);
 
-Tuple reflected_color(const World& w, const Computations& comps, int depth = 5);
-Tuple refracted_color(const World& w, const Computations& comps, int depth = 5);
+Color reflected_color(const World& w, const Computations& comps, int depth = 5);
+Color refracted_color(const World& w, const Computations& comps, int depth = 5);
 
 } // namespace Scene
 } // namespace Rendering

@@ -160,7 +160,7 @@ SCENARIO("Precomputing the state of an intersection")
   GIVEN("r = ray(point(0, 0, -5), vector(0, 0, 1)) &&\
   \n shape = sphere() && i = Intersection(4, shape)")
   {
-    auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, -5), Vector(0, 0, 1) };
     auto shape = Sphere();
     auto i = Intersection(4, &shape);
 
@@ -176,9 +176,9 @@ SCENARIO("Precomputing the state of an intersection")
       {
         CHECK(comps.t == i.t);
         CHECK(comps.object == i.object);
-        CHECK(comps.point == make_point(0, 0, -1));
-        CHECK(comps.eyev == make_vector(0, 0, -1));
-        CHECK(comps.normalv == make_vector(0, 0, -1));
+        CHECK(comps.point == Point(0, 0, -1));
+        CHECK(comps.eyev == Vector(0, 0, -1));
+        CHECK(comps.normalv == Vector(0, 0, -1));
       }
     }
   }
@@ -189,7 +189,7 @@ SCENARIO("The hit, when an intersection occurs on the outside")
   GIVEN("r = ray(point(0, 0, -5), vector(0, 0, 1)) &&\
   \n shape = sphere() && i = Intersection(4, shape)")
   {
-    auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, -5), Vector(0, 0, 1) };
     auto shape = Sphere();
     auto i = Intersection(4, &shape);
 
@@ -207,7 +207,7 @@ SCENARIO("The hit, when an intersection occurs on the inside")
   GIVEN("r = ray(point(0, 0, 0), vector(0, 0, 1)) &&\
   \n shape = sphere() && i = Intersection(1, shape)")
   {
-    auto r = Ray{ make_point(0, 0, 0), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, 0), Vector(0, 0, 1) };
     auto shape = Sphere();
     auto i = Intersection(1, &shape);
 
@@ -220,11 +220,11 @@ SCENARIO("The hit, when an intersection occurs on the inside")
       \n comps.inside == true &&\
       \n comps.normalv == vector(0, 0, -1)")
       {
-        CHECK(comps.point == make_point(0, 0, 1));
-        CHECK(comps.eyev == make_vector(0, 0, -1));
+        CHECK(comps.point == Point(0, 0, 1));
+        CHECK(comps.eyev == Vector(0, 0, -1));
         CHECK(comps.inside == true);
         // normal would have been (0, 0, 1), but is inverted!
-        CHECK(comps.normalv == make_vector(0, 0, -1));
+        CHECK(comps.normalv == Vector(0, 0, -1));
       }
     }
   }
@@ -242,7 +242,7 @@ SCENARIO("The hit should offset the point")
   \n i = intersection(5, shape)")
   {
 
-    auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, -5), Vector(0, 0, 1) };
     auto shape = Sphere();
     shape.SetTransform(translation(0, 0, 1));
     auto i = Intersection(5, &shape);
@@ -273,7 +273,7 @@ SCENARIO("Precomputing the reflection vector")
   {
     auto shape = Plane();
     auto sqrt2 = std::sqrt(2);
-    auto r = Ray{ make_point(0, 1, -1), make_vector(0, -sqrt2 / 2, sqrt2 / 2) };
+    auto r = Ray{ Point(0, 1, -1), Vector(0, -sqrt2 / 2, sqrt2 / 2) };
     auto i = Intersection(sqrt2, &shape);
 
     WHEN("comps = prepare_computations(i, r)")
@@ -282,7 +282,7 @@ SCENARIO("Precomputing the reflection vector")
 
       THEN("comps.reflectv == vector(0, SQRT(2)/2, SQRT(2)/2)")
       {
-        CHECK(comps.reflectv == make_vector(0, sqrt2 / 2, sqrt2 / 2));
+        CHECK(comps.reflectv == Vector(0, sqrt2 / 2, sqrt2 / 2));
       }
     }
   }
@@ -318,7 +318,7 @@ SCENARIO("Finding n1 and n2 at various intersections")
     C.SetTransform(translation(0, 0, 0.25));
     C.SetMaterial().refractiveIndex = 2.5;
 
-    const auto r = Ray{ make_point(0, 0, -4), make_vector(0, 0, 1) };
+    const auto r = Ray{ Point(0, 0, -4), Vector(0, 0, 1) };
     const Intersections xs{ { 2, &A },    { 2.75, &B }, { 3.25, &C },
                             { 4.75, &B }, { 5.25, &C }, { 6, &A } };
 
@@ -361,7 +361,7 @@ SCENARIO("The under point is offset below the surface")
   \n AND i = intersection(5, shape) &&\
   \n xs = intersections(i)")
   {
-    auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, -5), Vector(0, 0, 1) };
     auto shape = GlassSphere();
     shape.SetTransform(translation(0, 0, 1));
     auto i = Intersection(5, &shape);
@@ -393,7 +393,7 @@ SCENARIO("The under point is offset below the surface")
 //   {
 //     auto shape = GlassSphere();
 //     float sqrt2 = std::sqrt(2);
-//     auto r = Ray{ make_point(0, 0, sqrt2 / 2), make_vector(0, 1, 0) };
+//     auto r = Ray{ Point(0, 0, sqrt2 / 2), Vector(0, 1, 0) };
 //     auto xs = Intersections{ { -sqrt2 / 2, &shape }, { sqrt2 / 2, &shape } };
 
 //     WHEN("comps = prepare_computations(xs[1], r, xs)\
@@ -414,7 +414,7 @@ SCENARIO("The under point is offset below the surface")
 //   \n\t And xs = intersections(-1:shape, 1:shape)")
 //   {
 //     auto shape = GlassSphere();
-//     auto r = Ray{ make_point(0, 0, 0), make_vector(0, 1, 0) };
+//     auto r = Ray{ Point(0, 0, 0), Vector(0, 1, 0) };
 //     auto xs = Intersections{ { -1, &shape }, { 1, &shape } };
 
 //     WHEN("comps = prepare_computations(xs[1], r, xs)\
@@ -435,7 +435,7 @@ SCENARIO("The under point is offset below the surface")
 //   \n\t And xs = intersections(1.8589:shape)")
 //   {
 //     auto shape = GlassSphere();
-//     auto r = Ray{ make_point(0, 0.99, -2), make_vector(0, 0, 1) };
+//     auto r = Ray{ Point(0, 0.99, -2), Vector(0, 0, 1) };
 //     auto xs = Intersections{ { 1.8589, &shape } };
 
 //     WHEN("comps = prepare_computations(xs[0], r, xs)\
@@ -456,8 +456,7 @@ SCENARIO("An intersection can encapsulate 'u' and 'v'")
 {
   GIVEN("s = triangle(point(0, 1, 0), point(-1, 0, 0), point(1, 0, 0))")
   {
-    auto s =
-      Triangle(make_point(0, 1, 0), make_point(-1, 0, 0), make_point(1, 0, 0));
+    auto s = Triangle(Point(0, 1, 0), Point(-1, 0, 0), Point(1, 0, 0));
 
     WHEN("i = intersection_with_uv(3.5, s, 0.2, 0.4)")
     {

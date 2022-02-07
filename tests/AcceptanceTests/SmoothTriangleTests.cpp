@@ -17,12 +17,12 @@ using namespace RayTracer::Rendering::Parsers;
 \n\t And n2 = vector(-1, 0, 0)\
 \n\t And n3 = vector(1, 0, 0)")                                                \
   {                                                                            \
-    auto p1 = make_point(0, 1, 0);                                             \
-    auto p2 = make_point(-1, 0, 0);                                            \
-    auto p3 = make_point(1, 0, 0);                                             \
-    auto n1 = make_vector(0, 1, 0);                                            \
-    auto n2 = make_vector(-1, 0, 0);                                           \
-    auto n3 = make_vector(1, 0, 0);                                            \
+    auto p1 = Point(0, 1, 0);                                                  \
+    auto p2 = Point(-1, 0, 0);                                                 \
+    auto p3 = Point(1, 0, 0);                                                  \
+    auto n1 = Vector(0, 1, 0);                                                 \
+    auto n2 = Vector(-1, 0, 0);                                                \
+    auto n3 = Vector(1, 0, 0);                                                 \
                                                                                \
     WHEN("tri = smooth_triangle(p1, p2, p3, n1, n2, n3)")                      \
     {                                                                          \
@@ -59,7 +59,7 @@ SCENARIO("An intersection with a smooth triangle stores u and v")
   AND_WHEN("r = ray(point(-0.2, 0.3, -2), vector(0, 0, 1))\
     \n\t And xs = local_intersection(tri, r)")
   {
-    auto r = Ray{ make_point(-0.2, 0.3, -2), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(-0.2, 0.3, -2), Vector(0, 0, 1) };
     auto xs = tri.Intersect(r);
 
     THEN("xs[0].u == 0.45 And xs[0].v == 0.25")
@@ -80,11 +80,11 @@ SCENARIO("A smooth triangle uses u and v to interpolate the normal")
   \n\t And n = normal_at(tri, point(0, 0, 0), i)")
   {
     auto i = Intersection{ 3.5, &tri, 0.45, 0.25 };
-    auto n = tri.GetNormalAt(make_point(0, 0, 0), &i);
+    auto n = tri.GetNormalAt(Point(0, 0, 0), &i);
 
     THEN("n == vector(-0.5547, 0.83205, 0)")
     {
-      CHECK(n == make_vector(-0.5547, 0.83205, 0));
+      CHECK(n == Vector(-0.5547, 0.83205, 0));
     }
   }
 } // WHEN
@@ -102,13 +102,13 @@ SCENARIO("Preparing the normal on a smooth triangle")
   \n\t And comps = prepare_computations(i, r, xs)")
   {
     auto i = Intersection{ 3.5, &tri, 0.45, 0.25 };
-    auto r = Ray{ make_point(-0.2, 0.3, -2), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(-0.2, 0.3, -2), Vector(0, 0, 1) };
     auto xs = Intersections({ i });
     auto comps = prepare_computations(i, r, &xs);
 
     THEN("comps.normalv == vector(-0.5547, 0.83205, 0)")
     {
-      CHECK(comps.normalv == make_vector(-0.5547, 0.83205, 0));
+      CHECK(comps.normalv == Vector(-0.5547, 0.83205, 0));
     }
   }
 } // WHEN

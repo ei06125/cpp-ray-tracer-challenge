@@ -33,6 +33,6 @@ Color StripePattern::At(Tuple point) const
   return std::fmod(std::floor(point.x), 2.0f) == 0 ? m_ColorA : m_ColorB;
 }
 
-} // namespace Textures
+} // namespace Patterns
 } // namespace Rendering
 } // namespace RayTracer

@@ -16,31 +16,13 @@ int main()
 {
   TrackNew::reset();
 
-  /// =========================================================================
-  /// @section Creating
-  /// =========================================================================
-
-  const Tuple white = make_color(1, 1, 1);
-  const Tuple black = make_color(0, 0, 0);
-  const Tuple grey = make_color(0.5, 0.5, 0.5);
-
-  const Tuple red = make_color(1, 0, 0);
-  const Tuple green = make_color(0, 1, 0);
-  const Tuple blue = make_color(0, 0, 1);
-
-  const Tuple yellow = make_color(1, 1, 0);
-  const Tuple cyan = make_color(0, 1, 1);
-  const Tuple mangenta = make_color(1, 0, 1);
-
-  const Tuple darkGreen = make_color(0, 0.5, 0);
-
   // world
   World world;
 
   // the floor
   auto floor = std::make_shared<Plane>();
   floor->SetTransform(scaling(10, 0.01, 10));
-  floor->SetMaterial().color = make_color(1, 0.9, 0.9);
+  floor->SetMaterial().color = Color{ 1, 0.9, 0.9 };
   floor->SetMaterial().specular = 0;
   world.AddObject(floor);
 
@@ -56,14 +38,14 @@ int main()
   right_wall->SetTransform(translation(0, 0, 5) * rotation_y(PI / 4) *
                            rotation_x(PI / 2) * scaling(10, 0.01, 10));
   right_wall->SetTransform(scaling(10, 0.01, 10));
-  right_wall->SetMaterial().color = make_color(1, 0.9, 0.9);
+  right_wall->SetMaterial().color = Color{ 1, 0.9, 0.9 };
   right_wall->SetMaterial().specular = 0;
   world.AddObject(std::static_pointer_cast<Shape>(right_wall));
 
   // large middle sphere
   auto middle_sphere = std::make_shared<Sphere>();
   middle_sphere->SetTransform(translation(-0.5, 1, 0.5));
-  middle_sphere->SetMaterial().color = make_color(0.1, 1, 0.5);
+  middle_sphere->SetMaterial().color = Color{ 0.1, 1, 0.5 };
   middle_sphere->SetMaterial().diffuse = 0.7;
   middle_sphere->SetMaterial().specular = 0.3;
   world.AddObject(middle_sphere);
@@ -72,7 +54,7 @@ int main()
   auto right_sphere = std::make_shared<Sphere>();
   right_sphere->SetTransform(translation(1.5, 0.5, -0.5) *
                              scaling(0.5, 0.5, 0.5));
-  right_sphere->SetMaterial().color = make_color(0.5, 1, 0.1);
+  right_sphere->SetMaterial().color = Color{ 0.5, 1, 0.1 };
   right_sphere->SetMaterial().diffuse = 0.7;
   right_sphere->SetMaterial().specular = 0.3;
   world.AddObject(right_sphere);
@@ -81,13 +63,13 @@ int main()
   auto left_sphere = std::make_shared<Sphere>();
   left_sphere->SetTransform(translation(-1.5, 0.33, -0.75) *
                             scaling(0.33, 0.33, 0.33));
-  left_sphere->SetMaterial().color = make_color(1, 0.8, 0.1);
+  left_sphere->SetMaterial().color = Color{ 1, 0.8, 0.1 };
   left_sphere->SetMaterial().diffuse = 0.7;
   left_sphere->SetMaterial().specular = 0.3;
   world.AddObject(left_sphere);
 
   // light
-  world.SetLight(PointLight{ make_point(-10, 10, -10), make_color(1, 1, 1) });
+  world.SetLight(PointLight{ Point(-10, 10, -10), Color{ 1, 1, 1 } });
 
 // camera
 #ifdef NDEBUG
@@ -97,8 +79,8 @@ int main()
   // Low-Definition 16:9
   auto camera = Camera{ 426, 240, PI / 3 };
 #endif
-  camera.transform = view_transform(
-    make_point(0, 2.5, -10), make_point(0, 1, 0), make_vector(0, 1, 0));
+  camera.transform =
+    view_transform(Point(0, 2.5, -10), Point(0, 1, 0), Vector(0, 1, 0));
 
   /// =========================================================================
   /// @section Rendering

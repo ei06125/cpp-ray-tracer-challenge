@@ -36,6 +36,6 @@ Color CheckersPattern::At(Tuple point) const
            : m_PatternB->At(point);
 }
 
-} // namespace Textures
+} // namespace Patterns
 } // namespace Rendering
 } // namespace RayTracer

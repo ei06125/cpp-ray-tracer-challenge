@@ -18,7 +18,7 @@ SCENARIO("Creating a canvas")
       CHECK(c.height == 20);
       REQUIRE(c.size() == 200);
       for (const auto& pixel : c) {
-        CHECK(pixel == make_color(0, 0, 0));
+        CHECK(pixel == Colors::Black);
       }
     }
   }
@@ -29,7 +29,7 @@ SCENARIO("Writing pixels to a canvas")
   GIVEN("c = canvas(10, 20) && red = color(1, 0, 0)")
   {
     auto c = Canvas(10, 20);
-    auto red = make_color(1, 0, 0);
+    auto red = Color{ 1.0f, 0.0f, 0.0f };
     WHEN("write_pixel(c, 2, 3, red)")
     {
       write_pixel(c, 2, 3, red);
@@ -76,9 +76,9 @@ SCENARIO("Constructing the PPM pixel data")
     c1 = color(1.5, 0, 0) && c2 = color(0, 0.5, 0) && c3 = color(-0.5, 0, 1)")
   {
     auto c = Canvas(5, 3);
-    auto c1 = make_color(1.5, 0, 0);
-    auto c2 = make_color(0, 0.5, 0);
-    auto c3 = make_color(-0.5, 0, 1);
+    auto c1 = Color{ 1.5f, 0.0f, 0.0f };
+    auto c2 = Color{ 0.0f, 0.5f, 0.0f };
+    auto c3 = Color{ -0.5f, 0.0f, 1.0f };
     WHEN("write_pixel(c, 0, 0, c1) &&\
           write_pixel(c, 2, 1, c2) &&\
           write_pixel(c, 4, 2, c3) &&\
@@ -117,7 +117,7 @@ SCENARIO("Splitting long lines in PPM files")
     WHEN("every pixel of c is set to color(1, 0.8, 0.6) &&\
           ppm = canvas_to_ppm(c)")
     {
-      auto color = make_color(1, 0.8, 0.6);
+      auto color = Color{ 1.0f, 0.8f, 0.6f };
       for (auto col = 0; col < 10; ++col) {
         for (auto row = 0; row < 2; ++row) {
           write_pixel(c, col, row, color);

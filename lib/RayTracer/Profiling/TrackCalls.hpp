@@ -15,9 +15,7 @@ public:
     , m_Timer()
   {}
 
-  ~TrackCalls() {
-    
-  }
+  ~TrackCalls() {}
 
 private:
   const char* m_FunctionSignature;

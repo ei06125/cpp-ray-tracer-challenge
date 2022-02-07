@@ -5,8 +5,9 @@
 #include "RayTracer.hpp"
 
 using namespace RayTracer::Math;
-using namespace RayTracer::Rendering::Primitives;
+using namespace RayTracer::Rendering;
 using namespace RayTracer::Rendering::Patterns;
+using namespace RayTracer::Rendering::Primitives;
 
 /// ===========================================================================
 /// @section Stubs
@@ -22,13 +23,9 @@ public:
   /// @subsection Observers
   Color At(Tuple point) const override
   {
-    return make_color(point.x, point.y, point.z);
+    return Color{ point.x, point.y, point.z };
   }
 };
-
-// Background to all tests
-static Color black = make_color(0, 0, 0);
-static Color white = make_color(1, 1, 1);
 
 /// ===========================================================================
 /// @section Tests
@@ -76,9 +73,9 @@ SCENARIO("A pattern with an object transformation")
 
     WHEN("c = stripe_at_shape(pattern, shape, point(2, 3, 4))")
     {
-      auto c = pattern.AtShape(&shape, make_point(2, 3, 4));
+      auto c = pattern.AtShape(&shape, Point(2, 3, 4));
 
-      THEN("c == color(1, 1.5, 2)") { CHECK(c == make_color(1, 1.5, 2)); }
+      THEN("c == color(1, 1.5, 2)") { CHECK(c == Color{ 1.0f, 1.5f, 2.0f }); }
     }
   }
 }
@@ -95,9 +92,9 @@ SCENARIO("A pattern with a pattern transformation")
 
     WHEN("c = stripe_at_shape(pattern, shape, point(2, 3, 4))")
     {
-      auto c = pattern.AtShape(&shape, make_point(2, 3, 4));
+      auto c = pattern.AtShape(&shape, Point(2, 3, 4));
 
-      THEN("c == color(1, 1.5, 2)") { CHECK(c == make_color(1, 1.5, 2)); }
+      THEN("c == color(1, 1.5, 2)") { CHECK(c == Color{ 1.0f, 1.5f, 2.0f }); }
     }
   }
 }
@@ -117,10 +114,10 @@ SCENARIO("A pattern with both an object and a pattern transformation")
 
     WHEN("c = stripe_at_shape(pattern, shape, point(2.5, 3, 3.5))")
     {
-      auto c = pattern.AtShape(&shape, make_point(2.5, 3, 3.5));
+      auto c = pattern.AtShape(&shape, Point(2.5, 3, 3.5));
       THEN("c == color(0.75, 0.5, 0.25)")
       {
-        CHECK(c == make_color(0.75, 0.5, 0.25));
+        CHECK(c == Color{ 0.75f, 0.5f, 0.25f });
       }
     }
   }
@@ -138,12 +135,12 @@ SCENARIO("Creating a stripe pattern")
 {
   GIVEN("pattern = stripe_pattern(white, black)")
   {
-    auto pattern = StripePattern{ white, black };
+    auto pattern = StripePattern{ Colors::White, Colors::Black };
 
     THEN("pattern.a == white && pattern.b == black")
     {
-      CHECK(pattern.A() == white);
-      CHECK(pattern.B() == black);
+      CHECK(pattern.A() == Colors::White);
+      CHECK(pattern.B() == Colors::Black);
     }
   }
 }
@@ -152,15 +149,15 @@ SCENARIO("A stripe pattern is constant in y")
 {
   GIVEN("pattern = stripe_pattern(white, black)")
   {
-    auto pattern = StripePattern{ white, black };
+    auto pattern = StripePattern{ Colors::White, Colors::Black };
 
     THEN("stripe_at(pattern, point(0, 0, 0)) == white &&\
     \n stripe_at(pattern, point(0, 1, 0)) == white &&\
     \n stripe_at(pattern, point(0, 2, 0)) == white")
     {
-      CHECK(pattern.At(make_point(0, 0, 0)) == white);
-      CHECK(pattern.At(make_point(0, 1, 0)) == white);
-      CHECK(pattern.At(make_point(0, 2, 0)) == white);
+      CHECK(pattern.At(Point(0, 0, 0)) == Colors::White);
+      CHECK(pattern.At(Point(0, 1, 0)) == Colors::White);
+      CHECK(pattern.At(Point(0, 2, 0)) == Colors::White);
     }
   }
 }
@@ -169,15 +166,15 @@ SCENARIO("A stripe pattern is constant in z")
 {
   GIVEN("pattern = stripe_pattern(white, black)")
   {
-    auto pattern = StripePattern{ white, black };
+    auto pattern = StripePattern{ Colors::White, Colors::Black };
 
     THEN("stripe_at(pattern, point(0, 0, 0)) == white &&\
     \n stripe_at(pattern, point(0, 0, 1)) == white &&\
     \n stripe_at(pattern, point(0, 0, 2)) == white")
     {
-      CHECK(pattern.At(make_point(0, 0, 0)) == white);
-      CHECK(pattern.At(make_point(0, 0, 1)) == white);
-      CHECK(pattern.At(make_point(0, 0, 2)) == white);
+      CHECK(pattern.At(Point(0, 0, 0)) == Colors::White);
+      CHECK(pattern.At(Point(0, 0, 1)) == Colors::White);
+      CHECK(pattern.At(Point(0, 0, 2)) == Colors::White);
     }
   }
 }
@@ -186,7 +183,7 @@ SCENARIO("A stripe pattern alternates in x")
 {
   GIVEN("pattern = stripe_pattern(white, black)")
   {
-    auto pattern = StripePattern{ white, black };
+    auto pattern = StripePattern{ Colors::White, Colors::Black };
 
     THEN("stripe_at(pattern, point(0, 0, 0)) == white &&\
     \n stripe_at(pattern, point(0.9, 0, 0)) == white &&\
@@ -195,12 +192,12 @@ SCENARIO("A stripe pattern alternates in x")
     \n stripe_at(pattern, point(-1, 0, 0)) == black &&\
     \n stripe_at(pattern, point(-1.1, 0, 0)) == white")
     {
-      CHECK(pattern.At(make_point(0, 0, 0)) == white);
-      CHECK(pattern.At(make_point(0.9, 0, 0)) == white);
-      CHECK(pattern.At(make_point(1, 0, 0)) == black);
-      CHECK(pattern.At(make_point(-0.1, 0, 0)) == black);
-      CHECK(pattern.At(make_point(-1, 0, 0)) == black);
-      CHECK(pattern.At(make_point(-1.1, 0, 0)) == white);
+      CHECK(pattern.At(Point(0, 0, 0)) == Colors::White);
+      CHECK(pattern.At(Point(0.9, 0, 0)) == Colors::White);
+      CHECK(pattern.At(Point(1, 0, 0)) == Colors::Black);
+      CHECK(pattern.At(Point(-0.1, 0, 0)) == Colors::Black);
+      CHECK(pattern.At(Point(-1, 0, 0)) == Colors::Black);
+      CHECK(pattern.At(Point(-1.1, 0, 0)) == Colors::White);
     }
   }
 }
@@ -213,17 +210,17 @@ SCENARIO("A gradient linearly interpolates between colors")
 {
   GIVEN("pattern = gradient_pattern(white, black)")
   {
-    auto pattern = GradientPattern(white, black);
+    auto pattern = GradientPattern(Colors::White, Colors::Black);
 
     THEN("pattern_at(pattern, point(0, 0, 0)) == white &&\
     \n pattern_at(pattern, point(0.25, 0, 0)) == color(0.75, 0.75, 0.75) &&\
     \n pattern_at(pattern, point(0.5, 0, 0)) == color(0.5, 0.5, 0.5) &&\
     \n pattern_at(pattern, point(0.75, 0, 0)) == color(0.25, 0.25, 0.25)")
     {
-      CHECK(pattern.At(make_point(0, 0, 0)) == white);
-      CHECK(pattern.At(make_point(0.25, 0, 0)) == make_color(0.75, 0.75, 0.75));
-      CHECK(pattern.At(make_point(0.5, 0, 0)) == make_color(0.5, 0.5, 0.5));
-      CHECK(pattern.At(make_point(0.75, 0, 0)) == make_color(0.25, 0.25, 0.25));
+      CHECK(pattern.At(Point(0, 0, 0)) == Colors::White);
+      CHECK(pattern.At(Point(0.25, 0, 0)) == Color{ 0.75f, 0.75f, 0.75f });
+      CHECK(pattern.At(Point(0.5, 0, 0)) == Color{ 0.5f, 0.5f, 0.5f });
+      CHECK(pattern.At(Point(0.75, 0, 0)) == Color{ 0.25f, 0.25f, 0.25f });
     }
   }
 }
@@ -236,18 +233,18 @@ SCENARIO("A ring should extend in both x and z")
 {
   GIVEN("pattern = ring_pattern(white, black)")
   {
-    auto pattern = RingPattern(white, black);
+    auto pattern = RingPattern(Colors::White, Colors::Black);
 
     THEN("pattern_at(pattern, point(0, 0, 0)) == white &&\
     \n pattern_at(pattern, point(1, 0, 0)) == black &&\
     \n pattern_at(pattern, point(0, 0, 1)) == black &&\
     \n pattern_at(pattern, point(0.708, 0, 0.708)) == black")
     {
-      CHECK(pattern.At(make_point(0, 0, 0)) == white);
-      CHECK(pattern.At(make_point(1, 0, 0)) == black);
-      CHECK(pattern.At(make_point(0, 0, 1)) == black);
+      CHECK(pattern.At(Point(0, 0, 0)) == Colors::White);
+      CHECK(pattern.At(Point(1, 0, 0)) == Colors::Black);
+      CHECK(pattern.At(Point(0, 0, 1)) == Colors::Black);
       // 0.708 = just slightly more than SQRT(2) / 2
-      CHECK(pattern.At(make_point(0.708, 0, 0.708)) == black);
+      CHECK(pattern.At(Point(0.708, 0, 0.708)) == Colors::Black);
     }
   }
 }
@@ -260,15 +257,15 @@ SCENARIO("Checkers should repeat in x")
 {
   GIVEN("pattern = checkers_pattern(white, black)")
   {
-    auto pattern = CheckersPattern(white, black);
+    auto pattern = CheckersPattern(Colors::White, Colors::Black);
 
     THEN("pattern_at(pattern, point(0, 0, 0)) == white &&\
     \n pattern_at(pattern, point(0.99, 0, 0)) == white &&\
     \n pattern_at(pattern, point(1.01, 0, 0)) == black))")
     {
-      CHECK(pattern.At(make_point(0, 0, 0)) == white);
-      CHECK(pattern.At(make_point(0.99, 0, 0)) == white);
-      CHECK(pattern.At(make_point(1.01, 0, 0)) == black);
+      CHECK(pattern.At(Point(0, 0, 0)) == Colors::White);
+      CHECK(pattern.At(Point(0.99, 0, 0)) == Colors::White);
+      CHECK(pattern.At(Point(1.01, 0, 0)) == Colors::Black);
     }
   }
 }
@@ -277,15 +274,15 @@ SCENARIO("Checkers should repeat in y")
 {
   GIVEN("pattern = checkers_pattern(white, black)")
   {
-    auto pattern = CheckersPattern(white, black);
+    auto pattern = CheckersPattern(Colors::White, Colors::Black);
 
     THEN("pattern_at(pattern, point(0, 0, 0)) == white &&\
     \n pattern_at(pattern, point(0, 0.99, 0)) == white &&\
     \n pattern_at(pattern, point(0, 1.01, 0)) == black))")
     {
-      CHECK(pattern.At(make_point(0, 0, 0)) == white);
-      CHECK(pattern.At(make_point(0, 0.99, 0)) == white);
-      CHECK(pattern.At(make_point(0, 1.01, 0)) == black);
+      CHECK(pattern.At(Point(0, 0, 0)) == Colors::White);
+      CHECK(pattern.At(Point(0, 0.99, 0)) == Colors::White);
+      CHECK(pattern.At(Point(0, 1.01, 0)) == Colors::Black);
     }
   }
 }
@@ -294,15 +291,15 @@ SCENARIO("Checkers should repeat in z")
 {
   GIVEN("pattern = checkers_pattern(white, black)")
   {
-    auto pattern = CheckersPattern(white, black);
+    auto pattern = CheckersPattern(Colors::White, Colors::Black);
 
     THEN("pattern_at(pattern, point(0, 0, 0)) == white &&\
     \n pattern_at(pattern, point(0, 0, 0.99)) == white &&\
     \n pattern_at(pattern, point(0, 0, 1.01)) == black))")
     {
-      CHECK(pattern.At(make_point(0, 0, 0)) == white);
-      CHECK(pattern.At(make_point(0, 0, 0.99)) == white);
-      CHECK(pattern.At(make_point(0, 0, 1.01)) == black);
+      CHECK(pattern.At(Point(0, 0, 0)) == Colors::White);
+      CHECK(pattern.At(Point(0, 0, 0.99)) == Colors::White);
+      CHECK(pattern.At(Point(0, 0, 1.01)) == Colors::Black);
     }
   }
 }

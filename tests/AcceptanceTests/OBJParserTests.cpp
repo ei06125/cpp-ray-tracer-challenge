@@ -65,10 +65,10 @@ SCENARIO("Vertex records")
       \n\t And parser.vertices[4] == point(1, 1, 0)")
       {
         REQUIRE(parser.GetVertices().size() == 5);
-        CHECK(parser.GetVertices()[1] == make_point(-1, 1, 0));
-        CHECK(parser.GetVertices()[2] == make_point(-1, 0.5, 0));
-        CHECK(parser.GetVertices()[3] == make_point(1, 0, 0));
-        CHECK(parser.GetVertices()[4] == make_point(1, 1, 0));
+        CHECK(parser.GetVertices()[1] == Point(-1, 1, 0));
+        CHECK(parser.GetVertices()[2] == Point(-1, 0.5, 0));
+        CHECK(parser.GetVertices()[3] == Point(1, 0, 0));
+        CHECK(parser.GetVertices()[4] == Point(1, 1, 0));
       }
     }
   }
@@ -268,9 +268,9 @@ SCENARIO("Vertex normal records")
       \n\t And parser.normals[3] == vector(1, 2, 3)")
       {
         REQUIRE(parser.GetNormals().size() == 4);
-        CHECK(parser.GetNormals()[1] == make_vector(0, 0, 1));
-        CHECK(parser.GetNormals()[2] == make_vector(0.707, 0, -0.707));
-        CHECK(parser.GetNormals()[3] == make_vector(1, 2, 3));
+        CHECK(parser.GetNormals()[1] == Vector(0, 0, 1));
+        CHECK(parser.GetNormals()[2] == Vector(0.707, 0, -0.707));
+        CHECK(parser.GetNormals()[3] == Vector(1, 2, 3));
       }
     }
   }

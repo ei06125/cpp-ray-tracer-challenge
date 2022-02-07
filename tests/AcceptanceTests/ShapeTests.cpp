@@ -74,7 +74,7 @@ SCENARIO("Intersecting a scaled shape with a ray")
 {
   GIVEN("r = ray(point(0, 0, -5), vector(0, 0, 1)) && s = shape()")
   {
-    auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, -5), Vector(0, 0, 1) };
     auto s = TestShape();
 
     WHEN("set_transform(s, scaling(2, 2, 2)) && xs = intersect(s, r)")
@@ -85,8 +85,8 @@ SCENARIO("Intersecting a scaled shape with a ray")
       THEN("s.saved_ray.origin == point(0, 0, -2.5) &&\
       \n s.saved_ray.direction == vector(0, 0, 0.5)")
       {
-        CHECK(s.saved_ray.origin == make_point(0, 0, -2.5));
-        CHECK(s.saved_ray.direction == make_vector(0, 0, 0.5));
+        CHECK(s.saved_ray.origin == Point(0, 0, -2.5));
+        CHECK(s.saved_ray.direction == Vector(0, 0, 0.5));
       }
     }
   }
@@ -96,7 +96,7 @@ SCENARIO("Intersecting a translated shape with a ray")
 {
   GIVEN("r = ray(point(0, 0, -5), vector(0, 0, 1)) && s = shape()")
   {
-    auto r = Ray{ make_point(0, 0, -5), make_vector(0, 0, 1) };
+    auto r = Ray{ Point(0, 0, -5), Vector(0, 0, 1) };
     auto s = TestShape();
 
     WHEN("set_transform(s, scaling(2, 2, 2)) && xs = intersect(s, r)")
@@ -107,8 +107,8 @@ SCENARIO("Intersecting a translated shape with a ray")
       THEN("s.saved_ray.origin == point(-5, 0,  -5) &&\
       \n s.saved_ray.direction == vector(0, 0, 1)")
       {
-        CHECK(s.saved_ray.origin == make_point(-5, 0, -5));
-        CHECK(s.saved_ray.direction == make_vector(0, 0, 1));
+        CHECK(s.saved_ray.origin == Point(-5, 0, -5));
+        CHECK(s.saved_ray.direction == Vector(0, 0, 1));
       }
     }
   }
@@ -123,11 +123,11 @@ SCENARIO("Computing the normal on a translated shape")
 
     WHEN("n = normal_at(s, point(0, 1.70711, -0.70711))")
     {
-      auto n = s.GetNormalAt(make_point(0, 1.70711, -0.70711));
+      auto n = s.GetNormalAt(Point(0, 1.70711, -0.70711));
 
       THEN("n == vector(0, 0.70711, -0.70711)")
       {
-        CHECK(n == make_vector(0, 0.70711, -0.70711));
+        CHECK(n == Vector(0, 0.70711, -0.70711));
       }
     }
   }
@@ -147,11 +147,11 @@ SCENARIO("Computing the normal on a transformed shape")
     {
       auto sqrt2 = std::sqrt(2);
       auto sqrt2over2 = sqrt2 / 2;
-      auto n = s.GetNormalAt(make_point(0, sqrt2over2, -sqrt2over2));
+      auto n = s.GetNormalAt(Point(0, sqrt2over2, -sqrt2over2));
 
       THEN("n == vector(0, 0.97014, -0.24254)")
       {
-        CHECK(n == make_vector(0, 0.97014, -0.24254));
+        CHECK(n == Vector(0, 0.97014, -0.24254));
       }
     }
   }
@@ -179,8 +179,8 @@ SCENARIO("Converting a point from world to object space")
 
     WHEN("p = world_to_object(s, point(-2, 0, -10))")
     {
-      auto p = s->WorldToObject(make_point(-2, 0, -10));
-      THEN("p == point(0, 0, -1)") { CHECK(p == make_point(0, 0, -1)); }
+      auto p = s->WorldToObject(Point(-2, 0, -10));
+      THEN("p == point(0, 0, -1)") { CHECK(p == Point(0, 0, -1)); }
     }
   }
 }
@@ -208,10 +208,10 @@ SCENARIO("Converting a normal from object to world space")
     WHEN("n = normal_to_world(s, vector(SQRT(3)/3, SQRT(3)/3, SQRT(3)/3))")
     {
       float sqrt3 = std::sqrt(3);
-      auto n = s->NormalToWorld(make_vector(sqrt3 / 3, sqrt3 / 3, sqrt3 / 3));
+      auto n = s->NormalToWorld(Vector(sqrt3 / 3, sqrt3 / 3, sqrt3 / 3));
       THEN("n == vector(0.2857, 0.4286, -0.8571)")
       {
-        CHECK(n == make_vector(0.2857, 0.4286, -0.8571));
+        CHECK(n == Vector(0.2857, 0.4286, -0.8571));
       }
     }
   }

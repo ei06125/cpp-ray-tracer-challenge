@@ -9,7 +9,7 @@ int main()
   const auto color = make_color(1, 0, 0);
 
   auto canvas = Canvas(width, height);
-  auto p = make_point(0, radius, 0);
+  auto p = Point(0, radius, 0);
   auto angle = std::numbers::pi / 6;
   auto translate = translation(width / 2, height / 2, 0);
 

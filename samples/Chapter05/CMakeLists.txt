@@ -4,4 +4,3 @@ target_sources(Chapter05 PUBLIC ${Chapter05_SOURCES})
 target_link_libraries(Chapter05 PRIVATE RayTracer)
 target_include_directories(Chapter05 PRIVATE ${CMAKE_CURRENT_LIST_DIR}
                                              ${ROOT_DIR}/lib)
-target_precompile_headers(Chapter05 REUSE_FROM RayTracer)

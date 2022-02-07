@@ -5,8 +5,9 @@
 #include "RayTracer.hpp"
 
 using namespace RayTracer::Math;
-using namespace RayTracer::Rendering::Materials;
+using namespace RayTracer::Rendering::Colors;
 using namespace RayTracer::Rendering::Patterns;
+using namespace RayTracer::Rendering::Materials;
 
 SCENARIO("The default material")
 {
@@ -20,7 +21,7 @@ SCENARIO("The default material")
         \n m.specular = 0.9 &&\
         \n m.shininess = 200.0")
     {
-      CHECK(m.color == make_color(1, 1, 1));
+      CHECK(m.color == Color{ 1.0f, 1.0f, 1.0f });
       CHECK(m.ambient == doctest::Approx(0.1));
       CHECK(m.diffuse == doctest::Approx(0.9));
       CHECK(m.specular == doctest::Approx(0.9));
@@ -37,10 +38,10 @@ SCENARIO("Lighting with the eye between the light and the surface")
     \n light = point_light(point(0, 0, -10), color(1, 1, 1))")
   {
     auto m = Material();
-    auto position = make_point(0, 0, 0);
-    auto eyev = make_vector(0, 0, -1);
-    auto normalv = make_vector(0, 0, -1);
-    auto light = PointLight{ make_point(0, 0, -10), make_color(1, 1, 1) };
+    auto position = Point(0, 0, 0);
+    auto eyev = Vector(0, 0, -1);
+    auto normalv = Vector(0, 0, -1);
+    auto light = PointLight{ Point(0, 0, -10), Color{ 1.0f, 1.0f, 1.0f } };
 
     WHEN("result = lighting(m, light, position, eyev, normalv)")
     {
@@ -48,7 +49,7 @@ SCENARIO("Lighting with the eye between the light and the surface")
 
       THEN("result == color(1.9, 1.9, 1.9)")
       {
-        CHECK(result == make_color(1.9, 1.9, 1.9));
+        CHECK(result == Color{ 1.9f, 1.9f, 1.9f });
       }
     }
   }
@@ -62,10 +63,10 @@ SCENARIO("Lighting with the eye between light and surface, eye offset 45")
     \n light = point_light(point(0, 0, -10), color(1, 1, 1))")
   {
     auto m = Material();
-    auto position = make_point(0, 0, 0);
-    auto eyev = make_vector(0, std::sqrt(2) / 2, -std::sqrt(2) / 2);
-    auto normalv = make_vector(0, 0, -1);
-    auto light = PointLight{ make_point(0, 0, -10), make_color(1, 1, 1) };
+    auto position = Point(0, 0, 0);
+    auto eyev = Vector(0, std::sqrt(2) / 2, -std::sqrt(2) / 2);
+    auto normalv = Vector(0, 0, -1);
+    auto light = PointLight{ Point(0, 0, -10), Color{ 1.0f, 1.0f, 1.0f } };
 
     WHEN("result = lighting(m, light, position, eyev, normalv)")
     {
@@ -73,7 +74,7 @@ SCENARIO("Lighting with the eye between light and surface, eye offset 45")
 
       THEN("result == color(1.0, 1.0, 1.0)")
       {
-        CHECK(result == make_color(1.0, 1.0, 1.0));
+        CHECK(result == Color{ 1.0f, 1.0f, 1.0f });
       }
     }
   }
@@ -87,10 +88,10 @@ SCENARIO("Lighting with the eye opposite surface, light offset 45")
     \n light = point_light(point(0, 10, -10), color(1, 1, 1))")
   {
     auto m = Material();
-    auto position = make_point(0, 0, 0);
-    auto eyev = make_vector(0, 0, -1);
-    auto normalv = make_vector(0, 0, -1);
-    auto light = PointLight{ make_point(0, 10, -10), make_color(1, 1, 1) };
+    auto position = Point(0, 0, 0);
+    auto eyev = Vector(0, 0, -1);
+    auto normalv = Vector(0, 0, -1);
+    auto light = PointLight{ Point(0, 10, -10), Color{ 1.0f, 1.0f, 1.0f } };
 
     WHEN("result = lighting(m, light, position, eyev, normalv)")
     {
@@ -98,7 +99,7 @@ SCENARIO("Lighting with the eye opposite surface, light offset 45")
 
       THEN("result == color(0.7364, 0.7364, 0.7364)")
       {
-        CHECK(result == make_color(0.7364, 0.7364, 0.7364));
+        CHECK(result == Color{ 0.7364f, 0.7364f, 0.7364f });
       }
     }
   }
@@ -112,10 +113,10 @@ SCENARIO("Lighting with the eye in the path of the reflection vector")
     \n light = point_light(point(0, 10, -10), color(1, 1, 1))")
   {
     auto m = Material();
-    auto position = make_point(0, 0, 0);
-    auto eyev = make_vector(0, -std::sqrt(2) / 2, -std::sqrt(2) / 2);
-    auto normalv = make_vector(0, 0, -1);
-    auto light = PointLight{ make_point(0, 10, -10), make_color(1, 1, 1) };
+    auto position = Point(0, 0, 0);
+    auto eyev = Vector(0, -std::sqrt(2) / 2, -std::sqrt(2) / 2);
+    auto normalv = Vector(0, 0, -1);
+    auto light = PointLight{ Point(0, 10, -10), Color{ 1.0f, 1.0f, 1.0f } };
 
     WHEN("result = lighting(m, light, position, eyev, normalv)")
     {
@@ -123,7 +124,7 @@ SCENARIO("Lighting with the eye in the path of the reflection vector")
 
       THEN("result == color(1.6364, 1.6364, 1.6364)")
       {
-        CHECK(result == make_color(1.6364, 1.6364, 1.6364));
+        CHECK(result == Color{ 1.6364f, 1.6364f, 1.6364f });
       }
     }
   }
@@ -137,10 +138,10 @@ SCENARIO("Lighting with the light behind the surface")
     \n light = point_light(point(0, 0, 10), color(1, 1, 1))")
   {
     auto m = Material();
-    auto position = make_point(0, 0, 0);
-    auto eyev = make_vector(0, 0, -1);
-    auto normalv = make_vector(0, 0, -1);
-    auto light = PointLight{ make_point(0, 0, 10), make_color(1, 1, 1) };
+    auto position = Point(0, 0, 0);
+    auto eyev = Vector(0, 0, -1);
+    auto normalv = Vector(0, 0, -1);
+    auto light = PointLight{ Point(0, 0, 10), Color{ 1.0f, 1.0f, 1.0f } };
 
     WHEN("result = lighting(m, light, position, eyev, normalv)")
     {
@@ -148,7 +149,7 @@ SCENARIO("Lighting with the light behind the surface")
 
       THEN("result == color(0.1, 0.1, 0.1)")
       {
-        CHECK(result == make_color(0.1, 0.1, 0.1));
+        CHECK(result == Color{ 0.1f, 0.1f, 0.1f });
       }
     }
   }
@@ -167,10 +168,10 @@ SCENARIO("Lighting with the surface in the shadow")
     \n in_shadow = true")
   {
     auto m = Material();
-    auto position = make_point(0, 0, 0);
-    auto eyev = make_vector(0, 0, -1);
-    auto normalv = make_vector(0, 0, -1);
-    auto light = PointLight{ make_point(0, 0, -10), make_color(1, 1, 1) };
+    auto position = Point(0, 0, 0);
+    auto eyev = Vector(0, 0, -1);
+    auto normalv = Vector(0, 0, -1);
+    auto light = PointLight{ Point(0, 0, -10), Color{ 1.0f, 1.0f, 1.0f } };
     auto in_shadow = true;
 
     WHEN("result = lighting(m, light, position, eyev, normalv, in_shadow)")
@@ -179,7 +180,7 @@ SCENARIO("Lighting with the surface in the shadow")
 
       THEN("result == color(0.1, 0.1, 0.1)")
       {
-        CHECK(result == make_color(0.1, 0.1, 0.1));
+        CHECK(result == Color{ 0.1f, 0.1f, 0.1f });
       }
     }
   }
@@ -196,30 +197,30 @@ SCENARIO("Lighting with a pattern applied")
   \n eyev = vector(0, 0, -1) && normalv = vector(0, 0, -1) &&\
   \n light = point_light(point(0, 0, -10), color(1, 1, 1))")
   {
-    auto pattern =
-      std::make_shared<StripePattern>(make_color(1, 1, 1), make_color(0, 0, 0));
+    auto pattern = std::make_shared<StripePattern>(Color{ 1.0f, 1.0f, 1.0f },
+                                                   Color{ 0.0f, 0.0f, 0.0f });
     Material m;
     m.pattern = std::static_pointer_cast<Pattern>(pattern);
     m.ambient = 1;
     m.diffuse = 0;
     m.specular = 0;
 
-    auto eyev = make_vector(0, 0, -1);
-    auto normalv = make_vector(0, 0, -1);
+    auto eyev = Vector(0, 0, -1);
+    auto normalv = Vector(0, 0, -1);
 
-    auto light = PointLight{ make_point(0, 0, -10), make_color(1, 1, 1) };
+    auto light = PointLight{ Point(0, 0, -10), Color{ 1.0f, 1.0f, 1.0f } };
 
     WHEN("c1 = lighting(m, light, point(0.9, 0, 0), eyev, normalv, false) &&\
   \n c2 = lighting(m, light, point(1.1, 0, 0), eyev, normalv, false)")
     {
 
-      auto c1 = lighting(m, light, make_point(0.9, 0, 0), eyev, normalv, false);
-      auto c2 = lighting(m, light, make_point(1.1, 0, 0), eyev, normalv, false);
+      auto c1 = lighting(m, light, Point(0.9, 0, 0), eyev, normalv, false);
+      auto c2 = lighting(m, light, Point(1.1, 0, 0), eyev, normalv, false);
 
       THEN("c1 == color(1, 1, 1) && c2 == color(0, 0, 0)")
       {
-        CHECK(c1 == make_color(1, 1, 1));
-        CHECK(c2 == make_color(0, 0, 0));
+        CHECK(c1 == Color{ 1.0f, 1.0f, 1.0f });
+        CHECK(c2 == Color{ 0.0f, 0.0f, 0.0f });
       }
     }
   }

@@ -23,6 +23,6 @@ private:
   Color m_ColorB;
 };
 
-} // namespace Textures
+} // namespace Patterns
 } // namespace Rendering
 } // namespace RayTracer

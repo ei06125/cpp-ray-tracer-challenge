@@ -13,13 +13,6 @@ class Cylinder : public Shape
 {
 public:
   /// @section Member functions
-  ~Cylinder() override;
-  Cylinder();
-  Cylinder(const Cylinder&);
-  Cylinder(Cylinder&&) noexcept;
-  Cylinder& operator=(const Cylinder&);
-  Cylinder& operator=(Cylinder&&) noexcept;
-
   /// @subsection Observers
   float GetMinimum() const;
   float GetMaximum() const;
@@ -33,7 +26,7 @@ public:
 protected:
   Tuple GetLocalNormalAt(Tuple point,
                          const Intersection* i = nullptr) const override;
-  Intersections VirtualIntersect(const Ray& r) const override;
+  Intersections GetLocalIntersect(const Ray& r) const override;
 
 private:
   bool CheckCap(const Ray& r, float t) const;

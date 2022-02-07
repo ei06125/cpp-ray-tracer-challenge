@@ -23,9 +23,9 @@ SCENARIO("A ray misses a cylinder")
     };
 
     const std::array<TestData, 3> testData{ {
-      { make_point(1, 0, 0), make_vector(0, 1, 0) },
-      { make_point(0, 0, 0), make_vector(0, 1, 0) },
-      { make_point(0, 0, -5), make_vector(1, 1, 1) },
+      { Point(1, 0, 0), Vector(0, 1, 0) },
+      { Point(0, 0, 0), Vector(0, 1, 0) },
+      { Point(0, 0, -5), Vector(1, 1, 1) },
     } };
     /// -----------------------------------------------------------------------
 
@@ -59,9 +59,9 @@ SCENARIO("A ray strikes a cylinder")
     };
 
     const std::array<TestData, 3> testData{ {
-      { make_point(1, 0, -5), make_vector(0, 0, 1), 5, 5 },
-      { make_point(0, 0, -5), make_vector(0, 0, 1), 4, 6 },
-      { make_point(0.5, 0, -5), make_vector(0.1, 1, 1), 6.80798, 7.08872 },
+      { Point(1, 0, -5), Vector(0, 0, 1), 5, 5 },
+      { Point(0, 0, -5), Vector(0, 0, 1), 4, 6 },
+      { Point(0.5, 0, -5), Vector(0.1, 1, 1), 6.80798, 7.08872 },
     } };
     /// -----------------------------------------------------------------------
 
@@ -97,10 +97,10 @@ SCENARIO("Normal vector on a cylinder")
     };
 
     const std::array<TestData, 4> testData{ {
-      { make_point(1, 0, 0), make_vector(1, 0, 0) },
-      { make_point(0, 5, -1), make_vector(0, 0, -1) },
-      { make_point(0, -2, 1), make_vector(0, 0, 1) },
-      { make_point(-1, 1, 0), make_vector(-1, 0, 0) },
+      { Point(1, 0, 0), Vector(1, 0, 0) },
+      { Point(0, 5, -1), Vector(0, 0, -1) },
+      { Point(0, -2, 1), Vector(0, 0, 1) },
+      { Point(-1, 1, 0), Vector(-1, 0, 0) },
     } };
     /// -----------------------------------------------------------------------
 
@@ -146,12 +146,12 @@ SCENARIO("Intersecting a constrained cylinder")
     };
 
     const std::array<TestData, 6> testData{
-      { { make_point(0, 1.5, 0), make_vector(0.1, 1, 0), 0 },
-        { make_point(0, 3, -5), make_vector(0, 0, 1), 0 },
-        { make_point(0, 0, -5), make_vector(0, 0, 1), 0 },
-        { make_point(0, 2, -5), make_vector(0, 0, 1), 0 },
-        { make_point(0, 1, -5), make_vector(0, 0, 1), 0 },
-        { make_point(0, 1.5, -2), make_vector(0, 0, 1), 2 } }
+      { { Point(0, 1.5, 0), Vector(0.1, 1, 0), 0 },
+        { Point(0, 3, -5), Vector(0, 0, 1), 0 },
+        { Point(0, 0, -5), Vector(0, 0, 1), 0 },
+        { Point(0, 2, -5), Vector(0, 0, 1), 0 },
+        { Point(0, 1, -5), Vector(0, 0, 1), 0 },
+        { Point(0, 1.5, -2), Vector(0, 0, 1), 2 } }
     };
     /// -----------------------------------------------------------------------
 
@@ -201,11 +201,11 @@ SCENARIO("Intersecting the caps of a closed cylinder")
     };
 
     const std::array<TestData, 5> testData{ {
-      { make_point(0, 3, 0), make_vector(0, -1, 0), 2 },
-      { make_point(0, 3, -2), make_vector(0, -1, 2), 2 },
-      { make_point(0, 4, -2), make_vector(0, -1, 1), 2 }, // corner case
-      { make_point(0, 0, -2), make_vector(0, 1, 2), 2 },
-      { make_point(0, -1, -2), make_vector(0, 1, 1), 2 }, // corner case
+      { Point(0, 3, 0), Vector(0, -1, 0), 2 },
+      { Point(0, 3, -2), Vector(0, -1, 2), 2 },
+      { Point(0, 4, -2), Vector(0, -1, 1), 2 }, // corner case
+      { Point(0, 0, -2), Vector(0, 1, 2), 2 },
+      { Point(0, -1, -2), Vector(0, 1, 1), 2 }, // corner case
     } };
     /// -----------------------------------------------------------------------
 
@@ -244,12 +244,12 @@ SCENARIO("The normal vector on a cylinder's end caps")
     };
 
     const std::array<TestData, 6> testData{ {
-      { make_point(0, 1, 0), make_vector(0, -1, 0) },
-      { make_point(0.5, 1, 0), make_vector(0, -1, 0) },
-      { make_point(0, 1, 0.5), make_vector(0, -1, 0) },
-      { make_point(0, 2, 0), make_vector(0, 1, 0) },
-      { make_point(0.5, 2, 0), make_vector(0, 1, 0) },
-      { make_point(0, 2, 0.5), make_vector(0, 1, 0) },
+      { Point(0, 1, 0), Vector(0, -1, 0) },
+      { Point(0.5, 1, 0), Vector(0, -1, 0) },
+      { Point(0, 1, 0.5), Vector(0, -1, 0) },
+      { Point(0, 2, 0), Vector(0, 1, 0) },
+      { Point(0.5, 2, 0), Vector(0, 1, 0) },
+      { Point(0, 2, 0.5), Vector(0, 1, 0) },
     } };
     /// -----------------------------------------------------------------------
 

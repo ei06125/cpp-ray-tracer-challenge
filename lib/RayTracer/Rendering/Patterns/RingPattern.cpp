@@ -27,6 +27,6 @@ Color RingPattern::At(Tuple point) const
            : m_ColorB;
 }
 
-} // namespace Textures
+} // namespace Patterns
 } // namespace Rendering
 } // namespace RayTracer

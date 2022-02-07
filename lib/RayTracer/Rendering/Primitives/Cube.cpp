@@ -7,15 +7,8 @@ using namespace Math;
 /// @section Member functions
 /// ===========================================================================
 
-Cube::~Cube() = default;
-Cube::Cube() = default;
-Cube::Cube(const Cube& other) = default;
-Cube::Cube(Cube&& other) noexcept = default;
-Cube& Cube::operator=(const Cube& other) = default;
-Cube& Cube::operator=(Cube&& other) noexcept = default;
-
 /// ---------------------------------------------------------------------------
-/// @subsection
+/// @subsection Observers
 /// ---------------------------------------------------------------------------
 
 Tuple Cube::GetLocalNormalAt(Tuple point, const Intersection*) const
@@ -24,14 +17,14 @@ Tuple Cube::GetLocalNormalAt(Tuple point, const Intersection*) const
     std::max(std::abs(point.x), std::max(std::abs(point.y), std::abs(point.z)));
 
   if (maxc == std::abs(point.x)) {
-    return make_vector(point.x, 0, 0);
+    return Vector(point.x, 0, 0);
   } else if (maxc == std::abs(point.y)) {
-    return make_vector(0, point.y, 0);
+    return Vector(0, point.y, 0);
   }
-  return make_vector(0, 0, point.z);
+  return Vector(0, 0, point.z);
 }
 
-Intersections Cube::VirtualIntersect(const Ray& r) const
+Intersections Cube::GetLocalIntersect(const Ray& r) const
 {
   auto [xtmin, xtmax] = check_axis(r.origin.x, r.direction.x);
   auto [ytmin, ytmax] = check_axis(r.origin.y, r.direction.y);

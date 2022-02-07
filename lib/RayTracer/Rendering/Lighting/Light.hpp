@@ -3,17 +3,19 @@
 
 // Project Library
 #include "RayTracer/Math/Tuple.hpp"
+#include "RayTracer/Rendering/Color.hpp"
 
 namespace RayTracer {
 namespace Rendering {
 namespace Lighting {
 
-using namespace Math;
+using namespace RayTracer::Math;
+using namespace RayTracer::Rendering::Colors;
 
 struct PointLight
 {
   Tuple position;
-  Tuple intensity;
+  Color intensity;
 };
 
 std::ostream& operator<<(std::ostream& os, const PointLight& aLight);
