@@ -33,9 +33,12 @@ public:
   Tuple WorldToObject(Tuple point) const;
   Tuple NormalToWorld(Tuple normal) const;
 
-  /// @subsubsection Virtual member functions
+  // TODO: Should not be virtual
   virtual Tuple GetNormalAt(Tuple point, const Intersection* i = nullptr) const;
   virtual Intersections Intersect(const Ray& r) const;
+
+  /// @subsubsection Virtual member functions
+  virtual bool Contains(const Shape& shape) const;
 
   /// @subsection Modifiers
   mat4& SetTransform();
@@ -61,6 +64,20 @@ private:
   Tuple m_Origin;
   std::weak_ptr<Shape> m_Parent;
 };
+
+using SharedShape = std::shared_ptr<Shape>;
+
+template<typename T, typename... Args>
+requires(std::is_base_of_v<Shape, T>) SharedShape CreateShape(Args&&... args)
+{
+  return std::make_shared<T>(args...);
+}
+
+template<typename T, typename... Args>
+requires(std::is_base_of_v<Shape, T>) SharedPtr<T> CreateShapeAs(Args&&... args)
+{
+  return std::make_shared<T>(args...);
+}
 
 /// @section Non-member functions
 Tuple world_to_object(const std::shared_ptr<Shape>& shape, Tuple worldPoint);

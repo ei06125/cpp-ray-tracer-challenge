@@ -39,7 +39,7 @@ SCENARIO("Adding a child to a group")
       THEN("g includes s\
         \n\t And s.parent = g")
       {
-        CHECK(g->Contains(s));
+        CHECK(g->Contains(*s.get()));
         CHECK(s->GetParent().lock().get() == g.get());
       }
     }

@@ -35,3 +35,9 @@
 #ifdef _MSC_VER
 #include <malloc.h> // for _aligned_malloc() and _aligned_free()
 #endif
+
+template<typename T>
+using SharedPtr = std::shared_ptr<T>;
+
+template<typename T>
+using UniquePtr = std::unique_ptr<T>;

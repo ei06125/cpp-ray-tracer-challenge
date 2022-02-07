@@ -16,9 +16,14 @@ bool Group::IsEmpty() const
   return m_Children.empty();
 }
 
-bool Group::Contains(const std::shared_ptr<Shape>& shape) const
+bool Group::Contains(const Shape& shape) const
 {
-  return m_Children.contains(shape);
+  for (const auto& child : m_Children) {
+    if (child->Contains(shape)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 ///

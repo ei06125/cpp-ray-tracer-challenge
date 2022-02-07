@@ -17,6 +17,7 @@ public:
   void SetRadius(float r);
 
   /// @section Friend functions
+  bool operator==(const Sphere& rhs) const;
   friend bool operator==(const Sphere& lhs, const Sphere& rhs);
 
 protected:

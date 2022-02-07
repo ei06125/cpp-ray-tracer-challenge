@@ -1,5 +1,7 @@
 #include "RayTracer/Rendering/Primitives/Shape.hpp"
 
+#include <typeinfo>
+
 namespace RayTracer {
 namespace Rendering {
 namespace Primitives {
@@ -66,10 +68,6 @@ Tuple Shape::NormalToWorld(Tuple normal) const
   return normal;
 }
 
-///
-/// @subsubsection Virtual member functions
-///
-
 Tuple Shape::GetNormalAt(Tuple worldPoint, const Intersection* i) const
 {
   auto localPoint = WorldToObject(worldPoint);
@@ -81,6 +79,15 @@ Intersections Shape::Intersect(const Ray& ray) const
 {
   auto localRay = transform(ray, inverse(m_Transform));
   return GetLocalIntersect(localRay);
+}
+
+///
+/// @subsubsection Virtual member functions
+///
+
+bool Shape::Contains(const Shape& shape) const
+{
+  return *this == shape;
 }
 
 /// ---------------------------------------------------------------------------
@@ -129,7 +136,7 @@ void Shape::SetParent(std::shared_ptr<Shape> parent)
 bool Shape::operator==(const Shape& rhs) const
 {
   return m_Material == rhs.m_Material && m_Transform == rhs.m_Transform &&
-         m_Origin == rhs.m_Origin;
+         m_Origin == rhs.m_Origin&& typeid(*this).name() == typeid(rhs).name();
 }
 
 } // namespace Primitives

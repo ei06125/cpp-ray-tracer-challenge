@@ -21,7 +21,7 @@ public:
   /// @section Member functions
   /// @subsection Observers
   bool IsEmpty() const;
-  bool Contains(const std::shared_ptr<Shape>& shape) const;
+  bool Contains(const Shape& shape) const override;
 
   /// @subsection Modifiers
   void AddChild(std::shared_ptr<Shape> newChild);

@@ -36,6 +36,7 @@
 
 /// ---------------------------------------------------------------------------
 /// @subsection Primitives
+#include "RayTracer/Rendering/Primitives/CSG.hpp"
 #include "RayTracer/Rendering/Primitives/Cone.hpp"
 #include "RayTracer/Rendering/Primitives/Cube.hpp"
 #include "RayTracer/Rendering/Primitives/Cylinder.hpp"
